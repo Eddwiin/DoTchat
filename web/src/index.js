@@ -6,11 +6,12 @@ import * as serviceWorker from './serviceWorker';
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { AuthenticatePage } from './pages/authenticate.page';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
   <Router>
         <Route exact path="/" component={App} />
-        <Route exact path="/auth" component={AuthenticatePage} />
+        <Route exact path="/auth/:action" component={AuthenticatePage} />
   </Router>
 )
 

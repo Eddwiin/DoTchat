@@ -1,4 +1,6 @@
 import React from 'react';
+import LoginComponent from '../components/login/login.component';
+
 
 export class AuthenticatePage extends React.Component {
 
@@ -10,7 +12,7 @@ export class AuthenticatePage extends React.Component {
     render() {
         return (
             <div>
-                Auth page
+                <LoginComponent></LoginComponent>
             </div>
         )
     }

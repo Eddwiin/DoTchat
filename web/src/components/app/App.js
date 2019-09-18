@@ -17,10 +17,10 @@ export class App extends React.Component {
       <div>
         <ul>
           <li>
-            <Link to="/auth">Login</Link>
+            <Link to="/auth/login">Login</Link>
           </li>
           <li>
-            <Link to="/auth">Registration</Link>
+            <Link to="/auth/registration">Registration</Link>
           </li>
         </ul>
       </div>

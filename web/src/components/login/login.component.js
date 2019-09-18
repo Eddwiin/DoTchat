@@ -1,6 +1,8 @@
 import React from 'react';
+import { Form , Button, Row, Col} from 'react-bootstrap';
+// import Button from 'react-bootstrap/Button';
 
-export class Login extends React.Component {
+export class LoginComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,8 +12,6 @@ export class Login extends React.Component {
                 password: ''
             }
         };
-
-        this.handleChange.bind(this);
     }
 
     handleChange(event){
@@ -22,23 +22,34 @@ export class Login extends React.Component {
 
     render () {
         return (
-            <form>
-                <input
-                type="email"
-                name="email"
-                value={this.state.user.email}
-                onChange={this.handleChange}
-                />
+            <Form>
+                <Form.Group as={Row} controlId="emailCtrl">
+                    <Form.Label column sm="2">Email</Form.Label>
+                    <Col sm="4">
+                        <Form.Control
+                        type="email"
+                        name="email"
+                        value={this.state.user.email}
+                        onChange={this.handleChange.bind(this)}
+                        />
+                    </Col>
+                
+                </Form.Group>
 
-                <input
-                type="password"
-                name="email"
-                value={this.state.user.password}
-                onChange={this.handleChange}
-                />
-            </form>
+                <Form.Group as={Row} controlId="passwordCtrl">
+                    <Form.Label column sm="2">Password</Form.Label>
+                        <Form.Control
+                        type="password"
+                        name="password"
+                        value={this.state.user.password}
+                        onChange={this.handleChange.bind(this)}
+                        />
+                </Form.Group>
+                 
+               <Button variant="primary">Submit</Button>
+            </Form>
         );
     }
 }
 
-export default Login;
+export default LoginComponent;
