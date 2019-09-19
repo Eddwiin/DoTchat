@@ -1,8 +1,8 @@
 import React from 'react';
 import LoginComponent from './login/login.component';
 import RegistrationComponent from './registration/registration.component';
-import NotFoundComponent from '../NotFound/not-found.component';
-import { Container } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
+import NotFoundComponent from './../utils/NotFound/not-found.component';
 
 export default class AuthContainer extends React.Component {
 
@@ -29,7 +29,9 @@ export default class AuthContainer extends React.Component {
         return (
             <div>
                 <Container>
-                    {this.loadComponentByAction()}
+                    <Form>
+                        {this.loadComponentByAction()}
+                    </Form>
                 </Container>
             </div>
         )

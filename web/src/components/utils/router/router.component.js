@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import AuthContainer from '../auth/auth.container';
+import AuthContainer from '../../auth/auth.container';
 import NotFoundComponent from '../NotFound/not-found.component';
 
 export default class RouterComponent extends React.Component {
