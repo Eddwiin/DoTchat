@@ -1,8 +1,9 @@
 import React from 'react';
 import {  Row, Col, Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export class InputComponent extends React.Component {
-
+    
     render() {
         return (
             <div>
@@ -12,6 +13,7 @@ export class InputComponent extends React.Component {
                         <Form.Control
                             type={(this.props.config.type) ? this.props.config.type : 'text' }
                             name={this.props.config.name}
+                            onChange={this.props.changeHandler}
                         />
                     </Col>
                 </Form.Group>
@@ -20,13 +22,13 @@ export class InputComponent extends React.Component {
     }
 }
 
-InputComponent.PropTypes = {
-    config: React.PropTypes.shape({
-        controlId: React.PropTypes.string.isRequired,
-        label: React.PropTypes.string.isRequired,
-        type: React.PropTypes.string,
-        name: React.PropTypes.string.isRequired,
-        mdCol: React.PropTypes.string
+InputComponent.propTypes = {
+    config: PropTypes.shape({
+        controlId: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(['text', 'email', 'password', 'number']),
+        name: PropTypes.string.isRequired,
+        mdCol: PropTypes.string
     }).isRequired,
 }
 
