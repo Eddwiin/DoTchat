@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputComponent } from '../../generics/input/input.component';
 import { Button, Row, Col } from 'react-bootstrap';
-import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/auth-form.validation';
+import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
 
 export default class RegistrationComponent extends React.Component {
 
@@ -97,8 +97,11 @@ export default class RegistrationComponent extends React.Component {
                     </Col>
                 </Row>
           
-
-                <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Registration</Button>
+                <Row>
+                    <Col>
+                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Registration</Button>
+                    </Col>
+                </Row>
 
             </div>
         )

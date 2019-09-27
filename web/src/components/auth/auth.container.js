@@ -4,9 +4,6 @@ import AuthRouterComponent from './auth.router';
 
 export default class AuthContainer extends React.Component {
 
-    canBeSubmitted() {}
-    handleChangeEvent() {}
-
     render() {
         return (
             <div>

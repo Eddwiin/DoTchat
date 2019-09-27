@@ -1,8 +1,9 @@
 import React from 'react';
 import {  Button, Row, Col } from 'react-bootstrap';
 import { InputComponent } from '../../generics/input/input.component';
-import { emailValidator, passwordValidator } from '../../../core/auth-form.validation';
+import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
+import { UserContext } from './../../../core/contexts/user.context'
 
 export default class LoginComponent extends React.Component {
 
@@ -32,6 +33,11 @@ export default class LoginComponent extends React.Component {
     
     submit() {
         console.log("submit");
+        
+        // Adds this code when the promise return success when the user want to log
+        return (
+            <UserContext.Provider value={this.state.user}></UserContext.Provider>
+        ) 
     }
 
     render() {
@@ -67,12 +73,11 @@ export default class LoginComponent extends React.Component {
                     </Col>
                 </Row>
 
-                <Row>
+                 <Row>
                     <Col>
                         <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Log in</Button>
                     </Col>
-                </Row>
-
+                </Row>              
             </div>
         )
     }
