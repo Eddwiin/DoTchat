@@ -1,7 +1,9 @@
 import React from 'react';
-import {  Button } from 'react-bootstrap';
-import { InputComponent } from '../../generics/input.component';
-import { emailValidator, passwordValidator } from './../../../core/validator.form';
+import {  Button, Row, Col } from 'react-bootstrap';
+import { InputComponent } from '../../generics/input/input.component';
+import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
+import { Link } from 'react-router-dom';
+import { UserContext } from './../../../core/contexts/user.context'
 
 export default class LoginComponent extends React.Component {
 
@@ -31,30 +33,51 @@ export default class LoginComponent extends React.Component {
     
     submit() {
         console.log("submit");
+        
+        // Adds this code when the promise return success when the user want to log
+        return (
+            <UserContext.Provider value={this.state.user}></UserContext.Provider>
+        ) 
     }
 
     render() {
         return (
             <div>
+                <Row>
+                    <Col>
+                        <InputComponent config={{
+                            controlId: 'emailCtrl',
+                            label: 'Email',
+                            type: 'email',
+                            name: 'email',
+                        }}
+                        changeHandler={this.handleChangeEvent} ></InputComponent> 
+                    </Col>
+                </Row>
 
-                <InputComponent config={{
-                    controlId: 'emailCtrl',
-                    label: 'Email',
-                    type: 'email',
-                    name: 'email',
-                }}
-                changeHandler={this.handleChangeEvent} ></InputComponent> 
+                <Row>
+                    <Col>
+                        <InputComponent config={{
+                            controlId: 'passwordCtrl',
+                            label: 'Password',
+                            type: 'password',
+                            name: 'password',
+                        }}
+                        changeHandler={this.handleChangeEvent} ></InputComponent> 
+                    </Col>
+                </Row>
 
-                <InputComponent config={{
-                    controlId: 'passwordCtrl',
-                    label: 'Password',
-                    type: 'password',
-                    name: 'password',
-                }}
-                changeHandler={this.handleChangeEvent} ></InputComponent> 
+                <Row>
+                    <Col>
+                        <Link to='/auth/forget-password'>Password forgot ?</Link>
+                    </Col>
+                </Row>
 
-                <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Log in</Button>
-
+                 <Row>
+                    <Col>
+                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Log in</Button>
+                    </Col>
+                </Row>              
             </div>
         )
     }
