@@ -24,26 +24,28 @@ export default class ForgetPassword extends React.Component {
 
     render() {
         return (
-            <div>
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                                controlId: 'emailCtrl',
-                                label: 'Email',
-                                type: 'email',
-                                name: 'email',
-                            }}
-                            changeHandler={this.handleChangeEvent} ></InputComponent> 
-                    </Col>
-                </Row>
+            <Row>
+                <Col md={{ span: 12, offset: 3}}>
+                    <Row>
+                        <Col xs={{ span: 8 }} md={12}>
+                            <InputComponent config={{
+                                    controlId: 'emailCtrl',
+                                    label: 'Email',
+                                    type: 'email',
+                                    name: 'email',
+                                }}
+                                changeHandler={this.handleChangeEvent} ></InputComponent> 
+                        </Col>
+                    </Row>
 
-                <Row>
-                    <Col>
-                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Send</Button>
-                    </Col>
-                </Row>
-
-            </div>
+                    <Row>
+                        <Col>
+                            <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} 
+                                    variant="primary" type="submit">Send</Button>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
         )
     }
 

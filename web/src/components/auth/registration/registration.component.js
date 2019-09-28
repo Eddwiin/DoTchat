@@ -45,64 +45,82 @@ export default class RegistrationComponent extends React.Component {
             <div>
                 <Row>
                     <Col>
-                        <InputComponent config={{
-                            controlId: 'lastNameCtrl',
-                            label: 'Last Name',
-                            name: 'lastName' }} 
-                            changeHandler={this.handleChangeEvent}></InputComponent> 
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col>
+                                <InputComponent config={{
+                                    controlId: 'lastNameCtrl',
+                                    label: 'Last Name',
+                                    name: 'lastName',
+                                    mdCol: '8'
+                                }} 
+                                    changeHandler={this.handleChangeEvent}></InputComponent> 
+                            </Col>
+                        </Row> 
 
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                            controlId: 'firstNameCtrl',
-                            label: 'First Name',
-                            name: 'firstName'}} 
-                            changeHandler={this.handleChangeEvent}></InputComponent> 
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col>
+                                <InputComponent config={{
+                                    controlId: 'firstNameCtrl',
+                                    label: 'First Name',
+                                    name: 'firstName',
+                                    mdCol: '8'
+                                }} 
+                                    changeHandler={this.handleChangeEvent}></InputComponent> 
+                            </Col>
+                        </Row>
 
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                        controlId: 'EmailCtrl',
-                        label: 'Email',
-                        type: 'email',
-                        name: 'email'}} 
-                        changeHandler={this.handleChangeEvent}></InputComponent> 
+                        <Row>
+                            <Col>
+                                <InputComponent config={{
+                                controlId: 'EmailCtrl',
+                                label: 'Email',
+                                type: 'email',
+                                name: 'email',
+                                mdCol: '8'
+                            }} 
+                                changeHandler={this.handleChangeEvent}></InputComponent> 
+                            </Col>
+                        </Row>
                     </Col>
-                </Row>
-               
-                <Row>
+
                     <Col>
-                        <InputComponent config={{
-                        controlId: 'PasswordCtrl',
-                        label: 'Password',
-                        type: 'password',
-                        name: 'password'}}
-                        changeHandler={this.handleChangeEvent} 
-                        ></InputComponent> 
+                        <Row>
+                            <Col>
+                                <InputComponent config={{
+                                controlId: 'PasswordCtrl',
+                                label: 'Password',
+                                type: 'password',
+                                name: 'password',
+                                mdCol: '8'
+                            }}
+                                changeHandler={this.handleChangeEvent} 
+                                ></InputComponent> 
+                            </Col>
+                        </Row>
+
+                         <Row>
+                            <Col>
+                                <InputComponent config={{
+                                controlId: 'rPasswordCtrl',
+                                label: 'Repeat password',
+                                type: 'password',
+                                name: 'rPassword',
+                                mdCol: '8'
+                            }} 
+                                changeHandler={this.handleChangeEvent}></InputComponent> 
+                            </Col>
+                        </Row>
+
+                          <Row>
+                            <Col>
+                                <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
+                                        className="m-3" variant="primary" type="submit">Registration</Button>
+                            </Col>
+                        </Row> 
                     </Col>
+                   
                 </Row>
             
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                        controlId: 'rPasswordCtrl',
-                        label: 'Repeat password',
-                        type: 'password',
-                        name: 'rPassword'}} 
-                        changeHandler={this.handleChangeEvent}></InputComponent> 
-                    </Col>
-                </Row>
-          
-                <Row>
-                    <Col>
-                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Registration</Button>
-                    </Col>
-                </Row>
-
             </div>
         )
     }

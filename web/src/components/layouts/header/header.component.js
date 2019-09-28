@@ -8,10 +8,12 @@ export default class HeaderComponent extends React.Component {
         return(
             <Navbar bg="primary" variant="dark">
                 <Navbar.Brand href="#home">DotTchat</Navbar.Brand>
-                <Nav>
-                    <Nav.Link href="/auth/login">Log in</Nav.Link>
-                    <Nav.Link href="/auth/registration">Registration</Nav.Link>
-                </Nav>
+                    <div className="nav-menu">
+                        <Nav>
+                            <Nav.Link className="menu-name" href="/auth/login">Log in</Nav.Link>
+                            <Nav.Link className="menu-name" href="/auth/registration">Registration</Nav.Link>
+                        </Nav>
+                    </div>
             </Navbar>
         )
     }

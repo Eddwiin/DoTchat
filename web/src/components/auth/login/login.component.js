@@ -42,43 +42,46 @@ export default class LoginComponent extends React.Component {
 
     render() {
         return (
-            <div>
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                            controlId: 'emailCtrl',
-                            label: 'Email',
-                            type: 'email',
-                            name: 'email',
-                        }}
-                        changeHandler={this.handleChangeEvent} ></InputComponent> 
-                    </Col>
-                </Row>
+            <Row>
+                <Col md={{ span: 12, offset: 3}}>
+                    <Row>
+                        <Col xs={8} md={12}>
+                            <InputComponent config={{
+                                controlId: 'emailCtrl',
+                                label: 'Email',
+                                type: 'email',
+                                name: 'email',
+                            }}
+                            changeHandler={this.handleChangeEvent} ></InputComponent> 
+                        </Col>
+                    </Row>
 
-                <Row>
-                    <Col>
-                        <InputComponent config={{
-                            controlId: 'passwordCtrl',
-                            label: 'Password',
-                            type: 'password',
-                            name: 'password',
-                        }}
-                        changeHandler={this.handleChangeEvent} ></InputComponent> 
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col xs={8} md={12}>
+                            <InputComponent config={{
+                                controlId: 'passwordCtrl',
+                                label: 'Password',
+                                type: 'password',
+                                name: 'password',
+                            }}
+                            changeHandler={this.handleChangeEvent} ></InputComponent> 
+                        </Col>
+                    </Row>
 
-                <Row>
-                    <Col>
-                        <Link to='/auth/forget-password'>Password forgot ?</Link>
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col>
+                            <Link to='/auth/forget-password'>Password forgot ?</Link>
+                        </Col>
+                    </Row>
 
-                 <Row>
-                    <Col>
-                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} variant="primary" type="submit">Log in</Button>
-                    </Col>
-                </Row>              
-            </div>
+                    <Row>
+                        <Col xs={12} md={12}>
+                            <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
+                                    variant="primary" type="submit" className="">Log in</Button>
+                        </Col>
+                    </Row>              
+                </Col>
+            </Row>
         )
     }
 }
