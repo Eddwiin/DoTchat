@@ -12,6 +12,8 @@ export default class ForgetPassword extends React.Component {
                 email: '',
             }
         }
+        
+        this.handleChangeEvent = this.handleChangeEvent.bind(this);
     }
     
     canBeSubmitted() {
@@ -20,32 +22,37 @@ export default class ForgetPassword extends React.Component {
         )
     }
 
+    handleChangeEvent(e) {
+        const user = {...this.state.user};
+        user[e.target.name] = e.target.value;
+        this.setState({ user });
+    }
+
     submit() {}
 
     render() {
         return (
-            <Row>
-                <Col md={{ span: 12, offset: 3}}>
+                <div>
                     <Row>
-                        <Col xs={{ span: 8 }} md={12}>
+                        <Col  md={{ span: 8, offset: 2}}>
                             <InputComponent config={{
                                     controlId: 'emailCtrl',
                                     label: 'Email',
                                     type: 'email',
                                     name: 'email',
+                                    mdCol: '12'
                                 }}
                                 changeHandler={this.handleChangeEvent} ></InputComponent> 
-                        </Col>
+                        </Col> 
                     </Row>
 
-                    <Row>
-                        <Col>
+                    <Row className="p-3">
+                        <Col md={{ offset: 2}}>
                             <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} 
-                                    variant="primary" type="submit">Send</Button>
+                                    className="w-75" variant="primary" type="submit">Send</Button>
                         </Col>
                     </Row>
-                </Col>
-            </Row>
+            </div>
         )
     }
 

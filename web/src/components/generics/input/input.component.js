@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 export class InputComponent extends React.Component {
     
     render() {
+        const mdCol = this.props.config.mdCol || '6';
+
         return (
             <div>
                 <Form.Group as={Row} controlId={this.props.config.controlId}>
-                    <Col md={(this.props.config.mdCol) ? this.props.config.mdCol : '4' }>
+                    <Col md={{ span: mdCol }}>
                         <Form.Label>{this.props.config.label}</Form.Label>
                         <Form.Control
                             type={(this.props.config.type) ? this.props.config.type : 'text' }

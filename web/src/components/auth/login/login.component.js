@@ -51,6 +51,7 @@ export default class LoginComponent extends React.Component {
                                 label: 'Email',
                                 type: 'email',
                                 name: 'email',
+                                mdCol: '7'
                             }}
                             changeHandler={this.handleChangeEvent} ></InputComponent> 
                         </Col>
@@ -63,6 +64,7 @@ export default class LoginComponent extends React.Component {
                                 label: 'Password',
                                 type: 'password',
                                 name: 'password',
+                                mdCol: '7'
                             }}
                             changeHandler={this.handleChangeEvent} ></InputComponent> 
                         </Col>
@@ -74,10 +76,10 @@ export default class LoginComponent extends React.Component {
                         </Col>
                     </Row>
 
-                    <Row>
-                        <Col xs={12} md={12}>
+                    <Row className="p-3">
+                        <Col>
                             <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
-                                    variant="primary" type="submit" className="">Log in</Button>
+                                    className="w-50" variant="primary" type="submit">Log in</Button>
                         </Col>
                     </Row>              
                 </Col>

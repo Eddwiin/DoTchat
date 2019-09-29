@@ -51,7 +51,7 @@ export default class RegistrationComponent extends React.Component {
                                     controlId: 'lastNameCtrl',
                                     label: 'Last Name',
                                     name: 'lastName',
-                                    mdCol: '8'
+                                    mdCol: '12'
                                 }} 
                                     changeHandler={this.handleChangeEvent}></InputComponent> 
                             </Col>
@@ -63,7 +63,7 @@ export default class RegistrationComponent extends React.Component {
                                     controlId: 'firstNameCtrl',
                                     label: 'First Name',
                                     name: 'firstName',
-                                    mdCol: '8'
+                                    mdCol: '12'
                                 }} 
                                     changeHandler={this.handleChangeEvent}></InputComponent> 
                             </Col>
@@ -76,7 +76,7 @@ export default class RegistrationComponent extends React.Component {
                                 label: 'Email',
                                 type: 'email',
                                 name: 'email',
-                                mdCol: '8'
+                                mdCol: '12'
                             }} 
                                 changeHandler={this.handleChangeEvent}></InputComponent> 
                             </Col>
@@ -91,7 +91,7 @@ export default class RegistrationComponent extends React.Component {
                                 label: 'Password',
                                 type: 'password',
                                 name: 'password',
-                                mdCol: '8'
+                                mdCol: '12'
                             }}
                                 changeHandler={this.handleChangeEvent} 
                                 ></InputComponent> 
@@ -105,22 +105,20 @@ export default class RegistrationComponent extends React.Component {
                                 label: 'Repeat password',
                                 type: 'password',
                                 name: 'rPassword',
-                                mdCol: '8'
+                                mdCol: '12'
                             }} 
                                 changeHandler={this.handleChangeEvent}></InputComponent> 
                             </Col>
                         </Row>
-
-                          <Row>
-                            <Col>
-                                <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
-                                        className="m-3" variant="primary" type="submit">Registration</Button>
-                            </Col>
-                        </Row> 
                     </Col>
-                   
                 </Row>
-            
+
+                <Row className="p-3">
+                    <Col>
+                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
+                                className="offset-2 w-75" variant="primary" type="submit">Registration</Button>
+                    </Col>
+                </Row> 
             </div>
         )
     }
