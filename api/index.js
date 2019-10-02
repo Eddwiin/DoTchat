@@ -10,13 +10,20 @@ if (require('./core/cluster')()) {
     }
     
     const app = express();
-    const server = http.createServer(app)
     const port = process.env.PORT || 4000;
 
-    app.listen(port, () => {
+    require('./routes/user.router')(app);
+
+    const server = http.createServer(app).listen(port, () => {
         console.log(`[INFO] Server is listening on port: ${port}`)
     })
-    
+
+    process.on('SIGINT', () => {
+        server.close(() => {
+            console.log("[INFO] Server close")
+            process.exit(0);
+        })
+    })
 }
 
 
