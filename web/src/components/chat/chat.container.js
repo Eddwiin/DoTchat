@@ -10,6 +10,7 @@ export default class ChatContainer extends React.Component {
         return (
             <div>
                 <ListUsersComponent></ListUsersComponent>
+                <ListMessagesComponent></ListMessagesComponent>
             </div>
             // <Row>
             //     <ListUsersComponent></ListUsersComponent>

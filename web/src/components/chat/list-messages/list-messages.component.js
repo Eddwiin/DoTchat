@@ -7,18 +7,7 @@ export default class ListMessagesComponent extends React.Component {
     render() {
         return (
             <div className="list-messages">
-                <div className="container-message ">
-                    <Message></Message>
-                </div>
                 <div className="container-message">
-                    <Message></Message>
-                </div>
-                <div className="container-message">
-                    <Message></Message>
-                </div>
-
-
-                   <div className="container-message ">
                     <Message></Message>
                 </div>
                 <div className="container-message">
@@ -38,6 +27,7 @@ export default class ListMessagesComponent extends React.Component {
                 <div className="container-message">
                     <Message></Message>
                 </div>
+
             </div>
    
         )

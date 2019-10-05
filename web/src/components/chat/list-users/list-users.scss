@@ -3,6 +3,7 @@
     background-color: white;
     width: 30%;
     float: left;
+    height: 92vh;
  
 }
 
@@ -12,11 +13,6 @@
     border-bottom: 1px solid #c4c4c4;
 }
 
-.list-cards {
-    overflow: scroll;
-    position: relative;
-    max-height: 1000px;
-}
 
 .has-search .form-control {
     padding-left: 2.375rem;

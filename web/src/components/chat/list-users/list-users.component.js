@@ -28,41 +28,8 @@ export default class ListUsersComponent extends React.Component {
 
                 <div className="list-cards">
                     <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
-                    <CardComponent></CardComponent>
                 </div>
             </div>
-            // <div className="messages-content">
-            //     <div className="search-bar">
-            //         <Row>
-            //             <Col md={4}>
-            //                 <div className="recent_heading">Recents</div>
-            //             </Col>
-
-            //             <Col>
-            //                 <div className="srch_bar">
-            //                     <div className="stylish-input-group">
-            //                         <input type="text" className="search-bar"  placeholder="Search" />
-            //                         <span className="input-group-addon">
-            //                         <button type="button"> <i className="fa fa-search" aria-hidden="true"></i> </button>
-            //                         </span> 
-            //                     </div>
-            //                 </div>
-            //             </Col>
-            //         </Row>
-            //     </div>
-         
-            //     <div className="inbox_chat">
-            //         <CardComponent></CardComponent>
-            //     </div>
-    
-            // </div>
         )
     }
 }
