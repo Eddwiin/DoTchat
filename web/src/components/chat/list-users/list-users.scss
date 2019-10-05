@@ -1,33 +1,69 @@
-.messages-content {
+.container-cards {
     border: 1px solid black;
-    width: 30%;
-    height: 92vh;
     background-color: white;
-    overflow: hidden;
+    width: 30%;
+    float: left;
+ 
 }
 
-.recent_heading{
-    padding: 20px;
-    color: #05728f;
-    font-size: 21px;
+.search-bar {
+    width: 60% !important;
+    margin-left: 20%;
+    border-bottom: 1px solid #c4c4c4;
 }
 
-.srch_bar {
-    display: inline-block;
-    text-align: right;
-    width: 90%;
-    padding: 20px;
+.list-cards {
+    overflow: scroll;
+    position: relative;
+    max-height: 1000px;
 }
 
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
+.has-search .form-control {
+    padding-left: 2.375rem;
 }
 
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
 
-.search-bar {border-bottom: 1px solid #c4c4c4;}
+// .messages-content {
+//     border: 1px solid black;
+//     width: 30%;
+//     height: 92vh;
+//     background-color: white;
+//     overflow: hidden;
+// }
+
+// .recent_heading{
+//     padding: 20px;
+//     color: #05728f;
+//     font-size: 21px;
+// }
+
+// .srch_bar {
+//     display: inline-block;
+//     text-align: right;
+//     width: 90%;
+//     padding: 20px;
+// }
+
+// .srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+// .srch_bar .input-group-addon button {
+//   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+//   border: medium none;
+//   padding: 0;
+//   color: #707070;
+//   font-size: 18px;
+// }
+
+// .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+// .search-bar {border-bottom: 1px solid #c4c4c4;}

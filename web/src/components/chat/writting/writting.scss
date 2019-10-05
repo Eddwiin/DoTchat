@@ -1,27 +1,39 @@
 .footer {
     position: absolute;
     width: 70%;
-    right: 2px;
-    bottom: 2px;
-    border-radius: 0 0 15px 15px !important;
-    border-top: 0 !important;
+    bottom: 0%;
+    right: 0%;
 }
 
-.type_msg{
-    background-color: rgba(173, 173, 172, 0.548) !important;
-    border:0 !important;
-    height: 60px !important;
-    overflow-y: auto;
-}
-.type_msg:focus{
-     box-shadow:none !important;
-   outline:0px !important;
+.textarea-write{
+    border: 1px solid black;
+    background-color: red;
 }
 
-.send_btn{
-    border-radius: 0 15px 15px 0 !important;
-    background-color: rgba(0,0,0,0.3) !important;
-    border:0 !important;
-    color: white !important;
-    cursor: pointer;
-}
+// .footer {
+//     position: absolute;
+//     width: 70%;
+//     right: 2px;
+//     bottom: 2px;
+//     border-radius: 0 0 15px 15px !important;
+//     border-top: 0 !important;
+// }
+
+// .type_msg{
+//     background-color: rgba(173, 173, 172, 0.548) !important;
+//     border:0 !important;
+//     height: 60px !important;
+//     overflow-y: auto;
+// }
+// .type_msg:focus{
+//      box-shadow:none !important;
+//    outline:0px !important;
+// }
+
+// .send_btn{
+//     border-radius: 0 15px 15px 0 !important;
+//     background-color: rgba(0,0,0,0.3) !important;
+//     border:0 !important;
+//     color: white !important;
+//     cursor: pointer;
+// }
