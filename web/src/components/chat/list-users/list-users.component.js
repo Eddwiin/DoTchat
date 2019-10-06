@@ -1,6 +1,5 @@
 import React from 'react';
 import './list-users.scss';
-import { Row, Col, Image } from 'react-bootstrap';
 import CardComponent from './card/card.component';
 
 export default class ListUsersComponent extends React.Component {
@@ -26,8 +25,9 @@ export default class ListUsersComponent extends React.Component {
                 </div>
 
 
-                <div className="list-cards">
+                <div className="list-cards overflow-auto">
                     <CardComponent></CardComponent>
+
                 </div>
             </div>
         )

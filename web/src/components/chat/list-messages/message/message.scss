@@ -1,20 +1,17 @@
 .message {
     border-radius: 30px;
     border: 1px solid black;
-    padding: 10px;
-    min-width: 100%;
-    max-width: 50%;
-    white-space:wrap;
-    overflow-wrap: break-word;
-    background-color: #1877F2;
     text-align: center;
 
 }
 
 .message-send {
     color: white;
+    background-color: #1877F2;
+
 }
 
 .message-receive {
     color: black;
+    background-color: #EAE8E5;
 }
