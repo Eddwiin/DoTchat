@@ -11,6 +11,7 @@ export default class ChatContainer extends React.Component {
             <div>
                 <ListUsersComponent></ListUsersComponent>
                 <ListMessagesComponent></ListMessagesComponent>
+                <WrittingComponent></WrittingComponent>
             </div>
             // <Row>
             //     <ListUsersComponent></ListUsersComponent>
