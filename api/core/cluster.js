@@ -7,8 +7,6 @@ module.exports = () => {
         for (let i = 0; i < nbCPUs; i++) {
             cluster.fork();
         }
-
-   
     }
 
     return cluster.isMaster;

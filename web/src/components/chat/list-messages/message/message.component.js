@@ -5,7 +5,7 @@ export default class MessageComponent extends React.Component {
 
     render() {
         return(
-            <div className="test">
+            <div>
                 <div className="d-flex flex-row-reverse">
                     <div className="p-2 w-25">
                         <div className="p-2 message  message-send">

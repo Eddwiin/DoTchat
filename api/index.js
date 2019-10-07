@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const loader = require ('./core/loader.js');
 const serverEvent = require('./events/server.event');
+const db = require('./core/mongo')
 
 if (require('./core/cluster')()) {} 
 else {
@@ -18,6 +19,8 @@ else {
     const server = http.createServer(app).listen(port, () => {
         serverEvent.emit('open', { port: port });
     })
+
+    db.then(console.log)
 
     process.on('SIGINT', () => {
         server.close(() => {
