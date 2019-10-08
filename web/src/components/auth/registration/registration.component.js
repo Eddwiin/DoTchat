@@ -2,6 +2,7 @@ import React from 'react';
 import { InputComponent } from '../../generics/input/input.component';
 import { Button, Row, Col } from 'react-bootstrap';
 import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
+import { SHA256 } from 'crypto-js';
 
 export default class RegistrationComponent extends React.Component {
 
@@ -37,6 +38,8 @@ export default class RegistrationComponent extends React.Component {
     }
 
     submit() {
+        const user = {...this.state.user};
+        user.password = SHA256(user.password).toString();
         console.log("submit");
     }
 

@@ -19,5 +19,14 @@ module.exports = {
                 })
             }
         })
+    },
+
+
+    getEnv: () => {   
+        if (process.env.NODE_ENV !== 'production') {
+            return require('./../environments/dev.json')
+        } else {
+            return require('./../environments/prod.json')
+        }
     }
 }
