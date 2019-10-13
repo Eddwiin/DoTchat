@@ -1,14 +1,16 @@
 import React from 'react';
 import { InputComponent } from '../../generics/input/input.component';
-import { Button, Row, Col } from 'react-bootstrap';
+import {  Row, Col } from 'react-bootstrap';
 import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
-import { SHA256 } from 'crypto-js';
+import  ButtonSubmitComponent from './../buttonSubmit/buttonSubmit.component';
 
 export default class RegistrationComponent extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            buttonLabel: 'Registration',
+            buttonClass: 'offset-2 w-75',
             user: {
                 lastName: '',
                 firstName: '',
@@ -37,13 +39,9 @@ export default class RegistrationComponent extends React.Component {
         this.setState({ user });
     }
 
-    submit() {
-        const user = {...this.state.user};
-        user.password = SHA256(user.password).toString();
-        console.log("submit");
-    }
-
     render() {
+        const ButtonSubmit = ButtonSubmitComponent({...this.state}, this.canBeSubmitted.bind(this));
+
         return(
             <div>
                 <Row>
@@ -116,12 +114,7 @@ export default class RegistrationComponent extends React.Component {
                     </Col>
                 </Row>
 
-                <Row className="p-3">
-                    <Col>
-                        <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
-                                className="offset-2 w-75" variant="primary" type="submit">Registration</Button>
-                    </Col>
-                </Row> 
+                <ButtonSubmit />
             </div>
         )
     }

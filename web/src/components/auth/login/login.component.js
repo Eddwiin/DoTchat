@@ -1,19 +1,21 @@
 import React from 'react';
-import {  Button, Row, Col } from 'react-bootstrap';
+import {  Row, Col } from 'react-bootstrap';
 import { InputComponent } from '../../generics/input/input.component';
 import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
-import { UserContext } from './../../../core/contexts/user.context'
+import  ButtonSubmitComponent from './../buttonSubmit/buttonSubmit.component';
 
 export default class LoginComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            buttonLabel: 'Log in',
+            buttonClass: 'w-50',
             user: {
                 email: '',
                 password: '',
-            }
+            },
         }
         this.handleChangeEvent = this.handleChangeEvent.bind(this);
     }
@@ -31,16 +33,9 @@ export default class LoginComponent extends React.Component {
         )
     }
     
-    submit() {
-        console.log("submit");
-        
-        // Adds this code when the promise return success when the user want to log
-        return (
-            <UserContext.Provider value={this.state.user}></UserContext.Provider>
-        ) 
-    }
-
     render() {
+        const ButtonSubmit = ButtonSubmitComponent({...this.state}, this.canBeSubmitted.bind(this));
+
         return (
             <Row>
                 <Col md={{ span: 12, offset: 3}}>
@@ -75,13 +70,7 @@ export default class LoginComponent extends React.Component {
                             <Link to='/auth/forget-password'>Password forgot ?</Link>
                         </Col>
                     </Row>
-
-                    <Row className="p-3">
-                        <Col>
-                            <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()}
-                                    className="w-50" variant="primary" type="submit">Log in</Button>
-                        </Col>
-                    </Row>              
+                    <ButtonSubmit />
                 </Col>
             </Row>
         )

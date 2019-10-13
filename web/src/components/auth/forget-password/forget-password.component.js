@@ -1,13 +1,16 @@
 import React from 'react';
 import { InputComponent }  from '../../generics/input/input.component';
-import {  Row, Col, Button } from 'react-bootstrap';
+import {  Row, Col } from 'react-bootstrap';
 import { emailValidator } from '../../../core/validators/auth-form.validation';
+import  ButtonSubmitComponent from './../buttonSubmit/buttonSubmit.component';
 
 export default class ForgetPassword extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            buttonLabel: 'Send',
+            buttonClass: 'w-75',
             user: {
                 email: '',
             }
@@ -28,9 +31,10 @@ export default class ForgetPassword extends React.Component {
         this.setState({ user });
     }
 
-    submit() {}
 
     render() {
+        const ButtonSubmit = ButtonSubmitComponent({...this.state}, this.canBeSubmitted.bind(this));
+
         return (
                 <div>
                     <Row>
@@ -45,13 +49,10 @@ export default class ForgetPassword extends React.Component {
                                 changeHandler={this.handleChangeEvent} ></InputComponent> 
                         </Col> 
                     </Row>
-
-                    <Row className="p-3">
-                        <Col md={{ offset: 2}}>
-                            <Button onClick={this.submit.bind(this)} disabled={this.canBeSubmitted()} 
-                                    className="w-75" variant="primary" type="submit">Send</Button>
-                        </Col>
-                    </Row>
+                    
+                    <div className="offset-2">
+                        <ButtonSubmit />
+                    </div>
             </div>
         )
     }
