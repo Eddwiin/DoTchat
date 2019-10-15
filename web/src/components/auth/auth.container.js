@@ -1,17 +1,49 @@
 import React from 'react';
 import { Container, Row, Col, Image, Form } from 'react-bootstrap';
-import AppRouter from './auth.router';
-import './auth.scss';
 import authLogo from './../../assets/images/auth-logo.png'
+import './auth.scss';
+import LoginComponent from './login/login.component';
+import RegistrationComponent from './registration/registration.component';
+import ForgotPasswordComponent from './forgot-password/forgot-password.component';
+import NotFoundComponent from '../generics/not-found/not-found.component';
 
 export default class AuthContainer extends React.Component {
 
-    submit(event) {
-        console.log("submit auth");
+    constructor(props) {
+        super(props);
+        this.state = {}
+
+    }
+
+    loadComponent() {
+
+        switch (this.props.match.params.action) {
+        
+            case 'login':
+                return <LoginComponent 
+                                loadComponent={this.loadComponent.bind(this)}
+                                submit={this.submit.bind(this)} />
+            
+            case 'registration':
+                return <RegistrationComponent submit={this.submit.bind(this)}  />
+
+            case 'forgot-password':
+                return <ForgotPasswordComponent submit={this.submit.bind(this)} />
+            
+            default:
+                return <NotFoundComponent />
+        }
+
+    }
+
+
+    submit(event, user) {
+        console.log(user);
         event.preventDefault();
     }
+
     render() {
-        return (
+        return(
             <Container>
                 <div className="offset-3 card card-signin my-5">
                     <div className="card-body">
@@ -22,7 +54,7 @@ export default class AuthContainer extends React.Component {
                         </Row>
 
                         <Form>
-                            <AppRouter></AppRouter>
+                            { this.loadComponent() }
                         </Form>
                     </div>
                 </div>
@@ -30,4 +62,3 @@ export default class AuthContainer extends React.Component {
         )
     }
 }
-
