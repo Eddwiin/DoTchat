@@ -1,11 +1,15 @@
 import React from 'react';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Form } from 'react-bootstrap';
 import AppRouter from './auth.router';
 import './auth.scss';
 import authLogo from './../../assets/images/auth-logo.png'
 
 export default class AuthContainer extends React.Component {
 
+    submit(event) {
+        console.log("submit auth");
+        event.preventDefault();
+    }
     render() {
         return (
             <Container>
@@ -16,7 +20,10 @@ export default class AuthContainer extends React.Component {
                                 <Image src={authLogo} className="w-25" alt="logo" roundedCircle />
                             </Col>
                         </Row>
-                        <AppRouter></AppRouter>
+
+                        <Form>
+                            <AppRouter></AppRouter>
+                        </Form>
                     </div>
                 </div>
             </Container>

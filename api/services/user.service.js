@@ -1,8 +1,9 @@
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
 
-exports.getUsers = async (query) => {
-    try {
-        return { id: 1, lastName: 'Test', firstName: 'Eddwiin'};
-    } catch(e) {
-        throw Error('Error to find users')
+const schema = buildSchema(`
+    type Mutation {
+        createUser (lastName: String, firstName: String, email: String, password: String): Boolean
     }
-}
+`)
+

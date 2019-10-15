@@ -53,8 +53,7 @@ export default class RegistrationComponent extends React.Component {
                                     label: 'Last Name',
                                     name: 'lastName',
                                     mdCol: '12'
-                                }} 
-                                    changeHandler={this.handleChangeEvent}></InputComponent> 
+                                }} changeHandler={this.handleChangeEvent} />
                             </Col>
                         </Row> 
 
@@ -65,8 +64,7 @@ export default class RegistrationComponent extends React.Component {
                                     label: 'First Name',
                                     name: 'firstName',
                                     mdCol: '12'
-                                }} 
-                                    changeHandler={this.handleChangeEvent}></InputComponent> 
+                                }} changeHandler={this.handleChangeEvent} />
                             </Col>
                         </Row>
 
@@ -78,8 +76,7 @@ export default class RegistrationComponent extends React.Component {
                                 type: 'email',
                                 name: 'email',
                                 mdCol: '12'
-                            }} 
-                                changeHandler={this.handleChangeEvent}></InputComponent> 
+                            }} changeHandler={this.handleChangeEvent} />
                             </Col>
                         </Row>
                     </Col>
@@ -93,9 +90,7 @@ export default class RegistrationComponent extends React.Component {
                                 type: 'password',
                                 name: 'password',
                                 mdCol: '12'
-                            }}
-                                changeHandler={this.handleChangeEvent} 
-                                ></InputComponent> 
+                            }} changeHandler={this.handleChangeEvent} />
                             </Col>
                         </Row>
 
@@ -107,8 +102,7 @@ export default class RegistrationComponent extends React.Component {
                                 type: 'password',
                                 name: 'rPassword',
                                 mdCol: '12'
-                            }} 
-                                changeHandler={this.handleChangeEvent}></InputComponent> 
+                            }} changeHandler={this.handleChangeEvent} />
                             </Col>
                         </Row>
                     </Col>
