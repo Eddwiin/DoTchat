@@ -1,16 +1,15 @@
+
 import React from 'react';
 import { InputComponent } from '../../generics/input/input.component';
-import {  Row, Col } from 'react-bootstrap';
+import {  Row, Col, Button } from 'react-bootstrap';
 import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
-import  ButtonSubmitComponent from './../buttonSubmit/buttonSubmit.component';
+
 
 export default class RegistrationComponent extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            buttonLabel: 'Registration',
-            buttonClass: 'offset-2 w-75',
             user: {
                 lastName: '',
                 firstName: '',
@@ -18,9 +17,12 @@ export default class RegistrationComponent extends React.Component {
                 password: '',
                 rPassword: '',
             }        
-        }
+        };
+
         this.handleChangeEvent = this.handleChangeEvent.bind(this);
+
     }
+
 
     canBeSubmitted() {
         return (
@@ -39,10 +41,9 @@ export default class RegistrationComponent extends React.Component {
         this.setState({ user });
     }
 
-    render() {
-        const ButtonSubmit = ButtonSubmitComponent({...this.state}, this.canBeSubmitted.bind(this));
 
-        return(
+    render() {
+        return (
             <div>
                 <Row>
                     <Col>
@@ -94,7 +95,7 @@ export default class RegistrationComponent extends React.Component {
                             </Col>
                         </Row>
 
-                         <Row>
+                        <Row>
                             <Col>
                                 <InputComponent config={{
                                 controlId: 'rPasswordCtrl',
@@ -108,8 +109,14 @@ export default class RegistrationComponent extends React.Component {
                     </Col>
                 </Row>
 
-                <ButtonSubmit />
-            </div>
+                <Row className="p-3">
+                    <Col>
+                        <Button onClick={(e) => this.props.submit(e, {...this.state.user})}
+                                disabled={this.canBeSubmitted()}
+                                className="offset-2 w-75" variant="primary" type="submit">Registration</Button>
+                    </Col>
+                </Row> 
+        </div>
         )
     }
 }

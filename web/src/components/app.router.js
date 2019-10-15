@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { lazy, Suspense} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import AuthContainer from './auth/auth.container';
-import NotFoundComponent from './generics/not-found/not-found.component';
-import ChatContainer from './chat/chat.container';
 
-export default class AppRouterComponent extends React.Component {
-    render() {
-     return (
+const AuthContainer = lazy(() => import('./auth/auth.container'))
+const ChatContainer = lazy(() => import('./chat/chat.container'));
+const NotFoundComponent = lazy(() => import('./generics/not-found/not-found.component'));
+
+const AppRouter = () => (
+    <Suspense fallback={<div>Loading...</div>}>
         <Switch>
-            <Route exact path="/auth/:action" component={AuthContainer}></Route>
-            <Route exact path="/home/chat" component={ChatContainer}></Route>
-            <Redirect from="/" to="/auth/login"></Redirect>
-            <Route component={NotFoundComponent}></Route>
-        </Switch>
-     )   
-    }
-}
+             <Route exact path="/auth/:action" component={AuthContainer}></Route>
+             <Route exact path="/home/chat" component={ChatContainer}></Route>
+             <Redirect from="/" to="/auth/login"></Redirect>
+             <Route component={NotFoundComponent}></Route>
+         </Switch>
+    </Suspense>
+)
+
+export default AppRouter;
+
+
+// export default class AppRouterComponent extends React.Component {
+//     render() {
+//      return (
+//         <Switch>
+//             <Route exact path="/auth/:action" component={AuthContainer}></Route>
+//             <Route exact path="/home/chat" component={ChatContainer}></Route>
+//             <Redirect from="/" to="/auth/login"></Redirect>
+//             <Route component={NotFoundComponent}></Route>
+//         </Switch>
+//      )   
+//     }
+// }
 
 
