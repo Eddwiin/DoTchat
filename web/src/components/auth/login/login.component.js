@@ -1,55 +1,41 @@
-import React from 'react';
-import {  Row, Col, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
 import { InputComponent } from '../../generics/input/input.component';
 import { Link } from 'react-router-dom';
-import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
+// import gql from 'graphql-tag';
 
-export default class LoginComponent extends React.Component {
+// const GET_USER_BY_EMAIL = gql`
+//     query userByEmail($email: String!) {
+//         userByEmail(email: $email) {
+//             firstName,
+//             lastName,
+//             email
+//         }
+//     }
+// `
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: {
-                email: '',
-                password: ''
-            }
-        }
+const LoginComponent = (props) => {
 
-        this.handleChangeEvent = this.handleChangeEvent.bind(this);
-    }
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    canBeSubmitted() {
-        return (
-            !emailValidator(this.state.user.email) ||
-            !passwordValidator(this.state.user.password)
-        )
-    }
+    return (
+        <form>
+            <div className="col-md-12 offset-md-3" >
+                <div className="row">
+                    <div className="col-xs-8 col-md-12" >
+                        <InputComponent config={{
+                            controlId: 'emailCtrl',
+                            label: 'Email',
+                            type: 'email',
+                            name: 'email',
+                            mdCol: '7'
+                        }}
+                        changeHandler={event => setEmail(event.target.value)} ></InputComponent> 
+                    </div>
+                </div>
 
-    handleChangeEvent(event) {
-        const user = {...this.state.user};
-        user[event.target.name] = event.target.value;
-        this.setState({ user });
-    }
-
-    render() {
-        return (
-            <Row>
-                <Col md={{ span: 12, offset: 3}}>
-                    <Row>
-                        <Col xs={8} md={12}>
-                            <InputComponent config={{
-                                controlId: 'emailCtrl',
-                                label: 'Email',
-                                type: 'email',
-                                name: 'email',
-                                mdCol: '7'
-                            }}
-                            changeHandler={this.handleChangeEvent} ></InputComponent> 
-                        </Col>
-                    </Row>
-
-                <Row>
-                    <Col xs={8} md={12}>
+                <div className="row">
+                    <div className="col-xs-8 col-md-12">
                         <InputComponent config={{
                             controlId: 'passwordCtrl',
                             label: 'Password',
@@ -57,26 +43,22 @@ export default class LoginComponent extends React.Component {
                             name: 'password',
                             mdCol: '7'
                         }}
-                        changeHandler={this.handleChangeEvent} ></InputComponent> 
-                    </Col>
-                </Row>
+                        changeHandler={event => setPassword(event.target.value)} ></InputComponent> 
+                    </div>
+                </div>
 
-                <Row>
-                    <Col>
-                        <Link to='/auth/forgot-password' onClick={this.props.loadComponent} >Password forgot ?</Link>
-                    </Col>
-                </Row>
+                <div className="row">
+                    <Link to='/auth/forgot-password' >Password forgot ?</Link>
+                </div>
 
-                <Row className="p-3">
-                    <Col>
-                        <Button onClick={(e) => this.props.submit(e, {...this.state.user})} 
-                                disabled={this.canBeSubmitted()}
-                                className="w-50" variant="primary" type="submit">Log in</Button>
-                    </Col>
-                </Row> 
+                <div className="row p-3">
+                    <button className="btn btn-primary w-50" variant="primary" type="submit">Log in</button>
+                </div> 
 
-            </Col>
-        </Row>
-        )
-    }
+            </div>
+        </form>
+    )
+
 }
+
+export default LoginComponent;

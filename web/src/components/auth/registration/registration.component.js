@@ -1,122 +1,94 @@
+import React, { useState } from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
 
-import React from 'react';
-import { InputComponent } from '../../generics/input/input.component';
-import {  Row, Col, Button } from 'react-bootstrap';
-import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
-
-
-export default class RegistrationComponent extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: {
-                lastName: '',
-                firstName: '',
-                email: '',
-                password: '',
-                rPassword: '',
-            }        
-        };
-
-        this.handleChangeEvent = this.handleChangeEvent.bind(this);
-
+const ADD_USER =  gql`
+    mutation AddUser($lastName: String!, $firstName: String!, $email: String!, $password: String!) {
+        addUser(lastName: $lastName, firstName: $firstName, email: $email, password: $password) {
+            id
+        }
     }
+`;
+
+const RegistrationComponent = () => {
+
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rPassword, setRPassword] = useState('');
+    
+    const [addUser] = useMutation(ADD_USER);
 
 
-    canBeSubmitted() {
-        return (
-            !nameValidator(this.state.user.lastName) ||
-            !nameValidator(this.state.user.firstName) ||
-            !emailValidator(this.state.user.email) ||
-            !passwordValidator(this.state.user.password) ||
-            !passwordValidator(this.state.user.rPassword) ||
-            !passwordsHasSame(this.state.user.password, this.state.user.rPassword)
-        );
-    }
+    return (
+        <form onSubmit={ e => {
+            e.preventDefault();
+            addUser({ variables : { lastName: lastName, firstName: firstName, email: email, password: password}})
+        }}>
+            <div className="row">
+                <div className="col">
+                    <div className="row">
+                        <div className="col">
+                            <div className="form-group">
+                                <label> Last name</label>
+                                <input type="text" className="form-control" name="lastName" 
+                                    onClick={ e => setLastName(e.target.value)}/>
+                            </div>
+                        </div>
+                    </div> 
 
-    handleChangeEvent(event) {
-        const user = {...this.state.user};
-        user[event.target.name] = event.target.value;
-        this.setState({ user });
-    }
+                    <div className="row">
+                        <div className="col">
+                             <div className="form-group">
+                                <label> First name</label>
+                                <input type="text" className="form-control" name="firstName" 
+                                        onClick={ e => setFirstName(e.target.value )}/>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div className="row">
+                        <div className="col">
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input type="email" className="form-control" name="email" 
+                                        onClick={ e => setEmail(e.target.value) }/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    render() {
-        return (
-            <div>
-                <Row>
-                    <Col>
-                        <Row>
-                            <Col>
-                                <InputComponent config={{
-                                    controlId: 'lastNameCtrl',
-                                    label: 'Last Name',
-                                    name: 'lastName',
-                                    mdCol: '12'
-                                }} changeHandler={this.handleChangeEvent} />
-                            </Col>
-                        </Row> 
+                <div className="col">
+                    <div className="row">
+                        <div className="col">
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input type="password" className="form-control" name="password" 
+                                        onClick={ e => setPassword(e.target.value )}/>
+                            </div>
+                        </div>
+                    </div>
 
-                        <Row>
-                            <Col>
-                                <InputComponent config={{
-                                    controlId: 'firstNameCtrl',
-                                    label: 'First Name',
-                                    name: 'firstName',
-                                    mdCol: '12'
-                                }} changeHandler={this.handleChangeEvent} />
-                            </Col>
-                        </Row>
+                    <div className="row">
+                        <div className="col">
+                            <div className="form-group">
+                                <label>Repeat password</label>
+                                <input type="password" className="form-control" name="rPassword"
+                                        onClick={ e => setRPassword(e.target.value )} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        <Row>
-                            <Col>
-                                <InputComponent config={{
-                                controlId: 'EmailCtrl',
-                                label: 'Email',
-                                type: 'email',
-                                name: 'email',
-                                mdCol: '12'
-                            }} changeHandler={this.handleChangeEvent} />
-                            </Col>
-                        </Row>
-                    </Col>
+            <div className="p-3">
+                <div className="col">
+                    <button className="btn btn-primary offset-2 w-75" type="submit">Registration</button>
+                </div>
+            </div> 
+        </form>
+    )
+}   
 
-                    <Col>
-                        <Row>
-                            <Col>
-                                <InputComponent config={{
-                                controlId: 'PasswordCtrl',
-                                label: 'Password',
-                                type: 'password',
-                                name: 'password',
-                                mdCol: '12'
-                            }} changeHandler={this.handleChangeEvent} />
-                            </Col>
-                        </Row>
-
-                        <Row>
-                            <Col>
-                                <InputComponent config={{
-                                controlId: 'rPasswordCtrl',
-                                label: 'Repeat password',
-                                type: 'password',
-                                name: 'rPassword',
-                                mdCol: '12'
-                            }} changeHandler={this.handleChangeEvent} />
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-
-                <Row className="p-3">
-                    <Col>
-                        <Button onClick={(e) => this.props.submit(e, {...this.state.user})}
-                                disabled={this.canBeSubmitted()}
-                                className="offset-2 w-75" variant="primary" type="submit">Registration</Button>
-                    </Col>
-                </Row> 
-        </div>
-        )
-    }
-}
+export default RegistrationComponent;
