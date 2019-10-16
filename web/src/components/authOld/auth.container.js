@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Container, Row, Col, Image, Form } from 'react-bootstrap';
 import authLogo from './../../assets/images/auth-logo.png'
 import './auth.scss';
-import LoginComponent from './login/login.component';
-import RegistrationComponent from './registration/registration.component';
-import ForgotPasswordComponent from './forgot-password/forgot-password.component';
-import NotFoundComponent from '../generics/not-found/not-found.component';
+
+const LoginComponent = lazy(() => import('./login/login.component'));
+const RegistrationComponent = lazy(() => import('./registration/registration.component'));
+const ForgotPasswordComponent = lazy(() => import('./forgot-password/forgot-password.component'));
+const NotFoundComponent = lazy(() => import('../generics/not-found/not-found.component'));
 
 export default class AuthContainer extends React.Component {
 
