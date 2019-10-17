@@ -4,9 +4,9 @@ import { useMutation } from '@apollo/react-hooks';
 import { nameValidator, emailValidator, passwordValidator,
              passwordsHasSame } from '../../../core/validators/auth-form.validation';
 
-const ADD_USER =  gql`
-    mutation AddUser($lastName: String!, $firstName: String!, $email: String!, $password: String!) {
-        addUser(lastName: $lastName, firstName: $firstName, email: $email, password: $password) {
+const CREATE_USER =  gql`
+    mutation CreateUser($lastName: String!, $firstName: String!, $email: String!, $password: String!) {
+        createUser(lastName: $lastName, firstName: $firstName, email: $email, password: $password) {
             id
         }
     }
@@ -20,7 +20,7 @@ const RegistrationComponent = () => {
     const [password, setPassword] = useState('');
     const [rPassword, setRPassword] = useState('');
     
-    const [addUser] = useMutation(ADD_USER);
+    const [createUser] = useMutation(CREATE_USER);
  
 
     const canBeSubmitted = () => {
@@ -38,7 +38,7 @@ const RegistrationComponent = () => {
     return (
         <form onSubmit={ e => {
             e.preventDefault();
-            addUser({ variables : { lastName: lastName, firstName: firstName, email: email, password: password}})
+            createUser({ variables : { lastName: lastName, firstName: firstName, email: email, password: password}})
         }}>
             <div className="row">
                 <div className="col">
