@@ -17,7 +17,7 @@ export default class AuthContainer extends React.Component {
                 return <LoginComponent loadComponent={this.loadComponent.bind(this)}/>
             
             case 'registration':
-                return <RegistrationComponent />
+                return <RegistrationComponent {...this.props}/>
 
             case 'forgot-password':
                 return <ForgotPasswordComponent />

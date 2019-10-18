@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
-import axios from 'axios';
-import environment from '../../../enviromnents/environment';
 import { SHA256 } from 'crypto-js';
+import API from '../../../core/services/api.service';
 
-const RegistrationComponent = () => {
+const RegistrationComponent = (props) => {
 
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rPassword, setRPassword] = useState('');
+
+    console.log(props);
     
     const canBeSubmitted = () => {
         return (
@@ -31,7 +32,7 @@ const RegistrationComponent = () => {
             password: SHA256(password).toString()
         }
    
-        axios.post(`${environment.apiUrl}/saveUser`, { user })
+        API.post('saveUser', { user })
             .then(console.log);
     }
 
