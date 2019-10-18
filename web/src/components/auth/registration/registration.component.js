@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
-import { nameValidator, emailValidator, passwordValidator,
-             passwordsHasSame } from '../../../core/validators/auth-form.validation';
-
-const CREATE_USER =  gql`
-    mutation CreateUser($lastName: String!, $firstName: String!, $email: String!, $password: String!) {
-        createUser(lastName: $lastName, firstName: $firstName, email: $email, password: $password) {
-            id
-        }
-    }
-`;
+import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
+import axios from 'axios';
+import environment from '../../../enviromnents/environment';
+import { SHA256 } from 'crypto-js';
 
 const RegistrationComponent = () => {
 
@@ -20,9 +12,6 @@ const RegistrationComponent = () => {
     const [password, setPassword] = useState('');
     const [rPassword, setRPassword] = useState('');
     
-    const [createUser] = useMutation(CREATE_USER);
- 
-
     const canBeSubmitted = () => {
         return (
             !nameValidator(lastName) ||
@@ -34,11 +23,22 @@ const RegistrationComponent = () => {
         );
     }
 
+    const handleSubmit = () => {
+        const user = {
+            lastName: lastName,
+            firstName: firstName,
+            email: email,
+            password: SHA256(password).toString()
+        }
+   
+        axios.post(`${environment.apiUrl}/saveUser`, { user })
+            .then(console.log);
+    }
 
     return (
         <form onSubmit={ e => {
             e.preventDefault();
-            createUser({ variables : { lastName: lastName, firstName: firstName, email: email, password: password}})
+            handleSubmit()
         }}>
             <div className="row">
                 <div className="col">

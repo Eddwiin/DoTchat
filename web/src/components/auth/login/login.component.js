@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
 import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
-// import gql from 'graphql-tag';
 
-// const GET_USER_BY_EMAIL = gql`
-//     query userByEmail($email: String!) {
-//         userByEmail(email: $email) {
-//             firstName,
-//             lastName,
-//             email
-//         }
-//     }
-// `
 
 const LoginComponent = (props) => {
 
