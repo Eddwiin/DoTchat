@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { emailValidator } from '../../../core/validators/auth-form.validation';
+import API from './../../../core/services/api.service';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

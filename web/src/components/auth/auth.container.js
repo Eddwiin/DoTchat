@@ -28,6 +28,12 @@ export default class AuthContainer extends React.Component {
 
     }
 
+    isInputValid(fn) {
+        if (fn) 
+            return 'form-control is-valid';
+        return 'form-control is-invalid';
+    }
+
     render() {
         return(
             <div className="container">

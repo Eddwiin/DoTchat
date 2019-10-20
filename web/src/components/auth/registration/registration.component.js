@@ -5,6 +5,7 @@ import API from '../../../core/services/api.service';
 
 const RegistrationComponent = (props) => {
 
+    console.log(props);
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
