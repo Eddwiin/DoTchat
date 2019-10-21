@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { nameValidator, emailValidator, passwordValidator, passwordsHasSame } from '../../../core/validators/auth-form.validation';
 import { SHA256 } from 'crypto-js';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import API from '../../../core/services/api.service';
 
 const RegistrationComponent = (props) => {
-
-    console.log(props);
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
@@ -53,82 +52,59 @@ const RegistrationComponent = (props) => {
             });
     }
     
-    const isInputValid = (fn) => {
-        if (fn) 
-            return 'form-control is-valid';
-        return 'form-control is-invalid';
-    }
 
     return (
-        <form onSubmit={ e => {
+        <Form onSubmit={ e => {
             e.preventDefault();
-            handleSubmit()
-        }}>
+            handleSubmit()}
+        }>
             {message}
+            <Row>
+                <Col>
+                    <Form.Group controlId="lastName">
+                        <Form.Label>Last name</Form.Label>
+                        <Form.Control type="text" name="lastName" value={lastName} onChange={ e => setLastName(e.target.value) } 
+                                    isValid={nameValidator(lastName)} isInvalid={!nameValidator(lastName)}/>
+                    </Form.Group>
+            
+                    <Form.Group controlId="firstName">
+                        <Form.Label>FirstName</Form.Label>
+                        <Form.Control type="text" name="firstName" value={firstName} onChange={ e => setFirstName(e.target.value) } 
+                                    isValid={nameValidator(firstName)} isInvalid={!nameValidator(firstName)}/>
+                    </Form.Group>
+            
+                    <Form.Group controlId="email">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" name="email" value={email} onChange={ e => setEmail(e.target.value) } 
+                                    isValid={emailValidator(email)} isInvalid={!emailValidator(email)}/>
+                    </Form.Group>
+                </Col>
+            
+                <Col>
+                    <Form.Group controlId="password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" name="password" value={password} onChange={ e => setPassword(e.target.value) } 
+                                    isValid={passwordValidator(email) } 
+                                    isInvalid={!passwordValidator(email) }/>
+                    </Form.Group>
 
-            <div className="row">
-                <div className="col">
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label> Last name</label>
-                                <input type="text" className={isInputValid(nameValidator(lastName))}
-                                    name="lastName" onChange={e => setLastName(e.target.value) }/>
-                            </div>
-                        </div>
-                    </div> 
+                    <Form.Group controlId="rPassword">
+                        <Form.Label>Retype password</Form.Label>
+                        <Form.Control type="password" name="rPassword" value={rPassword} onChange={ e => setRPassword(e.target.value) } 
+                                    isValid={passwordValidator(email) && passwordsHasSame(password, rPassword)} 
+                                    isInvalid={!passwordValidator(email) || !passwordsHasSame(password, rPassword)}/>
+                    </Form.Group>
+                </Col>
+              
+            </Row>
 
-                    <div className="row">
-                        <div className="col">
-                             <div className="form-group">
-                                <label> First name</label>
-                                <input type="text" className={isInputValid(nameValidator(firstName))}
-                                     name="firstName"  onChange={ e => setFirstName(e.target.value )}/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input type="email" className={isInputValid(emailValidator(email))}
-                                     name="email" onChange={ e => setEmail(e.target.value) }/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label>Password</label>
-                                    <input type="password"  className={isInputValid(passwordValidator(password)) }
-                                         name="password" onChange={ e => setPassword(e.target.value )}/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label>Repeat password</label>
-                                    <input type="password" className={isInputValid(passwordValidator(rPassword))  }
-                                        name="rPassword" onChange={ e => setRPassword(e.target.value )} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="p-3">
-                <div className="col">
-                    <button className="btn btn-primary offset-2 w-75" type="submit"
-                            disabled={canBeSubmitted()}>Registration</button>
-                </div>
-            </div> 
-        </form>
+            <Row className="p-3"> 
+                <Col md={{ offset: 2}}>
+                    <Button  variant="primary" type="submit"
+                            disabled={canBeSubmitted()} className="w-75"> Registration </Button>
+                </Col>
+            </Row>
+        </Form>
     )
 }   
 
