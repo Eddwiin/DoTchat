@@ -6,7 +6,7 @@ import { SHA256 } from 'crypto-js';
 import API from './../../../core/services/api.service';
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState('');
+    let [email, setEmail] = useState('');
 
     const canBeSubmitted = () => {
         return (
@@ -14,7 +14,8 @@ const ForgotPassword = () => {
         )
     }
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         email = SHA256(email).toString()
     
         API.get(`forgotPassword/${email}`)
@@ -23,7 +24,7 @@ const ForgotPassword = () => {
             });
     }
     return (
-            <Form>
+            <Form onSubmit={handleClick}>
                 <Col md={{ offset: 2 }}>
                     <Form.Group controlId="email">
                         <Form.Label column md="3">Email</Form.Label>
