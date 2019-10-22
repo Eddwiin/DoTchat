@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { emailValidator } from '../../../core/validators/auth-form.validation';
 import { Row, Col, Form, Button } from 'react-bootstrap';
+import { SHA256 } from 'crypto-js';
 
 import API from './../../../core/services/api.service';
 
@@ -13,6 +14,14 @@ const ForgotPassword = () => {
         )
     }
 
+    const handleClick = () => {
+        email = SHA256(email).toString()
+    
+        API.get(`forgotPassword/${email}`)
+            .then((data) => {
+                console.log(data);
+            });
+    }
     return (
             <Form>
                 <Col md={{ offset: 2 }}>
@@ -29,8 +38,8 @@ const ForgotPassword = () => {
 
                 <Row className="p-3 pl-4">
                     <Col md={{ offset: 2}}>
-                        <Button  variant="primary" type="submit"
-                                disabled={canBeSubmitted()} style={{ width: '80%' }}> Send </Button>
+                        <Button variant="primary" type="submit" onClick={handleClick}
+                                disabled={canBeSubmitted()} style={{ width: '80%' }}>Send</Button>
                     </Col>
                 </Row> 
         </Form>
