@@ -21,16 +21,21 @@ UserController.saveUser = (req, res, next) => {
 
 UserController.forgotPassword = (req, res, next) => {
     console.log(req.params.email);
-    mongoConnection.then((dbo) => {
-        const email = req.params.email;
-        dbo.collection('User').findOne({ email: email }, (err, findUserRes) => {
-            if (err) return res.status(500).json(err);
-            else if (findUserRes) return res.status(200).json({ isUserNotExist: true })
-            else {
 
+    mongoConnection.then((dbo) => {
+        async.waterfall([
+            (done) => {
+                dbo.collection('User').findOne({ email: req.params.email }, (err, findUserRes) => {
+                    if (user) done(err, user)
+                    else return res.status(200).json({ isUserNotExist: true})
+                })
+            },
+            (user, done) => {
+                
             }
-        })
+        ])
     })
+  
 }
 
 module.exports = UserController;
