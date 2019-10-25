@@ -16,8 +16,7 @@ const ForgotPassword = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        email = SHA256(email).toString()
-    
+        
         API.get(`forgotPassword/${email}`)
             .then((data) => {
                 console.log(data);

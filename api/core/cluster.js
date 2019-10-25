@@ -8,6 +8,5 @@ module.exports = () => {
             cluster.fork();
         }
     }
-
     return cluster.isMaster;
 }
