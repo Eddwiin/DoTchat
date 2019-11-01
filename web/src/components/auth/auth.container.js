@@ -1,11 +1,11 @@
 import React, { lazy } from 'react';
 import authLogo from './../../assets/images/auth-logo.png'
+import { Container, Col, Row, Image, Card } from 'react-bootstrap';
 import './auth.scss';
 
 const LoginComponent = lazy(() => import('./login/login.component'));
 const RegistrationComponent = lazy(() => import('./registration/registration.component'));
 const ForgotPasswordComponent = lazy(() => import('./forgot-password/forgot-password.component'));
-const NotFoundComponent = lazy(() => import('../generics/not-found/not-found.component'));
 
 export default class AuthContainer extends React.Component {
 
@@ -23,7 +23,8 @@ export default class AuthContainer extends React.Component {
                 return <ForgotPasswordComponent />
             
             default:
-                return <NotFoundComponent />
+                this.props.history.push('/error404');
+                break;
         }
 
     }
@@ -36,19 +37,21 @@ export default class AuthContainer extends React.Component {
 
     render() {
         return(
-            <div className="container">
-                <div className="offset-3 card card-signin my-5">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col-xs-8 offset-xs-8 col-md-6 offset-md-5 pb-4">
-                                <img src={authLogo} className="w-25" alt="logo" />
-                            </div>
-                        </div>
+            <Container>
+                <Col md={{ offset: 3}}>
+                    <Card className="card-signin my-5">
+                        <Card.Body>
+                            <Row>
+                                <Col xs={{ span: 8, offset: 8}} md={{ span: 6, offset: 5}} className="pb-4">
+                                    <Image src={authLogo} className="w-25" alt="logo" roundedCircle />
+                                </Col>
+                            </Row>
 
-                        { this.loadComponent() }
-                    </div>
-                </div>
-            </div>
+                            { this.loadComponent() }
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Container>
         )
     }
 }

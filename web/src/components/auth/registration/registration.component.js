@@ -84,15 +84,16 @@ const RegistrationComponent = (props) => {
                     <Form.Group controlId="password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" value={password} onChange={ e => setPassword(e.target.value) } 
-                                    isValid={passwordValidator(email) } 
-                                    isInvalid={!passwordValidator(email) }/>
+                                      isValid={passwordValidator(password)  && passwordsHasSame(password, rPassword) } 
+                                      isInvalid={!passwordValidator(password) || !passwordsHasSame(password, rPassword)}
+                                    />
                     </Form.Group>
 
                     <Form.Group controlId="rPassword">
                         <Form.Label>Retype password</Form.Label>
                         <Form.Control type="password" name="rPassword" value={rPassword} onChange={ e => setRPassword(e.target.value) } 
-                                    isValid={passwordValidator(email) && passwordsHasSame(password, rPassword)} 
-                                    isInvalid={!passwordValidator(email) || !passwordsHasSame(password, rPassword)}/>
+                                    isValid={passwordValidator(rPassword) && passwordsHasSame(password, rPassword)} 
+                                    isInvalid={!passwordValidator(rPassword) || !passwordsHasSame(password, rPassword)} />
                     </Form.Group>
                 </Col>
               

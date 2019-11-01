@@ -1,6 +1,6 @@
 import axios from 'axios';
-import environment from '../../enviromnents/environment';
+// import environment from './../../utils/enviromnents/';
 
 export default axios.create({
-    baseURL: `${environment.apiUrl}`
+    baseURL: ``
 });

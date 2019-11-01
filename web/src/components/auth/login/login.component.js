@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
-
+import { Form, Row, Col, Button } from 'react-bootstrap';
 
 const LoginComponent = (props) => {
 
@@ -16,35 +16,37 @@ const LoginComponent = (props) => {
     }
 
     return (
-        <form>
-            <div className="form-group">
-                <div className="col-8 offset-2">
-                    <label>Email</label>
-                    <input type="email" className="form-control" name="email" 
-                            onChange={ e => setEmail(e.target.value) }/>
-                </div>
-            </div>
+        <Form>
+            <Form.Group>
+                <Col md={{ span: 8, offset: 2}}>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" name="email" 
+                        onChange={ e => setEmail(e.target.value) }/>
+                </Col>
+            </Form.Group>
 
-             <div className="form-group">
-                <div className="col-8 offset-2">
-                    <label>Password</label>
-                    <input type="password" className="form-control" name="password" 
+             <Form.Group>
+                <Col md={{ span: 8, offset: 2}}>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" name="password" 
                             onChange={ e => setPassword(e.target.value )}/>
-                </div>
-            </div> 
+                </Col>
+            </Form.Group> 
 
-            <div className="row">
-                <div className="col offset-3 p-2">
+            <Row>
+                <Col md={{ offset: 3}} className="p-2">
                     <Link to='/auth/forgot-password' onClick={props.loadComponent}>Password forgot ?</Link>
-                </div>
-            </div>
+                </Col>
+            </Row>
 
-            <div className="row offset-2">
-                <button className="btn btn-primary w-75" variant="primary" type="submit"
-                        disabled={canBeSubmitted()}>Log in</button>
-            </div> 
+            <Row>
+                <Col md={{ offset: 2}}>
+                    <Button variant="primary" className="w-75"  type="submit"
+                            disabled={canBeSubmitted()}>Log in</Button>
+                </Col>
+            </Row> 
 
-        </form>
+        </Form>
     )
 
 }
