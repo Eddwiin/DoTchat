@@ -15,10 +15,14 @@ const ForgotPassword = () => {
     const handleSubmit = () => {
         API.get(`forgotPassword/${email}`)
             .then(console.log)
+            .catch(console.error)
     }
 
     return (
-            <Form>
+            <Form onSubmit={ e => {
+                e.preventDefault();
+                handleSubmit()
+            }}>
                 <Row>
                     <Col md={{ span: 8, offset: 2}}>
                         <Form.Group>
@@ -32,8 +36,8 @@ const ForgotPassword = () => {
 
                 <Row className="p-3">
                     <Col md={{ offset: 2 }}>
-                        <Button  variant="primary" type="submit" on onClick={handleSubmit} disabled={canBeSubmitted()} 
-                            className=" w-75">Send</Button>
+                        <Button  variant="primary" type="submit" disabled={canBeSubmitted()} 
+                                 className=" w-75">Send</Button>
                     </Col>
                 </Row> 
         </Form>

@@ -5,18 +5,23 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import API from '../../../core/services/api.service';
 
 const RegistrationComponent = (props) => {
+
+    const loadMessage = (message, type="danger") => {
+        return (
+            <div className={"alert alert-" + type} role="alert">
+               { message }
+            </div>
+        )
+    }
+
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rPassword, setRPassword] = useState('');
-    const [message, setMessage] = useState(() => {
-        return (
-            <div className="alert alert-info" role="alert">
-                The password must contain : 8 characters, 1 number, 1 lowercase and 1 uppercase character.
-            </div>
-        );
-    });
+    const [message, setMessage] = useState(() => 
+        loadMessage('The password must contain : 8 characters, 1 number, 1 lowercase and 1 uppercase character.', 'info') 
+     );
     
     const canBeSubmitted = () => {
         return (
@@ -30,6 +35,7 @@ const RegistrationComponent = (props) => {
     }
 
 
+
     const handleSubmit = () => {
         const user = {
             lastName: lastName,
@@ -38,17 +44,12 @@ const RegistrationComponent = (props) => {
             password: SHA256(password).toString()
         }
    
-        API.post('saveUser', { user })
+        API.post('auth/saveUser', { user })
             .then((response) => {
-                if(response.data.isUserExist) {
-                    setMessage(() => {
-                        return (
-                            <div className="alert alert-danger" role="alert">
-                                Email is already exists in database
-                             </div>
-                        );
-                    })
-                }
+                if(response.data.isUserExist) 
+                    setMessage(() => loadMessage('Email is already exists in database'));
+            }).catch( err => {
+               setMessage(() => loadMessage('Something wrong ! Contact the team if the problem persists'))
             });
     }
     
@@ -56,8 +57,8 @@ const RegistrationComponent = (props) => {
     return (
         <Form onSubmit={ e => {
             e.preventDefault();
-            handleSubmit()}
-        }>
+            handleSubmit()
+        }}>
             {message}
             <Row>
                 <Col>
