@@ -17,10 +17,10 @@ export default class AuthContainer extends React.Component {
                 return <LoginComponent loadComponent={this.loadComponent.bind(this)}/>
             
             case 'registration':
-                return <RegistrationComponent {...this.props}/>
+                return <RegistrationComponent {...this.props} loadMessage={this.loadMessage.bind(this)}/>
 
             case 'forgot-password':
-                return <ForgotPasswordComponent />
+                return <ForgotPasswordComponent  loadMessage={this.loadMessage.bind(this)} />
             
             default:
                 this.props.history.push('/error404');
@@ -33,6 +33,14 @@ export default class AuthContainer extends React.Component {
         if (fn) 
             return 'form-control is-valid';
         return 'form-control is-invalid';
+    }
+
+    loadMessage (message, type="danger") {
+        return (
+            <div className={"alert alert-" + type} role="alert">
+               { message }
+            </div>
+        )
     }
 
     render() {

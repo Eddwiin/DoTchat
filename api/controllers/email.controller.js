@@ -1,6 +1,7 @@
 const async = require('async');
 const crypto = require('crypto');
 const nodemailer =  require('nodemailer');
+const env = require('./../core/loader').getEnv();
 
 const mongoConnection = require('../core/mongo')
 const EmailController = {}
@@ -44,38 +45,40 @@ EmailController.forgotPassword = (req, res, next) => {
 
         (token, mongoDB, user, done) => {
 
-            const smtpTransport = nodemailer.createTransport({
-                service: 'smtp.mailtrap.io',
-                port: 465,
-                auth: {
-                    user: "441e471307d6d3",
-                    pass: "3e2ad7367dd716"
-                },
-                secure: true,
-                debug: true,
-                logger: true
-            });
-            
-            const mailOptions = {
-                to: user.email,
-                from: '"Example Team" <from@example.com>',
-                subject: 'Node.js Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                    'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-            };
+            nodemailer.createTestAccount().then((account) => {
 
-            smtpTransport.sendMail(mailOptions, (err) => {
-                mongoDB.dbConnection.close();
+                const transport = nodemailer.createTransport({
+                    host: account.smtp.host,
+                    port: account.smtp.port,
+                    secure: account.smtp.secure,
+                    auth: {
+                        user: account.user,
+                        pass: account.pass
+                    }
+                });
 
-                if (err) 
-                    done(err);
-                else 
-                    return res.status(200).json(true)
-            });
-        
+                console.log(env);
+
+                const message = {
+                    to: user.email,
+                    from: account.user,
+                    subject: 'Node.js Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        env.web.url + '/auth/reset/' + token + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+                };
+
+                transport.sendMail(message, (err, info) => {
+                    mongoDB.dbConnection.close();
+                    if (err) done(err);
+                    else {
+                        return res.status(200).json({ urlToReset: nodemailer.getTestMessageUrl(info)});
+                    }
+                })
+            })
         }
+
     ], (err) => {
         console.log(err);
         return res.status(500).json(err)

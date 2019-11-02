@@ -6,21 +6,13 @@ import API from '../../../core/services/api.service';
 
 const RegistrationComponent = (props) => {
 
-    const loadMessage = (message, type="danger") => {
-        return (
-            <div className={"alert alert-" + type} role="alert">
-               { message }
-            </div>
-        )
-    }
-
     const [lastName, setLastName] = useState('');
     const [firstName, setFirstName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rPassword, setRPassword] = useState('');
     const [message, setMessage] = useState(() => 
-        loadMessage('The password must contain : 8 characters, 1 number, 1 lowercase and 1 uppercase character.', 'info') 
+        props.loadMessage('The password must contain : 8 characters, 1 number, 1 lowercase and 1 uppercase character.', 'info') 
      );
     
     const canBeSubmitted = () => {
@@ -44,12 +36,12 @@ const RegistrationComponent = (props) => {
             password: SHA256(password).toString()
         }
    
-        API.post('auth/saveUser', { user })
+        API.post('saveUser', { user })
             .then((response) => {
                 if(response.data.isUserExist) 
-                    setMessage(() => loadMessage('Email is already exists in database'));
+                    setMessage(() => props.loadMessage('Email is already exists in database'));
             }).catch( err => {
-               setMessage(() => loadMessage('Something wrong ! Contact the team if the problem persists'))
+               setMessage(() => props.loadMessage('Something wrong ! Contact the team if the problem persists'))
             });
     }
     

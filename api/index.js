@@ -20,7 +20,11 @@ else {
     app.use(cookieParser());
     app.use(flash());
     app.use(cors())
-    app.use(session({ secret: 'session secret key' }))
+    app.use(session({ 
+        secret: 'session secret key',
+        resave: true,
+        saveUninitialized: true 
+    }))
 
     const port = process.env.PORT || env.server.port;
 

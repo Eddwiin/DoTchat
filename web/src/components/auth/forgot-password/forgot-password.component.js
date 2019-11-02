@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { emailValidator } from '../../../core/validators/auth-form.validation';
 import { Row, Col, Form, Button } from 'react-bootstrap';
+
 import API from './../../../core/services/api.service';
 
-const ForgotPassword = () => {
+const ForgotPassword = (props) => {
     const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
 
     const canBeSubmitted = () => {
         return (
@@ -14,8 +16,12 @@ const ForgotPassword = () => {
 
     const handleSubmit = () => {
         API.get(`forgotPassword/${email}`)
-            .then(console.log)
-            .catch(console.error)
+            .then(res => {
+                console.log(res);
+                setMessage(() => props.loadMessage(`Click here to reset your password : ${res.data.urlToReset}`, 'info'))
+            }).catch(err => {
+                setMessage(() => props.loadMessage(`Something wrong : ${err}`))
+            })
     }
 
     return (
@@ -23,6 +29,7 @@ const ForgotPassword = () => {
                 e.preventDefault();
                 handleSubmit()
             }}>
+             {message}
                 <Row>
                     <Col md={{ span: 8, offset: 2}}>
                         <Form.Group>
