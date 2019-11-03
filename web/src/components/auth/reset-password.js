@@ -5,6 +5,7 @@ import { SHA256 } from 'crypto-js';
 import { passwordValidator, passwordsHasSame } from '../../core/validators/auth-form.validation';
 import API from '../../core/services/api.service';
 import { INITIAL_AUTH_ROUTES } from './../../utils/configs/route.config';
+import errorMessage, { passwordChangedMessage } from '../../utils/configs/auth-message.config';
 
 const INITIAL_STATE = {
     _id: '',
@@ -43,11 +44,13 @@ export default class ResetPasswordComponent extends React.Component {
             _id: this.state._id,
             password: SHA256(this.state.password).toString()
         }).then(response => {
-            console.log(response);
             if(response) {
+                this.props.loadMessage(passwordChangedMessage())
                 this.props.history.push(INITIAL_AUTH_ROUTES.SIGNIN);
+            } else {
+                this.props.loadMessage(errorMessage())
             }
-        })
+        }).catch(err => this.props.loadMessage(errorMessage()))
     }
 
     canBeSubmitted() {

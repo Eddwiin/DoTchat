@@ -10,6 +10,13 @@ const ForgotPasswordComponent = lazy(() => import('./forgot-password'));
 const ResetPasswordComponent = lazy(() => import('./reset-password')); 
 const Error404Compoennt = lazy(() => import('./../share/error-404'));
 
+const INITIAL_STATE = {
+    messageConfig: {
+        message: '',
+        type: ''
+    }
+}
+
 const cardSignIn = {
     border: "0",
     borderRadius: "1rem",
@@ -21,11 +28,16 @@ const cardSignIn = {
 
 export default class AuthContainer extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {...INITIAL_STATE};
+    }
+
     loadRoutes() {        
         return (
             <Switch>
                 <Route exact path={INITIAL_AUTH_ROUTES.SIGNIN} render={(props) =>
-                     <LoginComponent {...props} />}>
+                     <LoginComponent {...props}  />}>
                 </Route>
                 <Route exact path={INITIAL_AUTH_ROUTES.SIGNUP} render={(props) => 
                     <RegistrationComponent {...props} loadMessage={this.loadMessage.bind(this)} />}>
@@ -41,12 +53,11 @@ export default class AuthContainer extends React.Component {
         )
     }
 
-    loadMessage (message, type="danger") {
-        return (
-            <div className={"alert alert-" + type} role="alert">
-               { message }
-            </div>
-        )
+    loadMessage ({ message, type }) {
+        this.setState({ messageConfig: {
+            message: message,
+            type: type
+        }})
     }
 
     render() {
@@ -60,7 +71,13 @@ export default class AuthContainer extends React.Component {
                                     <Image src={authLogo} className="w-25" alt="logo" roundedCircle />
                                 </Col>
                             </Row>
-                            
+
+                            { this.state.messageConfig.message &&
+                                <div className={"alert alert-" + this.state.messageConfig.type} role="alert">
+                                    {this.state.messageConfig.message}
+                                </div> 
+                            }
+                         
                             {this.loadRoutes()}
                         </Card.Body>
                     </Card>

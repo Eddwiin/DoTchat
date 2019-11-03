@@ -43,7 +43,6 @@ UserController.updateUserPassword = (req, res, next) => {
     mongoConnection.then((mongoDB) => {
 
         const _id = { _id: ObjectID(req.body._id)}
-        console.log(req.body.password);
         const newValue = { $set: {
                                     password: req.body.password, 
                                     resetPasswordToken: undefined,
