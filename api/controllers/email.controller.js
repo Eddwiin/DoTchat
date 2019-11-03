@@ -84,4 +84,20 @@ EmailController.forgotPassword = (req, res, next) => {
 
 }
 
+EmailController.isTokenResetPassValid = (req, res, body) => {
+    mongoConnection.then((mongoDB, err) => {
+
+        mongoDB.dbo.collection('User').findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: {
+                $gt: Date.now()
+            }
+        }, (err, user) => {
+            mongoDB.dbConnection.close();
+            if (err) return res.status(500).json(err)
+            else if (!user) return res.status(200).json(false);
+            else return res.status(200).json(user._id)
+        })
+    })
+}
 module.exports = EmailController;

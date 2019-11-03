@@ -1,7 +1,7 @@
 const async = require('async');
 const crypto = require('crypto');
 const nodemailer =  require('nodemailer');
-
+const ObjectID = require('mongodb').ObjectID;
 const mongoConnection = require('../core/mongo')
 
 const UserController = {};
@@ -38,4 +38,22 @@ UserController.saveUser = (req, res, next) => {
     ], (err) => res.status(500).json(err))
 }
 
+UserController.updateUserPassword = (req, res, next) => {
+
+    mongoConnection.then((mongoDB) => {
+
+        const _id = { _id: ObjectID(req.body._id)}
+        console.log(req.body.password);
+        const newValue = { $set: {
+                                    password: req.body.password, 
+                                    resetPasswordToken: undefined,
+                                    resetPasswordExpires: undefined} }
+
+        mongoDB.dbo.collection('User').updateOne(_id, newValue, (err, updateUserRes) => {
+            mongoDB.dbConnection.close();
+            if (err) return res.status(500).json(err);
+            return res.status(200).json(true);
+        });
+    }).catch(res.status(500).json)
+}
 module.exports = UserController;

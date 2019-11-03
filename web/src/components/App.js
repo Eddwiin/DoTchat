@@ -14,7 +14,7 @@ const App = () => {
         <HeaderComponent></HeaderComponent>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
-              <Route exact path={INITIAL_APP_ROUTES.AUTH} component={AuthContainer}></Route>
+              <Route path={INITIAL_APP_ROUTES.AUTH} component={AuthContainer}></Route>
               <Route exact path={INITIAL_APP_ROUTES.CHAT} component={ChatContainer}></Route>
               <Redirect from="/" to={INITIAL_APP_ROUTES.DEFAULT}></Redirect>
           </Switch>
