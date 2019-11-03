@@ -1,38 +1,32 @@
 import React, { lazy } from 'react';
 import authLogo from './../../assets/images/auth-logo.png'
 import { Container, Col, Row, Image, Card } from 'react-bootstrap';
+import { Switch, Route } from 'react-router-dom';
 import './auth.scss';
+import { INITIAL_AUTH_ROUTES } from './../../utils/configs/route.config';
 
 const LoginComponent = lazy(() => import('./login/login.component'));
 const RegistrationComponent = lazy(() => import('./registration/registration.component'));
 const ForgotPasswordComponent = lazy(() => import('./forgot-password/forgot-password.component'));
+const Error404Compoennt = lazy(() => import('./../share/error-404.component'));
 
 export default class AuthContainer extends React.Component {
 
-    loadComponent() {
-
-        switch (this.props.match.params.action) {
-
-            case 'login':
-                return <LoginComponent loadComponent={this.loadComponent.bind(this)}/>
-            
-            case 'registration':
-                return <RegistrationComponent {...this.props} loadMessage={this.loadMessage.bind(this)}/>
-
-            case 'forgot-password':
-                return <ForgotPasswordComponent  loadMessage={this.loadMessage.bind(this)} />
-            
-            default:
-                this.props.history.push('/error404');
-                break;
-        }
-
-    }
-
-    isInputValid(fn) {
-        if (fn) 
-            return 'form-control is-valid';
-        return 'form-control is-invalid';
+    loadRoutes() {
+        return (
+            <Switch>
+                <Route exact path={INITIAL_AUTH_ROUTES.SIGNIN} render={(props) =>
+                     <LoginComponent {...props} />}>
+                </Route>
+                <Route exact path={INITIAL_AUTH_ROUTES.SIGNUP} render={(props) => 
+                    <RegistrationComponent loadMessage={this.loadMessage.bind(this)} />}>
+                </Route>
+                <Route exact path={INITIAL_AUTH_ROUTES.FORGOTPASSWORD} render={(props) =>
+                    <ForgotPasswordComponent loadMessage={this.loadMessage.bind(this)} />}>
+                </Route>  
+                <Route component={Error404Compoennt}></Route>
+            </Switch>
+        )
     }
 
     loadMessage (message, type="danger") {
@@ -54,8 +48,8 @@ export default class AuthContainer extends React.Component {
                                     <Image src={authLogo} className="w-25" alt="logo" roundedCircle />
                                 </Col>
                             </Row>
-
-                            { this.loadComponent() }
+                            
+                            {this.loadRoutes()}
                         </Card.Body>
                     </Card>
                 </Col>

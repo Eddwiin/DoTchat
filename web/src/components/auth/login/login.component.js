@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
 import { Form, Row, Col, Button } from 'react-bootstrap';
+import { INITIAL_AUTH_ROUTES } from './../../../utils/configs/route.config';
 
 const LoginComponent = (props) => {
 
@@ -35,7 +36,7 @@ const LoginComponent = (props) => {
 
             <Row>
                 <Col md={{ offset: 3}} className="p-2">
-                    <Link to='/auth/forgot-password' onClick={props.loadComponent}>Password forgot ?</Link>
+                    <Link to={INITIAL_AUTH_ROUTES.FORGOTPASSWORD}>Password forgot ?</Link>
                 </Col>
             </Row>
 

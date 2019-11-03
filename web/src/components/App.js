@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AppRouterComponent from './app.router';
-import HeaderComponent from './layouts/header/header.component';
+import HeaderComponent from './layouts/header.component';
 
 export class App extends React.Component {
 
