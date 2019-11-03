@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { emailValidator, passwordValidator } from '../../../core/validators/auth-form.validation';
+import { emailValidator, passwordValidator } from '../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
 import { Form, Row, Col, Button } from 'react-bootstrap';
-import { INITIAL_AUTH_ROUTES } from './../../../utils/configs/route.config';
+import { INITIAL_AUTH_ROUTES } from './../../utils/configs/route.config';
 
 const LoginComponent = (props) => {
 
@@ -43,7 +43,7 @@ const LoginComponent = (props) => {
             <Row>
                 <Col md={{ offset: 2}}>
                     <Button variant="primary" className="w-75"  type="submit"
-                            disabled={canBeSubmitted()}>Log in</Button>
+                            disabled={canBeSubmitted()}>Sign in</Button>
                 </Col>
             </Row> 
 
