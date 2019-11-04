@@ -5,5 +5,9 @@
     
     "database": {
         "url": "mongodb://localhost:27017/dotchat"
+    },
+
+    "web": {
+        "url": "http://localhost:3001/"
     }
 }

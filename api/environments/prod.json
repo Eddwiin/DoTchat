@@ -5,5 +5,9 @@
     
     "database": {
         "url": ""
+    },
+
+    "web": {
+        "url": "http://localhost:3001/"
     }
 }
