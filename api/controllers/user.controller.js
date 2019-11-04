@@ -55,4 +55,18 @@ UserController.updateUserPassword = (req, res, next) => {
         });
     }).catch(res.status(500).json)
 }
+
+UserController.login = (req, res, next) => {
+    mongoConnection.then((mongoDB, err) => {
+        mongoDB.dbo.collection('User')
+            .findOne({ email: req.body.email, password: req.body.password}, (err, user) => {
+                mongoDB.dbConnection.close();
+                if(err) return res.status(500).json(err);
+                delete user.resetPasswordExpires;
+                delete user.resetPasswordToken;
+                return res.status(200).json(user);
+            })
+    }).catch(res.status(500).json)
+}
+
 module.exports = UserController;

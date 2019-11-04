@@ -1,8 +1,11 @@
 import React from 'react';
-import { emailValidator, passwordValidator } from '../../core/validators/auth-form.validation';
 import { Link } from 'react-router-dom';
 import { Form, Row, Col, Button } from 'react-bootstrap';
+import { SHA256 } from 'crypto-js';
+
+import { emailValidator, passwordValidator } from '../../core/validators/auth-form.validation';
 import { INITIAL_AUTH_ROUTES } from './../../utils/configs/route.config';
+import API from './../../core/services/api.service';
 
 const INITIAL_STATE = {
     email: '',
@@ -28,7 +31,12 @@ export default class LoginCompoennt extends React.Component {
     }
 
     handleSubmit() {
-
+        API.post('login', {
+            email: this.state.email,
+            password: SHA256(this.state.password).toString()
+        }).then((user) => {
+            
+        })
     }
 
     canBeSubmitted() {

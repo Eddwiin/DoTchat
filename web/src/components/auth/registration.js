@@ -70,7 +70,6 @@ export default class RegistrationComponent extends React.Component {
                 e.preventDefault();
                this.handleSubmit()
             }}>
-                {this.state.message}
                 <Row>
                     <Col>
                         <Form.Group controlId="lastName">
