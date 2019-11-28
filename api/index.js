@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const cluster = require("./lib/cluster");
@@ -21,6 +22,7 @@ if (cluster()) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(cors());
+  app.use(helmet());
 
   loader.loadRoutes(app, __dirname + "/routes");
 
