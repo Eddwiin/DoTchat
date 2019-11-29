@@ -38,15 +38,23 @@ UserController.saveUser = (req, res, next) => {
 };
 
 UserController.updateUserPassword = (req, res, next) => {
-  User.updateOne(
+  User.findOneAndUpdate(
     { _id: ObjectID(req.body._id) },
-    { $set: { password: req.body.password } },
-    (err, docs) => {
-      if (err) return res.status(500).json(err);
+    { password: req.body.password }
+  ).exec((err, updated) => {
+    if (err) return res.status(500).json(err);
 
-      return res.status(200).json(true);
-    }
-  );
+    return res.status(200).json(updated);
+  });
+  // User.updateOne(
+  //   { _id: ObjectID(req.body._id) },
+  //   { $set: { password: req.body.password } },
+  //   (err, docs) => {
+  //     if (err) return res.status(500).json(err);
+
+  //     return res.status(200).json(true);
+  //   }
+  // );
 };
 
 module.exports = UserController;
