@@ -28,7 +28,6 @@ UserController.saveUser = (req, res, next) => {
           if (err) {
             done(err);
           }
-          console.log(userAdded);
           return res.status(200).json(true);
         });
       }
@@ -37,24 +36,15 @@ UserController.saveUser = (req, res, next) => {
   );
 };
 
-UserController.updateUserPassword = (req, res, next) => {
+UserController.updatePassword = (req, res, next) => {
   User.findOneAndUpdate(
-    { _id: ObjectID(req.body._id) },
-    { password: req.body.password }
+    { _id: ObjectId(req.body.user._id) },
+    { password: req.body.user.password }
   ).exec((err, updated) => {
     if (err) return res.status(500).json(err);
 
     return res.status(200).json(updated);
   });
-  // User.updateOne(
-  //   { _id: ObjectID(req.body._id) },
-  //   { $set: { password: req.body.password } },
-  //   (err, docs) => {
-  //     if (err) return res.status(500).json(err);
-
-  //     return res.status(200).json(true);
-  //   }
-  // );
 };
 
 module.exports = UserController;

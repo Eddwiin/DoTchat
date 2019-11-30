@@ -20,5 +20,6 @@ cluster.on("listening", worker => {
 });
 
 cluster.on("exit", (worker, code, signal) => {
-  console.error(`[ERROR] worker ${worker.process.pid} died`);
+  console.log(`[ERROR] worker ${worker.process.pid} died`);
+  process.exit(0);
 });
