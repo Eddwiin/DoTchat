@@ -46,7 +46,6 @@ export default class ForgotPasswordComponent extends React.Component {
                 e.preventDefault();
                 this.handleSubmit()
             }}>
-             {/* {this.state.message} */}
                 <Col md={{ offset: 2}}>
                     <Form.Group controlId="emailCtrl">
                         <Form.Label column md="10">Email</Form.Label>
