@@ -5,6 +5,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const session = require("express-session");
 require("dotenv").config();
 
 const cluster = require("./lib/cluster");
@@ -23,6 +24,21 @@ if (cluster()) {
   app.use(cookieParser());
   app.use(cors());
   app.use(helmet());
+  app.use(
+    session({
+      secret: "auth",
+      saveUninitialized: true,
+      resave: true
+    })
+  );
+
+  app.get("/private/**", (req, res, next) => {
+    if (!req.session.user) {
+      // User try to access a page without the rights
+      return res.status(403).json({ message: "User not auth" });
+    }
+    next();
+  });
 
   loader.loadRoutes(app, __dirname + "/routes");
 

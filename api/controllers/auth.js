@@ -2,8 +2,39 @@ const async = require("async");
 const crypto = require("crypto");
 const User = require("./../models/user");
 const nodemailer = require("nodemailer");
+const helpers = require("./../utils/helpers");
 
 const AuthController = {};
+
+AuthController.signIn = (req, res, next) => {
+  User.findOne(
+    { email: req.body.user.email, password: req.body.user.password },
+    (err, user) => {
+      if (err) helpers.catchError(res, err);
+      else if (!user)
+        return res.status(404).json({ message: "User not found " });
+      else if (!!req.session.user)
+        return res
+          .status(403)
+          .json({ message: "You have already a session active" });
+      else {
+        req.session.user = user;
+        return res.status(200).json({ isAuth: true });
+      }
+    }
+  );
+};
+
+AuthController.signOut = (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) return helpers.catchError(res, err);
+    res.status(200).json({ isUnAuth: true });
+  });
+};
+
+AuthController.isAuth = (req, res) => {
+  return res.status(200).json({ isAuth: !!req.session.user });
+};
 
 AuthController.forgotPassword = (req, res, next) => {
   if (!req.query.email) {
@@ -71,10 +102,7 @@ AuthController.forgotPassword = (req, res, next) => {
         });
       }
     ],
-    err => {
-      console.error(err);
-      return res.status(500).json(err);
-    }
+    err => helpers.catchError(res, err)
   );
 };
 
@@ -83,7 +111,7 @@ AuthController.isTokenResetPassValid = (req, res, next) => {
     { resetPasswordToken: req.params.token },
     { resetPasswordExpires: { $gt: Date.now() } }
   ).exec((err, user) => {
-    if (err) return res.status(500).json(err);
+    if (err) helpers.catchError(res, err);
     else if (!user)
       return res
         .status(404)

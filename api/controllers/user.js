@@ -32,7 +32,7 @@ UserController.saveUser = (req, res, next) => {
         });
       }
     ],
-    err => res.status(500).json(err)
+    err => helpers.catchError(res, err)
   );
 };
 
@@ -41,7 +41,7 @@ UserController.updatePassword = (req, res, next) => {
     { _id: ObjectId(req.body.user._id) },
     { password: req.body.user.password }
   ).exec((err, updated) => {
-    if (err) return res.status(500).json(err);
+    if (err) helpers.catchError(res, err);
 
     return res.status(200).json(updated);
   });

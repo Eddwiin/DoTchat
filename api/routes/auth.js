@@ -1,9 +1,12 @@
 const AuthController = require("../controllers/auth");
 
 module.exports = app => {
-  app.get("/forgotPassword", AuthController.forgotPassword);
+  app.post("/public/signIn", AuthController.signIn);
+  app.get("/isAuth", AuthController.isAuth);
+  app.get("/private/signOut", AuthController.signOut);
+  app.get("/public/forgotPassword", AuthController.forgotPassword);
   app.get(
-    "/isTokenResetPassValid/:token",
+    "/public/isTokenResetPassValid/:token",
     AuthController.isTokenResetPassValid
   );
 };
