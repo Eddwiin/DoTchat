@@ -1,8 +1,9 @@
-const async = require("async");
 const crypto = require("crypto");
 const User = require("./../models/user");
 const nodemailer = require("nodemailer");
 const helpers = require("./../utils/helpers");
+const async = require("async");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const AuthController = {};
 
@@ -34,6 +35,38 @@ AuthController.signOut = (req, res, next) => {
 
 AuthController.isAuth = (req, res) => {
   return res.status(200).json({ isAuth: !!req.session.user });
+};
+
+AuthController.saveUser = (req, res, next) => {
+  async.waterfall(
+    [
+      done => {
+        User.findOne({ email: req.body.user.email }).exec((err, user) => {
+          if (user) {
+            return res.status(200).json({ isUserExist: true });
+          }
+          done(err);
+        });
+      },
+      done => {
+        const user = new User({
+          _id: ObjectId(),
+          lastName: req.body.user.lastName,
+          firstName: req.body.user.firstName,
+          email: req.body.user.email,
+          password: req.body.user.password
+        });
+
+        user.save((err, userAdded) => {
+          if (err) {
+            done(err);
+          }
+          return res.status(200).json(true);
+        });
+      }
+    ],
+    err => helpers.catchError(res, err)
+  );
 };
 
 AuthController.forgotPassword = (req, res, next) => {
@@ -85,8 +118,8 @@ AuthController.forgotPassword = (req, res, next) => {
             text:
               "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
               "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-              (process.env.HOST || "http://localhost:5000") +
-              "/reset-password/" +
+              (process.env.WEB_URL || "http://localhost:3000") +
+              "/auth/reset-password/" +
               token +
               "\n\n" +
               "If you did not request this, please ignore this email and your password will remain unchanged.\n"

@@ -6,11 +6,14 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const session = require("express-session");
+const path = require("path");
 require("dotenv").config();
 
 const cluster = require("./lib/cluster");
 const mongooseConnection = require("./lib/mongoose");
 const loader = require("./utils/loader");
+
+global.rootDirname = __dirname;
 
 if (cluster()) {
 } else {
@@ -31,6 +34,8 @@ if (cluster()) {
       resave: true
     })
   );
+
+  app.use("/public", express.static(path.join(__dirname, "public")));
 
   app.get("/private/**", (req, res, next) => {
     if (!req.session.user) {
