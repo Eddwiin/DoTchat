@@ -4,10 +4,17 @@ const nodemailer = require("nodemailer");
 const helpers = require("./../utils/helpers");
 const async = require("async");
 const ObjectId = require("mongoose").Types.ObjectId;
+const { validationResult } = require("express-validator");
 
 const AuthController = {};
 
 AuthController.signIn = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
+  }
+
   User.findOne(
     { email: req.body.user.email, password: req.body.user.password },
     (err, user) => {
@@ -38,10 +45,16 @@ AuthController.isAuth = (req, res) => {
 };
 
 AuthController.saveUser = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
+  }
+
   async.waterfall(
     [
       done => {
-        User.findOne({ email: req.body.user.email }).exec((err, user) => {
+        User.findOne({ email: req.body.email }).exec((err, user) => {
           if (user) {
             return res.status(200).json({ isUserExist: true });
           }
@@ -51,10 +64,10 @@ AuthController.saveUser = (req, res, next) => {
       done => {
         const user = new User({
           _id: ObjectId(),
-          lastName: req.body.user.lastName,
-          firstName: req.body.user.firstName,
-          email: req.body.user.email,
-          password: req.body.user.password
+          lastName: req.body.lastName,
+          firstName: req.body.firstName,
+          email: req.body.email,
+          password: req.body.password
         });
 
         user.save((err, userAdded) => {
@@ -70,9 +83,12 @@ AuthController.saveUser = (req, res, next) => {
 };
 
 AuthController.forgotPassword = (req, res, next) => {
-  if (!req.query.email) {
-    return res.status(400).json({ message: "You must pass email param" });
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
   }
+
   async.waterfall(
     [
       done => {
@@ -140,10 +156,10 @@ AuthController.forgotPassword = (req, res, next) => {
 };
 
 AuthController.isTokenResetPassValid = (req, res, next) => {
-  User.findOne(
-    { resetPasswordToken: req.params.token },
-    { resetPasswordExpires: { $gt: Date.now() } }
-  ).exec((err, user) => {
+  User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gte: Date.now() }
+  }).exec((err, user) => {
     if (err) helpers.catchError(res, err);
     else if (!user)
       return res

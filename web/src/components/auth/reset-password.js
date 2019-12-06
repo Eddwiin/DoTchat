@@ -34,10 +34,14 @@ export default class ResetPasswordComponent extends React.Component {
       }
     } = this.props;
 
-    await API.get(`/auth/isTokenResetPassValid/${token}`).then(res => {
-      console.log(res);
-      this.setState({ _id: res.data });
-    });
+    await API.get(`/auth/isTokenResetPassValid/${token}`)
+      .then(res => {
+        this.setState({ _id: res.data });
+      })
+      .catch(err => {
+        this.props.loadMessage(errorMessage(err));
+        this.props.history.push(INITIAL_AUTH_ROUTES.SIGNIN);
+      });
   }
 
   handleChange(event) {
@@ -45,7 +49,6 @@ export default class ResetPasswordComponent extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
     API.put(`/public/updatePassword`, {
       _id: this.state._id,
       password: SHA256(this.state.password).toString()

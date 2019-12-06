@@ -59,7 +59,7 @@ export default class RegistrationComponent extends React.Component {
       password: SHA256(this.state.password).toString()
     };
 
-    API.post("/auth/saveUser", { user })
+    API.post("/auth/saveUser", user)
       .then(response => {
         if (response.data.isUserExist)
           this.props.loadMessage(emailExistMessage());
