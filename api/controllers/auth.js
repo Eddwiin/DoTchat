@@ -16,17 +16,18 @@ AuthController.signIn = (req, res, next) => {
   }
 
   User.findOne(
-    { email: req.body.user.email, password: req.body.user.password },
+    { email: req.body.email, password: req.body.password },
     (err, user) => {
       if (err) helpers.catchError(res, err);
       else if (!user)
-        return res.status(404).json({ message: "User not found " });
+        return res.status(400).json({ message: "User not found " });
       else if (!!req.session.user)
         return res
           .status(403)
           .json({ message: "You have already a session active" });
       else {
         req.session.user = user;
+        res.setHeader("Set-Cookie", "loggedIn=true; HttpOnly");
         return res.status(200).json({ isAuth: true });
       }
     }
