@@ -4,10 +4,10 @@ import {
   emailValidator,
   passwordValidator,
   passwordsHasSame
-} from "../../core/validators/auth-form.validation";
+} from "../../core/validators/auth-form";
 import { SHA256 } from "crypto-js";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import API from "../../core/services/api.service";
+import API from "../../core/services/api";
 
 import { INITIAL_AUTH_ROUTES } from "./../../utils/configs/route.config";
 import errorMessage, {

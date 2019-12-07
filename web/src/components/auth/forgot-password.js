@@ -1,8 +1,8 @@
 import React from "react";
-import { emailValidator } from "../../core/validators/auth-form.validation";
+import { emailValidator } from "../../core/validators/auth-form";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
-import API from "./../../core/services/api.service";
+import API from "../../core/services/api";
 import errorMessage, {
   resetEmailMessage
 } from "./../../utils/configs/auth-message.config";

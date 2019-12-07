@@ -5,8 +5,8 @@ import { SHA256 } from "crypto-js";
 import {
   passwordValidator,
   passwordsHasSame
-} from "../../core/validators/auth-form.validation";
-import API from "../../core/services/api.service";
+} from "../../core/validators/auth-form";
+import API from "../../core/services/api";
 import { INITIAL_AUTH_ROUTES } from "./../../utils/configs/route.config";
 import errorMessage, {
   passwordChangedMessage

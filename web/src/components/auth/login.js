@@ -6,14 +6,12 @@ import { SHA256 } from "crypto-js";
 import {
   emailValidator,
   passwordValidator
-} from "../../core/validators/auth-form.validation";
-import API from "./../../core/services/api.service";
+} from "../../core/validators/auth-form";
+import API from "../../core/services/api";
 import INITIAL_APP_ROUTES, {
   INITIAL_AUTH_ROUTES
 } from "./../../utils/configs/route.config";
-import errorMessage, {
-  passwordChangedMessage
-} from "../../utils/configs/auth-message.config";
+import errorMessage from "../../utils/configs/auth-message.config";
 
 const INITIAL_STATE = {
   email: "",

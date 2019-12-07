@@ -6,13 +6,14 @@ module.exports = ({ pathToSave }) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
       const dirToCheck = rootDirname + "/" + pathToSave;
-      if (!fs.exists(dirToCheck)) {
+      if (!fs.existsSync(dirToCheck)) {
         fs.mkdirSync(dirToCheck, { recursive: true });
       }
       cb(null, pathToSave);
     },
 
     filename: (req, file, cb) => {
+      console.log(file);
       cb(
         null,
         file.fieldname +
