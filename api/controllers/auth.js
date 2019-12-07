@@ -1,24 +1,33 @@
-const async = require("async");
 const crypto = require("crypto");
 const User = require("./../models/user");
 const nodemailer = require("nodemailer");
 const helpers = require("./../utils/helpers");
+const async = require("async");
+const ObjectId = require("mongoose").Types.ObjectId;
+const { validationResult } = require("express-validator");
 
 const AuthController = {};
 
 AuthController.signIn = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
+  }
+
   User.findOne(
-    { email: req.body.user.email, password: req.body.user.password },
+    { email: req.body.email, password: req.body.password },
     (err, user) => {
       if (err) helpers.catchError(res, err);
       else if (!user)
-        return res.status(404).json({ message: "User not found " });
+        return res.status(400).json({ message: "User not found " });
       else if (!!req.session.user)
         return res
           .status(403)
           .json({ message: "You have already a session active" });
       else {
         req.session.user = user;
+        res.setHeader("Set-Cookie", "loggedIn=true; HttpOnly");
         return res.status(200).json({ isAuth: true });
       }
     }
@@ -36,10 +45,51 @@ AuthController.isAuth = (req, res) => {
   return res.status(200).json({ isAuth: !!req.session.user });
 };
 
-AuthController.forgotPassword = (req, res, next) => {
-  if (!req.query.email) {
-    return res.status(400).json({ message: "You must pass email param" });
+AuthController.saveUser = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
   }
+
+  async.waterfall(
+    [
+      done => {
+        User.findOne({ email: req.body.email }).exec((err, user) => {
+          if (user) {
+            return res.status(200).json({ isUserExist: true });
+          }
+          done(err);
+        });
+      },
+      done => {
+        const user = new User({
+          _id: ObjectId(),
+          lastName: req.body.lastName,
+          firstName: req.body.firstName,
+          email: req.body.email,
+          password: req.body.password
+        });
+
+        user.save((err, userAdded) => {
+          if (err) {
+            done(err);
+          }
+          return res.status(200).json(true);
+        });
+      }
+    ],
+    err => helpers.catchError(res, err)
+  );
+};
+
+AuthController.forgotPassword = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return helpers.paramsValidationErr(res, errors);
+  }
+
   async.waterfall(
     [
       done => {
@@ -85,8 +135,8 @@ AuthController.forgotPassword = (req, res, next) => {
             text:
               "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
               "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-              (process.env.HOST || "http://localhost:5000") +
-              "/reset-password/" +
+              (process.env.WEB_URL || "http://localhost:3000") +
+              "/auth/reset-password/" +
               token +
               "\n\n" +
               "If you did not request this, please ignore this email and your password will remain unchanged.\n"
@@ -107,10 +157,10 @@ AuthController.forgotPassword = (req, res, next) => {
 };
 
 AuthController.isTokenResetPassValid = (req, res, next) => {
-  User.findOne(
-    { resetPasswordToken: req.params.token },
-    { resetPasswordExpires: { $gt: Date.now() } }
-  ).exec((err, user) => {
+  User.findOne({
+    resetPasswordToken: req.params.token,
+    resetPasswordExpires: { $gte: Date.now() }
+  }).exec((err, user) => {
     if (err) helpers.catchError(res, err);
     else if (!user)
       return res

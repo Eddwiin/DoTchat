@@ -6,31 +6,42 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const session = require("express-session");
+const path = require("path");
+const MongoDBStore = require("connect-mongodb-session")(session);
 require("dotenv").config();
 
 const cluster = require("./lib/cluster");
 const mongooseConnection = require("./lib/mongoose");
 const loader = require("./utils/loader");
 
+global.rootDirname = __dirname;
+
 if (cluster()) {
 } else {
   mongooseConnection();
 
   const app = express();
+  const store = new MongoDBStore({
+    uri: process.env.DTB_URL || "mongodb://localhost:27017/dotchat",
+    collection: "Session"
+  });
 
   app.use(logger("dev"));
-  app.use(bodyParser.json());
+  app.use(express.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(cors());
   app.use(helmet());
   app.use(
     session({
-      secret: "auth",
-      saveUninitialized: true,
-      resave: true
+      secret: "my session in node js",
+      saveUninitialized: false,
+      resave: false,
+      store: store
     })
   );
+
+  app.use("/public", express.static(path.join(__dirname, "public")));
 
   app.get("/private/**", (req, res, next) => {
     if (!req.session.user) {

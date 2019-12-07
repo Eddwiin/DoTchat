@@ -1,6 +1,10 @@
+const { check } = require("express-validator");
 const UserController = require("./../controllers/user");
 
 module.exports = app => {
-  app.post("/public/saveUser", UserController.saveUser);
-  app.put("/public/updatePassword", UserController.updatePassword);
+  app.put(
+    "/public/updatePassword",
+    [check("password").isLength({ min: 10 })],
+    UserController.updatePassword
+  );
 };
