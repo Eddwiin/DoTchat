@@ -4,14 +4,14 @@ const AuthController = require("../controllers/auth");
 
 module.exports = app => {
   app.post(
-    "/auth/signIn",
+    "/auth/login",
     [check("email").isEmail(), check("password").isLength({ min: 10 })],
     AuthController.signIn
   );
 
   app.get("/public/isAuth", AuthController.isAuth);
 
-  app.get("/private/signOut", AuthController.signOut);
+  app.get("/private/loggout", AuthController.signOut);
 
   app.get(
     "/auth/forgotPassword",
