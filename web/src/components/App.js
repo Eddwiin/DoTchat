@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./shared/button/button";
 import "./App.scss";
 
 function App() {
@@ -12,9 +13,7 @@ function App() {
           </span>
         </h1>
 
-        <a href="#" className="btn btn--white">
-          Sign in
-        </a>
+        <Button label="Sign in" />
       </div>
     </div>
   );
