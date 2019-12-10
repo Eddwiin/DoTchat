@@ -1,33 +1,23 @@
-import React, { lazy, Suspense } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React from "react";
+import "./App.scss";
 
-import HeaderComponent from "./layouts/header";
-import INITIAL_APP_ROUTES from "./../utils/configs/route.config";
-import "./App.css";
-
-const AuthContainer = lazy(() => import("./auth/auth"));
-const ChatContainer = lazy(() => import("./chat/chat"));
-
-const App = () => {
+function App() {
   return (
-    <div>
-      <HeaderComponent></HeaderComponent>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route
-            path={INITIAL_APP_ROUTES.AUTH}
-            component={AuthContainer}
-          ></Route>
-          <Route
-            exact
-            path={INITIAL_APP_ROUTES.CHAT}
-            component={ChatContainer}
-          ></Route>
-          <Redirect from="/" to={INITIAL_APP_ROUTES.DEFAULT}></Redirect>
-        </Switch>
-      </Suspense>
+    <div className="view-index">
+      <div className="view-index__body">
+        <h1 className="view-index__title">
+          <span className="view-index__title--main">DotChat</span>
+          <span className="view-index__title--sub">
+            Communicate with the world
+          </span>
+        </h1>
+
+        <a href="#" className="btn btn--white">
+          Sign in
+        </a>
+      </div>
     </div>
   );
-};
+}
 
 export default App;
