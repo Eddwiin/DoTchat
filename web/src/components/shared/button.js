@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./button.scss";
+import "@scss/components/shared/button.scss";
 
 const Button = props => (
-  <a href="#" className="btn btn--white btn--animated ">
+  <a href={"/"} className="btn btn--white btn--animated ">
     {props.label}
   </a>
 );

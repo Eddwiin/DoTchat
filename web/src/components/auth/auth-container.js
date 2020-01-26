@@ -1,6 +1,9 @@
 import React from "react";
+import Button from "@/components/shared/button";
 
-const index = () => (
+import "@scss/components/auth/auth-container.scss";
+
+const AuthContainer = () => (
   <div className="view-index">
     <div className="view-index__body">
       <h1 className="view-index__title">
@@ -13,3 +16,5 @@ const index = () => (
     </div>
   </div>
 );
+
+export default AuthContainer;
