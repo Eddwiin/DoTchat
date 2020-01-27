@@ -1,7 +1,10 @@
-import React from "react";
+import React, { lazy } from "react";
 import Button from "@/components/shared/button";
+import { Route } from "react-router-dom";
 
 import "@scss/components/auth/auth-container.scss";
+
+const Login = lazy(() => import("./login"));
 
 const AuthContainer = () => (
   <div className="view-index">
@@ -12,7 +15,7 @@ const AuthContainer = () => (
           Communicate with the world
         </span>
       </h1>
-      <Button label="Sign in" />
+      <Button label="Sign in" path="/auth/login" />
     </div>
   </div>
 );
