@@ -4,7 +4,7 @@ const { validationResult } = require("express-validator");
 const helpers = require("./../utils/helpers");
 const UserController = {};
 
-UserController.updatePassword = (req, res, next) => {
+UserController.updatePassword = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {

@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const session = require("express-session");
 const path = require("path");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const socketIo = require("socket.io");
+
 require("dotenv").config();
 
 const cluster = require("./lib/cluster");
@@ -58,6 +60,8 @@ if (cluster()) {
   const server = http.createServer(app).listen(port, () => {
     console.log(`[INFO] Server is listening on port: ${port}`);
   });
+
+  const io = socketIo(server);
 
   process.on("SIGINT", () => {
     server.close(() => {

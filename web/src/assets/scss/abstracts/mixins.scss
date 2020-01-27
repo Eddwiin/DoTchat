@@ -1,5 +1,4 @@
 // source : https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/
-
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     @media #{inpect(map-get($breakpoints, $breakpoint))} {
@@ -9,4 +8,11 @@
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
         + "Available breakpoints are: #{map-keys($breakpoints)}.";
   }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

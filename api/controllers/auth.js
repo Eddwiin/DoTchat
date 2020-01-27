@@ -8,7 +8,7 @@ const { validationResult } = require("express-validator");
 
 const AuthController = {};
 
-AuthController.signIn = (req, res, next) => {
+AuthController.signIn = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -34,10 +34,10 @@ AuthController.signIn = (req, res, next) => {
   );
 };
 
-AuthController.signOut = (req, res, next) => {
+AuthController.signOut = (req, res) => {
   req.session.destroy(err => {
     if (err) return helpers.catchError(res, err);
-    res.status(200).json({ isUnAuth: true });
+    return res.status(200).json({ isUnAuth: true });
   });
 };
 
@@ -45,7 +45,7 @@ AuthController.isAuth = (req, res) => {
   return res.status(200).json({ isAuth: !!req.session.user });
 };
 
-AuthController.saveUser = (req, res, next) => {
+AuthController.saveUser = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -71,7 +71,7 @@ AuthController.saveUser = (req, res, next) => {
           password: req.body.password
         });
 
-        user.save((err, userAdded) => {
+        user.save(err => {
           if (err) {
             done(err);
           }
@@ -83,7 +83,7 @@ AuthController.saveUser = (req, res, next) => {
   );
 };
 
-AuthController.forgotPassword = (req, res, next) => {
+AuthController.forgotPassword = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -156,7 +156,7 @@ AuthController.forgotPassword = (req, res, next) => {
   );
 };
 
-AuthController.isTokenResetPassValid = (req, res, next) => {
+AuthController.isTokenResetPassValid = (req, res) => {
   User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: { $gte: Date.now() }

@@ -1,0 +1,20 @@
+@import "./../../abstracts/variables.scss";
+
+.error {
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+
+  &__404 {
+    font-size: 15rem;
+  }
+
+  &__page-not-found {
+    font-size: 3rem;
+  }
+
+  &__go-back {
+    text-decoration: none;
+    color: $color-link;
+  }
+}
