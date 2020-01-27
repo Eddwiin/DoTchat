@@ -1,0 +1,11 @@
+$breakpoints: (
+  "tab-port": (
+    max-width: 56.25em
+  ),
+  "tab-land": (
+    max-width: 75em
+  ),
+  "big-desktop": (
+    min-width: 112.5em
+  )
+) !default;
