@@ -7,15 +7,22 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(black, 0.5);
+  background-color: rgba(black, 0.7);
   z-index: 9999;
 
   &__content {
     @include absCenter;
-    width: 75%;
+    width: 50%;
     height: 50rem;
     background-color: white;
     box-shadow: 0 2rem 4rem rgba(black, 0.3);
+
+    &--lg {
+      width: 75% !important;
+    }
+    &--sm {
+      width: 25% !important;
+    }
   }
 
   &__header {

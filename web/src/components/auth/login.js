@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "@/components/shared/button";
+// import Button from "@/components/shared/button";
+import "@scss/components/shared/form.scss";
 
 const INITIAL_STATE = {
   email: "",
@@ -23,24 +24,40 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>Email</label>
-        <input
-          name="email"
-          type="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
+      <form className="form" onSubmit={this.handleSubmit}>
+        <div className="form__group">
+          <input
+            id="email"
+            className="form__input"
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
+          />
+          <label for="id" className="form__label">
+            Email
+          </label>
+        </div>
 
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
+        <div className="form__group">
+          <input
+            id="password"
+            className="form__input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            required
+          />
+          <label for="password" className="form__label">
+            Password
+          </label>
+        </div>
 
-        <Button label="LOGIN" btnColor="primary"></Button>
+        {/* <Button label="LOGIN" btnColor="primary"></Button> */}
       </form>
     );
   }
