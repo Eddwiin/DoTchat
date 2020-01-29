@@ -1,8 +1,9 @@
+@import "./../../abstracts/variables.scss";
+
 .btn {
   &:link,
   &:visited {
     position: relative;
-    text-transform: uppercase;
     text-decoration: none;
     display: inline-block;
     font-size: 1.9rem;
@@ -10,7 +11,12 @@
     border-radius: 10rem;
   }
 
-  &--white {
+  &--primary {
+    background-color: $color-primary;
+    color: white;
+  }
+
+  &--light {
     background-color: #fff;
     color: #777;
   }

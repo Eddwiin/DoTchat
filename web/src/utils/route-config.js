@@ -1,5 +1,6 @@
 const APP_ROUTES = {
-  INDEX: "/"
+  AUTH: "/auth",
+  LOGIN: "/auth/login"
 };
 
 export default APP_ROUTES;
