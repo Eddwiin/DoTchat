@@ -13,6 +13,7 @@
     width: 50%;
     border: none;
     display: block;
+    transition: all 0.5s;
 
     &:focus {
       outline: none;
@@ -41,8 +42,16 @@
     transition: all 0.3s;
   }
 
-  // &__input:placeholder-shown + &__label{
-  //     opacity: 0;
-  //     visibility: hidden;
-  // }
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__input:valid + &__label {
+    color: $color-primary;
+  }
+  &__input:invalid + &__label {
+    color: $color-danger;
+  }
 }
