@@ -21,7 +21,7 @@ const Login = () => {
       <div className="form__group">
         <input
           id="email"
-          className="form__input"
+          className="form__input "
           name="email"
           type="email"
           placeholder="Email"
