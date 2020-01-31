@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Button from "@/components/shared/button";
-import "@scss/components/shared/form.scss";
 import { Link } from "react-router-dom";
 import APP_ROUTES from "../../utils/route-config";
+
+const btnPosition = {
+  marginLeft: "10rem",
+  marginTop: "2rem"
+};
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +29,7 @@ const Login = () => {
           onChange={e => setEmail(e.target.value)}
           required
         />
-        <label for="id" className="form__label">
+        <label htmlFor="id" className="form__label">
           Email
         </label>
       </div>
@@ -41,13 +45,26 @@ const Login = () => {
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <label for="password" className="form__label">
+        <label htmlFor="password" className="form__label">
           Password
         </label>
       </div>
 
-      <Link to={APP_ROUTES.FORGETPASSWORD}> Password forgot?</Link>
-      <Button label="LOGIN" btnColor="primary"></Button>
+      <div className="block">
+        <Link to={APP_ROUTES.FORGETPASSWORD}>
+          <span className="link ">Password forgot?</span>
+        </Link>
+      </div>
+
+      <div className="block">
+        <Link to={APP_ROUTES.SIGNUP}>
+          <span className="link "> Sign up?</span>
+        </Link>
+      </div>
+
+      <div style={btnPosition}>
+        <Button label="LOGIN" btnColor="primary"></Button>
+      </div>
     </form>
   );
 };
