@@ -20,10 +20,6 @@
     &--sm {
       width: 25% !important;
     }
-
-    &--center {
-      transform: translate(25%, 25%);
-    }
   }
 
   &__header {
@@ -35,7 +31,6 @@
   &__title {
     color: white;
     font-size: 3rem;
-    font-weight: 100;
     text-align: center;
     padding-top: 2.5rem;
   }

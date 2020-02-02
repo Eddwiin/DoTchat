@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import Button from "@/components/shared/button";
 import { Link } from "react-router-dom";
 import APP_ROUTES from "../../utils/route-config";
-
-const btnPosition = {
-  marginLeft: "10rem",
-  marginTop: "2rem"
-};
+// import API from '@/utils/api';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +17,7 @@ const Login = () => {
       <div className="form__group">
         <input
           id="email"
-          className="form__input "
+          className="form__input"
           name="email"
           type="email"
           placeholder="Email"
@@ -62,7 +58,7 @@ const Login = () => {
         </Link>
       </div>
 
-      <div style={btnPosition}>
+      <div>
         <Button label="LOGIN" btnColor="primary"></Button>
       </div>
     </form>

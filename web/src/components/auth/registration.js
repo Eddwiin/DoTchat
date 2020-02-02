@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "@/components/shared/button";
+import API from "@/utils/api";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,21 @@ const Registration = () => {
   const [rPassword, setRPassword] = useState("");
 
   const handleSubmit = event => {
+    if (password !== rPassword) {
+      console.error("Password not same");
+      return;
+    }
+
+    const user = {
+      email: email,
+      pseudo: pseudo,
+      password: password,
+      rPassword: rPassword
+    };
+    API.post(`auth/saveUser`, { user }).then(res => {
+      console.log(res);
+    });
+    console.log("save 1");
     event.preventDefault();
   };
 
