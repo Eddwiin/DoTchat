@@ -22,13 +22,10 @@ module.exports = app => {
   app.post(
     "/auth/saveUser",
     [
-      check("lastName")
-        .isAlphanumeric()
-        .isLength({ min: 3, max: 30 }),
-      check("firstName")
-        .isAlphanumeric()
-        .isLength({ min: 3, max: 30 }),
       check("email").isEmail(),
+      check("pseudo")
+        .isAlphanumeric()
+        .isLength({ min: 3, max: 30 }),
       check("password").isLength({ min: 10 })
     ],
     AuthController.saveUser
