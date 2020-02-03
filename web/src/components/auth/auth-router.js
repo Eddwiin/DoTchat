@@ -1,28 +1,23 @@
 import React, { lazy } from "react";
 import APP_ROUTES from "../../utils/route-config";
+import "@scss/components/auth/auth-router.scss";
 import { Route } from "react-router-dom";
 
-const Modal = lazy(() => import("@/components/shared/modal"));
 const Login = lazy(() => import("@/components/auth/login"));
 const Registration = lazy(() => import("@/components/auth/registration"));
 const ForgetPassword = lazy(() => import("@/components/auth/forget-password"));
 const ResetPassword = lazy(() => import("@/components/auth/reset-password"));
 
 const AuthRouter = props => {
-  const closeModal = () => {
-    const { history } = props;
-    history.push(APP_ROUTES.AUTH);
-  };
-
   return (
     <div>
       <Route
         exact
         path={APP_ROUTES.SIGNIN}
         render={() => (
-          <Modal closeModal={closeModal} title="Login">
+          <div className="auth-router">
             <Login></Login>
-          </Modal>
+          </div>
         )}
       ></Route>
 
@@ -30,9 +25,9 @@ const AuthRouter = props => {
         exact
         path={APP_ROUTES.SIGNUP}
         render={() => (
-          <Modal closeModal={closeModal} title="Registration">
+          <div className="auth-router">
             <Registration></Registration>
-          </Modal>
+          </div>
         )}
       ></Route>
 
@@ -40,9 +35,9 @@ const AuthRouter = props => {
         exact
         path={APP_ROUTES.FORGETPASSWORD}
         render={() => (
-          <Modal closeModal={closeModal} title="Password forget ?">
+          <div className="auth-router">
             <ForgetPassword></ForgetPassword>
-          </Modal>
+          </div>
         )}
       ></Route>
 
@@ -50,9 +45,9 @@ const AuthRouter = props => {
         exact
         path={APP_ROUTES.RESETPASSWORD}
         render={() => (
-          <Modal closeModal={closeModal} title="Reset password">
+          <div className="auth-router">
             <ResetPassword></ResetPassword>
-          </Modal>
+          </div>
         )}
       ></Route>
     </div>
