@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "@/components/shared/button";
 import { Link } from "react-router-dom";
 import APP_ROUTES from "../../utils/route-config";
 // import API from "@/utils/api";
@@ -47,20 +46,18 @@ const Login = () => {
       </div>
 
       <div className="block">
-        <Link to={APP_ROUTES.FORGETPASSWORD}>
-          <span className="link ">Password forgot?</span>
-        </Link>
-      </div>
-
-      <div className="block">
         <Link to={APP_ROUTES.SIGNUP}>
           <span className="link "> Sign up?</span>
         </Link>
       </div>
 
-      <div>
-        <Button label="LOGIN" btnColor="primary"></Button>
+      <div className="block">
+        <Link to={APP_ROUTES.FORGETPASSWORD}>
+          <span className="link ">Password forgot?</span>
+        </Link>
       </div>
+
+      <input type="submit" value="Sign in" />
     </form>
   );
 };

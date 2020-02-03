@@ -8,7 +8,7 @@ import AuthRouter from "./auth-router";
 const AuthContainer = props => {
   return (
     <div>
-      {/* <div className="view-index">
+      <div className="view-index">
         <div className="view-index__body">
           <h1 className="view-index__title">
             <span className="view-index__title--main">DotChat</span>
@@ -18,7 +18,7 @@ const AuthContainer = props => {
           </h1>
           <Button label="SIGN IN" path={APP_ROUTES.SIGNIN} isAnimate={true} />
         </div>
-      </div> */}
+      </div>
 
       <AuthRouter {...props}></AuthRouter>
     </div>

@@ -58,7 +58,7 @@ AuthController.saveUser = (req, res) => {
       done => {
         User.findOne({ email: req.body.email }).exec((err, user) => {
           if (user) {
-            return res.status(200).json({ isUserExist: true });
+            return res.status(201).json({ isUserExist: true });
           }
           done(err);
         });
@@ -109,7 +109,7 @@ AuthController.forgotPassword = (req, res) => {
         ).exec((err, user) => {
           if (!user)
             return res
-              .status(500)
+              .status(201)
               .json({ message: "Email wasn't found in database" });
 
           done(err, token, user);

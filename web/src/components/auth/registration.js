@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-// import Button from "@/components/shared/button";
+import { ToastsStore } from "react-toasts";
 import API from "@/utils/api";
+import APP_ROUTES from "../../utils/route-config";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [email, setEmail] = useState("");
@@ -9,10 +11,10 @@ const Registration = () => {
   const [rPassword, setRPassword] = useState("");
 
   const handleSubmit = event => {
-    if (password !== rPassword) {
-      console.error("Password not same");
-      return;
-    }
+    event.preventDefault();
+
+    if (password !== rPassword)
+      return ToastsStore.error("Passwords are not the same");
 
     const user = {
       email: email,
@@ -21,11 +23,18 @@ const Registration = () => {
       rPassword: rPassword
     };
 
-    API.post(`/auth/saveUser`, user).then(res => {
-      console.log(res);
-    });
+    API.post(`/auth/saveUser`, user)
+      .then(res => {
+        if (res.data.isUserExist) {
+          return ToastsStore.error("Account already exist in database");
+        }
 
-    event.preventDefault();
+        return ToastsStore.success("Account has been created !");
+      })
+      .catch(err => {
+        console.error(err);
+        ToastsStore.error("Failed !");
+      });
   };
 
   return (
@@ -53,6 +62,7 @@ const Registration = () => {
           type="text"
           name="pseudo"
           placeholder="Pseudo"
+          pattern="[0-9a-zA-Z]{3,}"
           required
           value={pseudo}
           onChange={e => setPseudo(e.target.value)}
@@ -69,11 +79,12 @@ const Registration = () => {
           type="password"
           name="password"
           placeholder="Password"
+          pattern="[0-9a-zA-Z]{10,}"
           required
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <label htmlFor="pseudo" className="form__label">
+        <label htmlFor="password" className="form__label">
           Password
         </label>
       </div>
@@ -86,6 +97,7 @@ const Registration = () => {
           name="password"
           placeholder="Re-type password"
           required
+          pattern="[0-9a-zA-Z]{10,}"
           value={rPassword}
           onChange={e => setRPassword(e.target.value)}
         />
@@ -94,8 +106,19 @@ const Registration = () => {
         </label>
       </div>
 
+      <div className="block">
+        <Link to={APP_ROUTES.SIGNUP}>
+          <span className="link "> Sign in?</span>
+        </Link>
+      </div>
+
+      <div className="block">
+        <Link to={APP_ROUTES.FORGETPASSWORD}>
+          <span className="link ">Password forgot?</span>
+        </Link>
+      </div>
+
       <input type="submit" value="Sign up" />
-      {/* <Button label="SIGN UP" btnColor="primary"></Button> */}
     </form>
   );
 };
