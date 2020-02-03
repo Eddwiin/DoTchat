@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "@/components/shared/button";
+// import Button from "@/components/shared/button";
 import API from "@/utils/api";
 
 const Registration = () => {
@@ -20,10 +20,11 @@ const Registration = () => {
       password: password,
       rPassword: rPassword
     };
-    API.post(`auth/saveUser`, { user }).then(res => {
+
+    API.post(`/auth/saveUser`, user).then(res => {
       console.log(res);
     });
-    console.log("save 1");
+
     event.preventDefault();
   };
 
@@ -93,9 +94,8 @@ const Registration = () => {
         </label>
       </div>
 
-      <div>
-        <Button label="SIGN UP" btnColor="primary"></Button>
-      </div>
+      <input type="submit" value="Sign up" />
+      {/* <Button label="SIGN UP" btnColor="primary"></Button> */}
     </form>
   );
 };

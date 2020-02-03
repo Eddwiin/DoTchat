@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@/components/shared/button";
 import { Link } from "react-router-dom";
 import APP_ROUTES from "../../utils/route-config";
-import API from "@/utils/api";
+// import API from "@/utils/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");

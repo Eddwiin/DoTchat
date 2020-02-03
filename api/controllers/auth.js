@@ -46,6 +46,7 @@ AuthController.isAuth = (req, res) => {
 };
 
 AuthController.saveUser = (req, res) => {
+  console.log(validationResult(req));
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -65,9 +66,8 @@ AuthController.saveUser = (req, res) => {
       done => {
         const user = new User({
           _id: ObjectId(),
-          lastName: req.body.lastName,
-          firstName: req.body.firstName,
           email: req.body.email,
+          pseudo: req.body.pseudo,
           password: req.body.password
         });
 
