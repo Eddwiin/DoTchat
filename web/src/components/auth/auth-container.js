@@ -3,9 +3,11 @@ import Button from "@/components/shared/button";
 
 import "@scss/components/auth/auth-container.scss";
 import APP_ROUTES from "../../utils/route-config";
-import AuthRouter from "./auth-router";
+import { updateMenu } from "@/redux/actions/auth-menu";
 
-const AuthContainer = props => {
+// import AuthRouter from "./auth-router";
+
+const AuthContainer = ({ dispatch }) => {
   return (
     <div>
       <div className="view-index">
@@ -20,7 +22,8 @@ const AuthContainer = props => {
         </div>
       </div>
 
-      <AuthRouter {...props}></AuthRouter>
+      <div>{dispatch(updateMenu())}</div>
+      {/* <AuthRouter {...props}></AuthRouter> */}
     </div>
   );
 };
