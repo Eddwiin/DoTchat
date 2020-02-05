@@ -1,0 +1,12 @@
+.navbar {
+  // background-color: red;
+  height: 7vh;
+
+  &__content {
+    padding: 2rem 5rem;
+
+    &__name {
+      font-size: 15px;
+    }
+  }
+}

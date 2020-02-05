@@ -1,7 +1,7 @@
 import { SHOW_VIEW } from "@/redux/constants/auth-menu";
 const initalState = "";
 
-const authMenuReducer = (state = initalState, action) => {
+export const authMenuReducer = (state = initalState, action) => {
   switch (action.type) {
     case SHOW_VIEW:
       return;
@@ -9,5 +9,3 @@ const authMenuReducer = (state = initalState, action) => {
       return state;
   }
 };
-
-export default authMenuReducer;

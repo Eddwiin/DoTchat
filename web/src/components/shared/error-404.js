@@ -1,5 +1,4 @@
 import React from "react";
-import "@scss/components/shared/error-404.scss";
 
 const Error404 = () => (
   <div className="error">

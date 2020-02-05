@@ -12,6 +12,7 @@ import rootReducer from "@/redux/reducers";
 import { createStore } from "redux";
 
 const AuthContainer = lazy(() => import("./auth/auth-container"));
+const HomeContainer = lazy(() => import("./chat/home-container"));
 const Error404 = lazy(() => import("./shared/error-404"));
 
 const store = createStore(rootReducer);
@@ -23,6 +24,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/auth" />}></Route>
           <Route path={APP_ROUTES.AUTH} component={AuthContainer}></Route>
+          <Route path={APP_ROUTES.HOME} component={HomeContainer}></Route>
           <Route component={Error404}></Route>
         </Switch>
       </Suspense>

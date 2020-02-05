@@ -1,6 +1,5 @@
 import React, { lazy } from "react";
 import APP_ROUTES from "../../utils/route-config";
-import "@scss/components/auth/auth-router.scss";
 import { Route } from "react-router-dom";
 
 const Login = lazy(() => import("@/components/auth/login"));
