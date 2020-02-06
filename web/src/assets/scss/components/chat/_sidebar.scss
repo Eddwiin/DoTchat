@@ -2,5 +2,10 @@
   display: table-cell;
   width: 33.333333%;
   height: 100vh;
-  // background-color: rgba($color-primary, .8);
+  background-color: rgba($color-primary, 0.8);
+
+  &__content {
+    &__autocomplete {
+    }
+  }
 }
