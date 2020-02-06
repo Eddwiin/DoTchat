@@ -1,0 +1,23 @@
+.card {
+  &__content {
+    &__avatar {
+    }
+
+    &__pseudo {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    &__date {
+      font-size: 1rem;
+      color: white;
+    }
+
+    &__last-message {
+    }
+  }
+}
+
+.card:not(:last-child) {
+  border: 1px solid black;
+}
