@@ -1,12 +1,14 @@
 import React from "react";
-import Sidebar from "./sidebar";
-import Conversation from "./conversation";
+import Navbar from "./navbar";
+
+const style = {
+  display: "grid"
+};
 
 const HomeContainer = () => {
   return (
-    <div className="home-container">
-      <Sidebar></Sidebar>
-      <Conversation></Conversation>
+    <div style={style}>
+      <Navbar></Navbar>
     </div>
   );
 };

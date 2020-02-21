@@ -1,7 +1,8 @@
 import React from "react";
-import Button from "@/components/shared/button";
+import { Button } from "@/components/shared";
 import APP_ROUTES from "../../utils/route-config";
 import AuthRouter from "./auth-router";
+import "./auth-container.scss";
 
 const AuthContainer = props => {
   return (

@@ -1,13 +1,12 @@
 import React from "react";
 
+const style = {
+  backgroundColor: "red",
+  height: "5vh"
+};
+
 const Navbar = () => {
-  return (
-    <nav className="navbar">
-      <div className="navbar__content">
-        <div className="navbar__content__name">Pseudo</div>
-      </div>
-    </nav>
-  );
+  return <nav style={style}></nav>;
 };
 
 export default Navbar;

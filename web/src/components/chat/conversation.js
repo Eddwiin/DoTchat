@@ -6,9 +6,11 @@ import React from "react";
 const Conversation = () => {
   return (
     <div className="conversation">
-      {/* <Navbar></Navbar>
-      <Message></Message>
-      <WriteText></WriteText> */}
+      {/* 
+        <Navbar></Navbar>
+        <Message></Message>
+        <WriteText></WriteText>
+       */}
     </div>
   );
 };

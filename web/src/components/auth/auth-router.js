@@ -2,10 +2,16 @@ import React, { lazy } from "react";
 import APP_ROUTES from "../../utils/route-config";
 import { Route } from "react-router-dom";
 
-const Login = lazy(() => import("@/components/auth/login"));
-const Registration = lazy(() => import("@/components/auth/registration"));
-const ForgetPassword = lazy(() => import("@/components/auth/forget-password"));
-const ResetPassword = lazy(() => import("@/components/auth/reset-password"));
+const Login = lazy(() => import("@/components/auth/login/login"));
+const Registration = lazy(() =>
+  import("@/components/auth/registration/registration")
+);
+const ForgetPassword = lazy(() =>
+  import("@/components/auth/forget-password/forget-password")
+);
+const ResetPassword = lazy(() =>
+  import("@/components/auth/reset-password/reset-password")
+);
 
 const AuthRouter = props => {
   return (

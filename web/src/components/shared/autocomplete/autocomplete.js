@@ -46,5 +46,4 @@ const Autocomplete = props => {
   );
 };
 
-export default Autocomplete;
-export { AutocompleteContext };
+export { Autocomplete, AutocompleteContext };

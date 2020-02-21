@@ -13,7 +13,7 @@ import { createStore } from "redux";
 
 const AuthContainer = lazy(() => import("./auth/auth-container"));
 const HomeContainer = lazy(() => import("./chat/home-container"));
-const Error404 = lazy(() => import("./shared/error-404"));
+const Error404 = lazy(() => import("./utils/error404/error-404"));
 
 const store = createStore(rootReducer);
 
