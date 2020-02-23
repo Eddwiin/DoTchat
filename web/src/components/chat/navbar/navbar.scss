@@ -1,0 +1,44 @@
+@import "./../../../assets/scss/abstracts/variables";
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  grid-row-start: 1;
+  grid-column: 1 / -1;
+  background-color: $color-primary;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  z-index: 9999;
+
+  &__title {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  &__menu {
+    &__logout {
+      &,
+      &:link,
+      &:visited {
+        text-decoration: none;
+        cursor: pointer;
+        color: white;
+        font-size: 1.5rem;
+        border: 0.5px solid black;
+        padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+        border-radius: 0.5rem;
+      }
+
+      &:hover {
+        border: 2px solid white;
+        background-color: white;
+        color: black;
+        transform: translateY(-0.5rem);
+        box-shadow: 0 0.5rem 10px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
