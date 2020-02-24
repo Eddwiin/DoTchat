@@ -1,5 +1,20 @@
+@import "./../../../assets/scss/abstracts/variables";
+
 .write-text {
-  background-color: orange;
   grid-row-start: 3;
   grid-column-start: 2;
+  background-color: rgba(#d9d8d8, 0.7);
+  box-shadow: 0 0.5rem 10px rgba(0, 0, 0, 0.2);
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    &__send {
+      cursor: pointer;
+      margin-left: 2rem;
+    }
+  }
 }

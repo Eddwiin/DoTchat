@@ -12,6 +12,41 @@ const Conversation = () => {
       <div className="conversation__secondary">
         <Message color="secondary" />
       </div>
+
+      <div className="conversation__primary">
+        <Message />
+      </div>
+      <div className="conversation__secondary">
+        <Message color="secondary" />
+      </div>
+
+      <div className="conversation__primary">
+        <Message />
+      </div>
+      <div className="conversation__secondary">
+        <Message color="secondary" />
+      </div>
+
+      <div className="conversation__primary">
+        <Message />
+      </div>
+      <div className="conversation__secondary">
+        <Message color="secondary" />
+      </div>
+
+      <div className="conversation__primary">
+        <Message />
+      </div>
+      <div className="conversation__secondary">
+        <Message color="secondary" />
+      </div>
+
+      <div className="conversation__primary">
+        <Message />
+      </div>
+      <div className="conversation__secondary">
+        <Message color="secondary" />
+      </div>
     </div>
   );
 };

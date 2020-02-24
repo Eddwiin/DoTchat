@@ -1,13 +1,14 @@
 @import "./../../../assets/scss/abstracts/variables";
 
 .navbar {
-  position: fixed;
   width: 100%;
   grid-row-start: 1;
+  grid-row-end: 2;
   grid-column: 1 / -1;
   background-color: $color-primary;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   z-index: 9999;
 
