@@ -1,7 +1,7 @@
 import React from "react";
 import "./sidebar.scss";
 import { Autocomplete } from "@/components/shared";
-// import { Card } from "@/components/shared";
+import { Card } from "@/components/shared";
 
 const Sidebar = () => {
   return (
@@ -13,6 +13,10 @@ const Sidebar = () => {
       </div>
 
       <div className="sidebar__recents">Récents</div>
+
+      <div>
+        <Card />
+      </div>
     </div>
   );
 };

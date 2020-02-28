@@ -7,11 +7,16 @@ const Button = ({
   label = "",
   path = "",
   btnColor = "light",
-  isAnimate = false
+  isAnimate = false,
+  onClick
 }) => {
   const animationClass = isAnimate ? "btn--animated" : "";
   return (
-    <Link to={path} className={"btn btn--" + btnColor + " " + animationClass}>
+    <Link
+      to={path}
+      className={"btn btn--" + btnColor + " " + animationClass}
+      onClick={onClick}
+    >
       {label}
     </Link>
   );
@@ -21,7 +26,8 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   path: PropTypes.string,
   btnColor: PropTypes.string,
-  isAnimate: PropTypes.bool
+  isAnimate: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export { Button };

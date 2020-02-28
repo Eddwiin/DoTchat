@@ -1,26 +1,25 @@
 import React from "react";
+import avatar from "@/assets/images/avatar-empty.png";
 import "./card.scss";
 
 const Card = () => {
   return (
     <div className="card">
       <div className="card__content">
-        {/* <div className="card__content__avatar">...</div> */}
-        <div className="card__content__pseudo">Eddwiin</div>
-        <div className="card__content__date">05/2020</div>
-        <div className="card__content__last-message">
-          {/* Lorem Ipsum is simply dummy text of the printing 
-          and typesetting industry. Lorem Ipsum has been the
-          industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has 
-          survived not only five centuries, but also the leap 
-          into electronic typesetting, remaining essentially 
-          unchanged. It was popularised in the 1960s with the 
-          release of Letraset sheets containing Lorem Ipsum 
-          passages, and more recently with desktop publishing 
-          software like Aldus PageMaker including versions of 
-          Lorem Ipsum. */}
+        <img className="card__content__avatar" src={avatar} alt="avatar" />
+        <div className="card__content__row1">
+          <div className="card__content__pseudo">Pseudo</div>
+          <div className="card__content__date">Date</div>
+        </div>
+        <div className="card__content__row2">
+          <div className="card__content__last-message">
+            Alii summum decus in carruchis solito altioribus et ambitioso
+            vestium cultu ponentes sudant sub ponderibus lacernarum, quas in
+            collis insertas cingulis ipsis adnectunt nimia subtegminum tenuitate
+            perflabiles, expandentes eas crebris agitationibus maximeque
+            sinistra, ut longiores fimbriae tunicaeque perspicue luceant
+            varietate liciorum effigiatae in species animalium multiformes.
+          </div>
         </div>
       </div>
     </div>
