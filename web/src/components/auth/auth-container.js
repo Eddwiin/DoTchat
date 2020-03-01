@@ -1,6 +1,7 @@
 import React, { lazy, useState } from "react";
 import { Button } from "@/components/shared";
 import "./auth-container.scss";
+import APP_ROUTES from "../../utils/route-config";
 
 const Login = lazy(() => import("./login/login"));
 const Registration = lazy(() => import("./registration/registration"));
@@ -31,8 +32,14 @@ const AuthContainer = props => {
     }
   };
 
+  const handleSubmit = event => {
+    props.history.push(APP_ROUTES.SIGNIN);
+    setOpenLayout(true);
+  };
+
   const closeLayout = () => {
-    props.history.push("");
+    props.history.push(APP_ROUTES.AUTH);
+    setOpenLayout(false);
     loadComponent();
   };
 
@@ -46,9 +53,9 @@ const AuthContainer = props => {
           </span>
         </h1>
         <Button
-          onClick={() => setOpenLayout(true)}
-          label="SIGN IN"
-          path="#sign-in"
+          onClick={handleSubmit}
+          label="Start now"
+          color="light"
           isAnimate={true}
         />
       </div>

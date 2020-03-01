@@ -71,5 +71,58 @@
         cursor: pointer;
       }
     }
+
+    &__sign-in,
+    &__reset-password {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-gap: 4rem;
+      padding-top: 8rem;
+    }
+
+    &__sign-up {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      grid-gap: 4rem;
+      padding-top: 8rem;
+    }
+
+    &__forget-password {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      grid-gap: 4rem;
+      padding-top: 8rem;
+    }
+
+    &__sign-in,
+    &__sign-up,
+    &__forget-password,
+    &__reset-password {
+      &__title {
+        font-size: 4.2rem;
+        font-weight: bold;
+        padding-left: 4rem;
+        font-family: Poppins-Bold, sans-serif;
+      }
+
+      &__link {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 3rem;
+
+        & > span {
+          font-size: 1.5rem;
+          font-family: Poppins-Regular, sans-serif;
+        }
+      }
+
+      &__submit {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 }

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
-// import Button from "@/components/shared/button";
-import { Link } from "react-router-dom";
-
-const btnPosition = {
-  marginLeft: "10rem",
-  marginTop: "2rem"
-};
+import { FormGroup, LinkTo, Button } from "@/components/shared";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -17,49 +11,95 @@ const ResetPassword = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form__group">
-        <input
-          id="password"
-          className="form__input"
-          type="password"
+    <form
+      className="view-index__layout__reset-password"
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <h1 className="view-index__layout__reset-password__title">Reset</h1>
+
+      <div className="p-3">
+        <FormGroup
+          label="Password"
           name="password"
-          placeholder="Password"
-          required
+          type="password"
+          placeholder="Retype your password"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <label htmlFor="password" className="form__label">
-          Password
-        </label>
       </div>
 
-      <div className="form__group">
-        <input
-          id="rPassword"
-          className="form__input"
-          type="password"
+      <div className="p-3">
+        <FormGroup
+          label="Retype password"
           name="rPassword"
-          placeholder="Re-type password"
-          required
+          type="password"
+          placeholder="Retype your password"
           value={rPassword}
           onChange={e => setRPassword(e.target.value)}
         />
-        <label htmlFor="rPassword" className="form__label">
-          Re-type password
-        </label>
       </div>
 
-      <div className="block">
-        <Link to={APP_ROUTES.SIGNIN}>
-          <span className="link "> Sign in?</span>
-        </Link>
+      <div className="view-index__layout__reset-password__link p-3">
+        <LinkTo redirect={APP_ROUTES.SIGNIN}>
+          <span> Sign in</span>
+        </LinkTo>
+
+        <LinkTo redirect={APP_ROUTES.SIGNUP}>
+          <span>Sign up</span>
+        </LinkTo>
       </div>
 
-      <div style={btnPosition}>
-        {/* <Button label="RESET" btnColor="primary"></Button> */}
+      <div className="view-index__layout__reset-password__submit">
+        <Button label="Reset" width="w-65" isAnimate={true} />
       </div>
     </form>
+
+    // <form className="form" onSubmit={handleSubmit}>
+    //   <div className="form__group">
+    //     <input
+    //       id="password"
+    //       className="form__input"
+    //       type="password"
+    //       name="password"
+    //       placeholder="Password"
+    //       required
+    //       value={password}
+    //       onChange={e => setPassword(e.target.value)}
+    //     />
+    //     <label htmlFor="password" className="form__label">
+    //       Password
+    //     </label>
+    //   </div>
+
+    //   <div className="form__group">
+    //     <input
+    //       id="rPassword"
+    //       className="form__input"
+    //       type="password"
+    //       name="rPassword"
+    //       placeholder="Re-type password"
+    //       required
+    //       value={rPassword}
+    //       onChange={e => setRPassword(e.target.value)}
+    //     />
+    //     <label htmlFor="rPassword" className="form__label">
+    //       Re-type password
+    //     </label>
+    //   </div>
+
+    //   <div className="block">
+    //     <Link to={APP_ROUTES.SIGNIN}>
+    //       <span className="link "> Sign in?</span>
+    //     </Link>
+    //   </div>
+
+    //   <div style={btnPosition}>
+    //     {/* <Button label="RESET" btnColor="primary"></Button> */}
+    //   </div>
+    // </form>
   );
 };
 

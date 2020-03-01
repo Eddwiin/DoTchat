@@ -1,64 +1,66 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import APP_ROUTES from "../../../utils/route-config";
-import API from "@/utils/api";
-import { ToastsStore } from "react-toasts";
+import { FormGroup, LinkTo, Button } from "@/components/shared";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [urlToReset, setUrlToReset] = useState("");
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    API.get(`/auth/forgotPassword?email=${email}`).then(res => {
-      if (res.status === 201) {
-        return ToastsStore.error(res.data.message);
-      }
-      setUrlToReset(res.data.urlToReset);
-    });
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   API.get(`/auth/forgotPassword?email=${email}`).then(res => {
+  //     if (res.status === 201) {
+  //       return ToastsStore.error(res.data.message);
+  //     }
+  //     setUrlToReset(res.data.urlToReset);
+  //   });
+  // };
+
+  const handleSubmit = () => {
+    setUrlToReset("");
   };
 
   return (
-    <div>
+    <form
+      className="view-index__layout__forget-password"
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <h1 className="view-index__layout__forget-password__title">Forget</h1>
+
       {() => {
         if (urlToReset) {
           return <div>Reset on this url: {urlToReset}</div>;
         }
       }}
 
-      <div>{urlToReset}</div>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form__group">
-          <input
-            type="email"
-            className="form__input"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-        </div>
+      <div className="p-3">
+        <FormGroup
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="Type your email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+      </div>
 
-        <div className="block">
-          <Link to={APP_ROUTES.SIGNIN}>
-            <span className="link ">Sign in?</span>
-          </Link>
-        </div>
+      <div className="view-index__layout__forget-password__link p-3">
+        <LinkTo redirect={APP_ROUTES.SIGNIN}>
+          <span> Sign in</span>
+        </LinkTo>
 
-        <div className="block">
-          <Link to={APP_ROUTES.SIGNUP}>
-            <span className="link ">Sign up?</span>
-          </Link>
-        </div>
+        <LinkTo redirect={APP_ROUTES.SIGNUP}>
+          <span>Sign up</span>
+        </LinkTo>
+      </div>
 
-        <input type="submit" value="Send" />
-
-        {/* <div style={btnPosition}>
-          <Button label="SEND" btnColor="primary"></Button>
-        </div> */}
-      </form>
-    </div>
+      <div className="view-index__layout__forget-password__submit">
+        <Button label="Send email" width="w-65" isAnimate={true} />
+      </div>
+    </form>
   );
 };
 

@@ -1,33 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import "./button.scss";
 
 const Button = ({
-  label = "",
-  path = "",
-  btnColor = "light",
+  label,
+  color = "primary",
+  type = "submit",
   isAnimate = false,
-  onClick
+  onClick,
+  width = ""
 }) => {
   const animationClass = isAnimate ? "btn--animated" : "";
+
   return (
-    <Link
-      to={path}
-      className={"btn btn--" + btnColor + " " + animationClass}
-      onClick={() => onClick(true)}
+    <button
+      className={"btn btn--" + color + " " + animationClass + " " + width}
+      type={type}
+      onClick={onClick}
     >
       {label}
-    </Link>
+    </button>
   );
 };
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,
-  path: PropTypes.string,
-  btnColor: PropTypes.string,
+  color: PropTypes.string,
+  type: PropTypes.string,
   isAnimate: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  width: PropTypes.string
 };
 
 export { Button };

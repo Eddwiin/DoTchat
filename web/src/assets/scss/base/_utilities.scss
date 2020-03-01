@@ -4,6 +4,11 @@
 .w-50 {
   width: 50% !important;
 }
+
+.w-65 {
+  width: 65% !important;
+}
+
 .w-75 {
   width: 75% !important;
 }
@@ -32,4 +37,8 @@
   font-size: 1.5rem;
   color: $color-primary;
   text-decoration: none;
+}
+
+.p-3 {
+  padding-left: 3rem !important;
 }

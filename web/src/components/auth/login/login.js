@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
-import { FormGroup, LinkTo } from "@/components/shared";
-import "./login.scss";
+import { FormGroup, LinkTo, Button } from "@/components/shared";
 // import API from "@/utils/api";
 
 const Login = () => {
@@ -14,15 +13,15 @@ const Login = () => {
 
   return (
     <form
-      className="sign-in"
+      className="view-index__layout__sign-in"
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <h1 className="sign-in__title">Sign in</h1>
+      <h1 className="view-index__layout__sign-in__title">Sign in</h1>
 
-      <div className="sign-in__email">
+      <div className="p-3">
         <FormGroup
           label="Email"
           name="email"
@@ -33,7 +32,7 @@ const Login = () => {
         />
       </div>
 
-      <div className="sign-in__password">
+      <div className="p-3">
         <FormGroup
           label="Password"
           name="password"
@@ -44,22 +43,18 @@ const Login = () => {
         />
       </div>
 
-      <div className="sign-in__link">
+      <div className="view-index__layout__sign-in__link p-3">
         <LinkTo redirect={APP_ROUTES.SIGNUP}>
-          <span className="sign-in__link__sign-up "> Sign up</span>
+          <span> Sign up</span>
         </LinkTo>
 
-        <LinkTo redirect={APP_ROUTES.SIGNUP}>
-          <span className="sign-in__link__forget-password">
-            Forget password
-          </span>
+        <LinkTo redirect={APP_ROUTES.FORGETPASSWORD}>
+          <span>Forget password</span>
         </LinkTo>
       </div>
 
-      <div className="sign-in__submit">
-        <button className="btn btn--primary" type="submit">
-          Sign in
-        </button>
+      <div className="view-index__layout__sign-in__submit">
+        <Button label="Sign in" width="w-65" isAnimate={true} />
       </div>
     </form>
   );

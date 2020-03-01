@@ -1,14 +1,38 @@
 @import "./../../../assets/scss/abstracts/variables";
 
 .btn {
+  &,
   &:link,
   &:visited {
-    position: relative;
+    text-transform: uppercase;
     text-decoration: none;
+    padding: 1.5rem 4rem;
     display: inline-block;
-    font-size: 1.9rem;
-    padding: 1rem 4rem;
     border-radius: 10rem;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 20px;
+
+    //Change for the <button> element
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(black, 0.2);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
   }
 
   &--primary {
@@ -18,17 +42,7 @@
 
   &--light {
     background-color: #fff;
-    color: #777;
-  }
-
-  &:hover {
-    transform: translateY(-0.5rem);
-    box-shadow: 0 0.5rem 10px rgba(0, 0, 0, 0.2);
-  }
-
-  &--animated {
-    animation: moveInTop 0.5s ease-out 0.75s;
-    animation-fill-mode: backwards;
+    color: $color-secondary;
   }
 
   &::after {
@@ -36,16 +50,16 @@
     display: inline-block;
     height: 100%;
     width: 100%;
+    border-radius: 10rem;
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 10rem;
-    transition: all 0.4s;
     z-index: -1;
+    transition: all 0.4s;
   }
 
-  &:hover::after {
-    transform: scaleX(1.5) scaleY(1.5);
-    opacity: 0;
+  &--animated {
+    animation: moveInTop 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards;
   }
 }
