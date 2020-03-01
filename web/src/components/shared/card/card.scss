@@ -1,34 +1,65 @@
 .card {
   &__content {
-    &__row1 {
-      display: flex;
-      justify-content: space-around;
-    }
-
-    &__row2 {
-      // display: flex;
-      // justify-content: center;
-      padding: 1.4rem 9.4rem;
-    }
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 2fr repeat(2, 1fr);
+    cursor: pointer;
 
     &__avatar {
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column: 1;
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
-      float: left;
+      margin-right: 1rem;
     }
 
     &__pseudo {
+      grid-row: 1;
+      grid-column: 2;
     }
 
     &__date {
+      grid-row: 1;
+      grid-column: 3;
     }
 
     &__last-message {
-      white-space: nowrap;
-      width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      grid-row: 2;
+      grid-column: 2 / span 3;
     }
   }
+  // &__content {
+  //   &__row1 {
+  //     display: flex;
+  //     justify-content: space-around;
+  //   }
+
+  //   &__row2 {
+  //     // display: flex;
+  //     // justify-content: center;
+  //     padding: 1.4rem 9.4rem;
+  //   }
+
+  //   &__avatar {
+  //     width: 5rem;
+  //     height: 5rem;
+  //     border-radius: 50%;
+  //     float: left;
+  //   }
+
+  //   &__pseudo {
+  //   }
+
+  //   &__date {
+  //   }
+
+  //   &__last-message {
+  //     white-space: nowrap;
+  //     width: 100px;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //   }
+  // }
 }

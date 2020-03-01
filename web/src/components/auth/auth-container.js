@@ -1,4 +1,4 @@
-import React, { lazy, useState } from "react";
+import React, { lazy, useState, useEffect } from "react";
 import { Button } from "@/components/shared";
 import "./auth-container.scss";
 import APP_ROUTES from "../../utils/route-config";
@@ -9,7 +9,7 @@ const ForgetPassword = lazy(() => import("./forget-password/forget-password"));
 const ResetPassword = lazy(() => import("./reset-password/reset-password"));
 
 const AuthContainer = props => {
-  const [openLayout, setOpenLayout] = useState(false);
+  const [isOpenLayout, setIsOpenLayout] = useState(false);
 
   const loadComponent = () => {
     const { hash } = window.location;
@@ -28,18 +28,24 @@ const AuthContainer = props => {
         return <ResetPassword></ResetPassword>;
 
       default:
-        return setOpenLayout(false);
+        return setIsOpenLayout(false);
     }
   };
 
-  const handleSubmit = event => {
+  useEffect(() => {
+    const { hash } = window.location;
+    setIsOpenLayout(!!hash);
+    loadComponent();
+  }, []);
+
+  const openLayout = event => {
     props.history.push(APP_ROUTES.SIGNIN);
-    setOpenLayout(true);
+    setIsOpenLayout(true);
   };
 
   const closeLayout = () => {
     props.history.push(APP_ROUTES.AUTH);
-    setOpenLayout(false);
+    setIsOpenLayout(false);
     loadComponent();
   };
 
@@ -53,14 +59,14 @@ const AuthContainer = props => {
           </span>
         </h1>
         <Button
-          onClick={handleSubmit}
+          onClick={openLayout}
           label="Start now"
           color="light"
           isAnimate={true}
         />
       </div>
 
-      {openLayout && (
+      {isOpenLayout && (
         <div className="view-index__layout">
           <span onClick={closeLayout} className="view-index__layout__close">
             &times;
