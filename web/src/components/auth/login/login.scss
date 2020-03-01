@@ -1,0 +1,14 @@
+@import "./../../../assets/scss/abstracts/variables";
+
+.sign-in {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 3rem;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    font-size: 3.2rem;
+  }
+}

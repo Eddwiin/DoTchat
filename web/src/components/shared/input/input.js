@@ -4,24 +4,32 @@ import "./input.scss";
 
 const Input = ({
   type = "text",
+  label = "",
   placeholder = "",
+  name = "",
+  value,
+  onChange,
   width = "w-85",
   minWidth = "mw-85"
 }) => {
   return (
-    // <div className="input">
     <input
       type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
       placeholder={placeholder}
-      className={width + " " + minWidth}
+      className={"input " + width + " " + minWidth}
     />
-    // </div>
   );
 };
 
 Input.propType = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.any,
+  onChange: PropTypes.func,
   width: PropTypes.string,
   minWidth: PropTypes.string
 };

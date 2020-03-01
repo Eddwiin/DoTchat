@@ -15,7 +15,7 @@ const Button = ({
     <Link
       to={path}
       className={"btn btn--" + btnColor + " " + animationClass}
-      onClick={onClick}
+      onClick={() => onClick(true)}
     >
       {label}
     </Link>

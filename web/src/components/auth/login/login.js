@@ -1,61 +1,53 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import APP_ROUTES from "../../../utils/route-config";
+import { FormGroup } from "@/components/shared";
+import { Link } from "react-router-dom";
+import "./login.scss";
 // import API from "@/utils/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = event => {
-    event.preventDefault();
-  };
+  const handleSubmit = () => {};
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="form__group">
-        <input
-          id="email"
-          className="form__input w-75"
+    <form
+      className="sign-in"
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
+      <h1 className="sign-in__title">Sign in</h1>
+
+      <div className="sign-in__email">
+        <FormGroup
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder="Type your email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          required
         />
-        <label htmlFor="id" className="form__label">
-          Email
-        </label>
       </div>
 
-      <div className="form__group">
-        <input
-          id="password"
-          className="form__input w-75"
-          type="password"
+      <div className="sign-in__password">
+        <FormGroup
           name="password"
-          placeholder="Password"
+          type="password"
+          placeholder="Type your password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          required
         />
-        <label htmlFor="password" className="form__label">
-          Password
-        </label>
       </div>
 
-      <div className="block">
-        <Link to={APP_ROUTES.SIGNUP}>
-          <span className="link "> Sign up?</span>
-        </Link>
-      </div>
+      <Link to={APP_ROUTES.SIGNUP}>
+        <span className="link "> Sign up?</span>
+      </Link>
 
-      <div className="block">
-        <Link to={APP_ROUTES.FORGETPASSWORD}>
-          <span className="link ">Password forgot?</span>
-        </Link>
-      </div>
+      <Link to={APP_ROUTES.SIGNUP}>
+        <span className="link "> Sign up?</span>
+      </Link>
 
       <input type="submit" value="Sign in" />
     </form>

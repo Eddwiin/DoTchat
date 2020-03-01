@@ -1,14 +1,40 @@
-import React, { useState } from "react";
+import React, { lazy, useState } from "react";
 import { Button } from "@/components/shared";
 // import AuthRouter from "./auth-router";
 import "./auth-container.scss";
 
+const Login = lazy(() => import("./login/login"));
+const Registration = lazy(() => import("./registration/registration"));
+const ForgetPassword = lazy(() => import("./forget-password/forget-password"));
+const ResetPassword = lazy(() => import("./reset-password/reset-password"));
+
 const AuthContainer = props => {
   const [openLayout, setOpenLayout] = useState(false);
 
-  setTimeout(() => {
-    console.log("test", openLayout);
-  }, 2000);
+  const handleButtonClick = isClick => {
+    setOpenLayout(!openLayout);
+  };
+
+  const loadComponent = () => {
+    const { hash } = window.location;
+
+    switch (hash) {
+      case "#sign-in":
+        return <Login></Login>;
+
+      case "#sign-up":
+        return <Registration></Registration>;
+
+      case "#forget-password":
+        return <ForgetPassword></ForgetPassword>;
+
+      case "#reset-password":
+        return <ResetPassword></ResetPassword>;
+
+      default:
+        setOpenLayout(false);
+    }
+  };
 
   return (
     <div className="view-index">
@@ -19,10 +45,17 @@ const AuthContainer = props => {
             Communicate with the world
           </span>
         </h1>
-        <Button label="SIGN IN" path="#sign-in" isAnimate={true} />
+        <Button
+          onClick={handleButtonClick}
+          label="SIGN IN"
+          path="#sign-in"
+          isAnimate={true}
+        />
       </div>
 
-      <div className="view-index__layout">Test</div>
+      {openLayout && (
+        <div className="view-index__layout">{loadComponent()}</div>
+      )}
     </div>
   );
 };
