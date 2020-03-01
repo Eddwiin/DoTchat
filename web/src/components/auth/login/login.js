@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
-import { FormGroup } from "@/components/shared";
-import { Link } from "react-router-dom";
+import { FormGroup, LinkTo } from "@/components/shared";
 import "./login.scss";
 // import API from "@/utils/api";
 
@@ -9,7 +8,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    console.log("form submit");
+  };
 
   return (
     <form
@@ -23,6 +24,7 @@ const Login = () => {
 
       <div className="sign-in__email">
         <FormGroup
+          label="Email"
           name="email"
           type="email"
           placeholder="Type your email"
@@ -33,6 +35,7 @@ const Login = () => {
 
       <div className="sign-in__password">
         <FormGroup
+          label="Password"
           name="password"
           type="password"
           placeholder="Type your password"
@@ -41,15 +44,23 @@ const Login = () => {
         />
       </div>
 
-      <Link to={APP_ROUTES.SIGNUP}>
-        <span className="link "> Sign up?</span>
-      </Link>
+      <div className="sign-in__link">
+        <LinkTo redirect={APP_ROUTES.SIGNUP}>
+          <span className="sign-in__link__sign-up "> Sign up</span>
+        </LinkTo>
 
-      <Link to={APP_ROUTES.SIGNUP}>
-        <span className="link "> Sign up?</span>
-      </Link>
+        <LinkTo redirect={APP_ROUTES.SIGNUP}>
+          <span className="sign-in__link__forget-password">
+            Forget password
+          </span>
+        </LinkTo>
+      </div>
 
-      <input type="submit" value="Sign in" />
+      <div className="sign-in__submit">
+        <button className="btn btn--primary" type="submit">
+          Sign in
+        </button>
+      </div>
     </form>
   );
 };

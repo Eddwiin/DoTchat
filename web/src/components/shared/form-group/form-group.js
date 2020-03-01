@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import "./form-group.scss";
 
 const FormGroup = ({
+  label,
   name = "",
   type = "text",
   placeholder = "",
   onChange,
   value,
-  required = "required"
+  required = "required",
+  width = "w-85"
 }) => {
   return (
     <div className="form-group">
       <input
-        className="form-group__input"
+        className={"form-group__input " + width}
         name={name}
         type={type}
         placeholder={placeholder}
@@ -21,18 +23,20 @@ const FormGroup = ({
         onChange={onChange}
         required={required}
       />
-      {/* <label>Email</label> */}
+      {label && <label className="form-group__label">{label}</label>}
     </div>
   );
 };
 
 FormGroup.propType = {
+  label: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any.isRequired,
-  required: PropTypes.string
+  required: PropTypes.string,
+  width: PropTypes.string
 };
 
 export { FormGroup };

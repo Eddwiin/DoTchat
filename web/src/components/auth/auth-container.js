@@ -1,6 +1,5 @@
 import React, { lazy, useState } from "react";
 import { Button } from "@/components/shared";
-// import AuthRouter from "./auth-router";
 import "./auth-container.scss";
 
 const Login = lazy(() => import("./login/login"));
@@ -10,10 +9,6 @@ const ResetPassword = lazy(() => import("./reset-password/reset-password"));
 
 const AuthContainer = props => {
   const [openLayout, setOpenLayout] = useState(false);
-
-  const handleButtonClick = isClick => {
-    setOpenLayout(!openLayout);
-  };
 
   const loadComponent = () => {
     const { hash } = window.location;
@@ -32,8 +27,13 @@ const AuthContainer = props => {
         return <ResetPassword></ResetPassword>;
 
       default:
-        setOpenLayout(false);
+        return setOpenLayout(false);
     }
+  };
+
+  const closeLayout = () => {
+    props.history.push("");
+    loadComponent();
   };
 
   return (
@@ -46,7 +46,7 @@ const AuthContainer = props => {
           </span>
         </h1>
         <Button
-          onClick={handleButtonClick}
+          onClick={() => setOpenLayout(true)}
           label="SIGN IN"
           path="#sign-in"
           isAnimate={true}
@@ -54,7 +54,12 @@ const AuthContainer = props => {
       </div>
 
       {openLayout && (
-        <div className="view-index__layout">{loadComponent()}</div>
+        <div className="view-index__layout">
+          <span onClick={closeLayout} className="view-index__layout__close">
+            &times;
+          </span>
+          {loadComponent()}
+        </div>
       )}
     </div>
   );

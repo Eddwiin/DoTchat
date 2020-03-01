@@ -1,16 +1,22 @@
 @import "./../../../assets/scss/abstracts/variables";
 
 .form-group {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+
   &__input {
+    display: block;
     border: none;
-    border-bottom: 2px solid #dbdbdb;
     padding: 1.2rem;
     font-size: 15px;
+    box-shadow: none;
 
     &:focus {
       outline: 0;
-      box-shadow: 0 1rem 2rem rgba(black, 0.1);
-      background: transparent;
     }
 
     &:valid {
@@ -20,5 +26,27 @@
     &:invalid {
       border-bottom: 3px solid $color-danger;
     }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    margin-top: -5.7rem;
+    display: block;
+    transition: all 0.3s;
+  }
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+  }
+
+  &__input:valid + &__label {
+    color: $color-primary;
+  }
+  &__input:invalid + &__label {
+    color: $color-danger;
   }
 }

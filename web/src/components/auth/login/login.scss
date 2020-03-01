@@ -4,11 +4,81 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  grid-gap: 3rem;
+  grid-gap: 5rem;
+  padding-top: 8rem;
 
   &__title {
+    font-size: 4.2rem;
+    font-weight: bold;
+    padding-left: 4rem;
+    font-family: Poppins-Bold, sans-serif;
+  }
+
+  &__email,
+  &__password,
+  &__link__sign-up,
+  &__link__forget-password {
+    padding-left: 3rem;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3rem;
+
+    &__sign-up,
+    &__forget-password {
+      font-size: 1.5rem;
+      font-family: Poppins-Regular, sans-serif;
+    }
+  }
+
+  &__submit {
     display: flex;
     justify-content: center;
-    font-size: 3.2rem;
+  }
+}
+
+.btn {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.9rem;
+  padding: 1rem 4rem;
+  border-radius: 10rem;
+  cursor: pointer;
+  width: 80%;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10rem;
+    transition: all 0.4s;
+    z-index: -1;
+  }
+
+  &:hover::after {
+    transform: scaleX(1.5) scaleY(1.5);
+    opacity: 0;
+  }
+
+  &--primary {
+    background-color: $color-primary;
+    color: white;
+  }
+
+  &--light {
+    background-color: #fff;
+    color: $color-secondary;
   }
 }
