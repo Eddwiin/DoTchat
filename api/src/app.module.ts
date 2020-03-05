@@ -1,3 +1,4 @@
+import { AppController } from './app.controller';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,5 +12,6 @@ import { UserModule } from './user/user.module';
     DatabaseModule,
     UserModule
   ],
+  controllers: [AppController]
 })
 export class AppModule {}
