@@ -1,3 +1,4 @@
+import { User } from './user.interface';
 import { UserSchema } from './user.schema';
 import { Connection } from 'mongoose';
 

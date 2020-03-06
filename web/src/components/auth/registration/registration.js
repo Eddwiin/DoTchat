@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import { Button, FormGroup, LinkTo } from "@/components/shared";
 import APP_ROUTES from "../../../utils/route-config";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { SHA256 } from 'crypto-js';
+import API from "@/utils/api";
 
 const Registration = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [pseudo, setPseudo] = useState("");
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
 
   const handleSubmit = () => {
-    console.log("form submit");
+    if (password !== rPassword) {
+      return ToastsStore.error("Passwords are not the same");
+    }
+
+    const user = {
+      username: username,
+      email: email,
+      password: SHA256(password).toString()
+    }
+
+    API.post("/auth/sign-up", { user: user}).then(res => {
+      console.log({ res });
+    })
   };
 
   return (
@@ -24,12 +39,11 @@ const Registration = () => {
 
       <div className="p-3">
         <FormGroup
-          label="Pseudo"
-          name="pseudo"
-          type="email"
-          placeholder="Type your pseudo"
-          value={pseudo}
-          onChange={e => setPseudo(e.target.value)}
+          label="Username"
+          name="username"
+          placeholder="Type your username"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
         />
       </div>
 
@@ -79,6 +93,8 @@ const Registration = () => {
       <div className="view-index__layout__sign-in__submit">
         <Button label="Sign up" width="w-65" />
       </div>
+
+      <ToastsContainer store={ToastsStore}/>
     </form>
   );
 };
