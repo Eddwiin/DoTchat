@@ -1,4 +1,4 @@
-import { Schema }from "mongoose";
+import { Schema } from 'mongoose';
 
 export const UserSchema = {
     name: 'User',
@@ -6,5 +6,7 @@ export const UserSchema = {
         username: String,
         email: String,
         password: String
-    })
+    }),
+    collection: 'User'
 }
+

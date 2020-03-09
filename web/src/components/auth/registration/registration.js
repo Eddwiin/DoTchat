@@ -5,7 +5,7 @@ import {ToastsContainer, ToastsStore} from 'react-toasts';
 import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";
 
-const Registration = () => {
+const Registration = ({ history }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,9 +22,17 @@ const Registration = () => {
       password: SHA256(password).toString()
     }
 
-    API.post("/auth/sign-up", { user: user}).then(res => {
-      console.log({ res });
-    })
+    API.post("/user/save", { user: user}).then(res => {
+      console.log(res);
+      if (res.status === 200) {
+        ToastsStore.success('User has been created', 4000);
+        return history.push(APP_ROUTES.SIGNIN);
+      } else if (res.status === 201 && res.data.message) {
+        return ToastsStore.error(res.data.message, 3000);
+      } else {
+        return ToastsStore.error('Error !', 3000); 
+      }
+    }).catch(console.error);
   };
 
   return (
