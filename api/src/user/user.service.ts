@@ -20,7 +20,23 @@ export class UserService {
         { email: email  }
       ]
     })
-   
+  }
+  
+  async findUserByEmail(email: string) {
+    return await this.userModel.findOne({
+      email: email
+    });
+    
   }
 
+  async addOrUpdateResetToken(email: string, token: string) {
+    return await this.userModel.findOneAndUpdate(
+      { email: email},
+      {
+        resetPasswordToken: token,
+        resetPasswordExpires: Date.now() + 3600000
+      }
+    )
+  }
+  
 }

@@ -5,7 +5,9 @@ export const UserSchema = {
     schema: new Schema({
         username: String,
         email: String,
-        password: String
+        password: String,
+        resetPasswordToken: String,
+        resetPasswordExpires: Date
     }),
     collection: 'User'
 }
