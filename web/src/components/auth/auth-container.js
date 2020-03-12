@@ -25,9 +25,11 @@ const AuthContainer = props => {
   };
 
   useEffect(() => {
-    const { hash } = window.location;
-    setIsOpenLayout(!!hash);
-    loadComponent();
+    const urlParse = window.location.pathname.split('/');
+    if (urlParse.length > 2) {
+      setIsOpenLayout(true);
+      loadComponent();
+    }    
   }, []);
 
   const openLayout = event => {

@@ -1,6 +1,7 @@
+import { AuthService } from './auth.service';
 import { UserModel } from './../user/interfaces/user.interface';
 import { UserService } from './../user/user.service';
-import { Controller, Get, Query, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Query, Res, HttpStatus, Put, Body} from '@nestjs/common';
 import { Response } from 'express';
 import { EmailService } from 'src/common/services/email.service';
 import { waterfall } from 'async';
@@ -10,8 +11,8 @@ import { randomBytes } from 'crypto';
 @Controller('auth')
 export class AuthController {
 
-    constructor(private userService: UserService, 
-                private emailService: EmailService) {}
+    constructor(private userService: UserService, private emailService: EmailService,
+                private authService: AuthService) {}
 
     @Get("/forget-password")
     async sendResetPasswordEmail(@Query('email') email: string, @Res() res: Response) {
@@ -61,5 +62,15 @@ export class AuthController {
             return res.status(err.status).json({ message: err.message});
         })
     }
+
+    // @Put("/reset-password")
+    // async updatePassword(@Body('token') token: string, @Body('newPassword') newPassword: string,
+    //                      @Res() res: Response) {
+    //     console.log(token, newPassword);
+    //     await this.authService.updatePassword(token, newPassword).then(val => {
+    //         return res.status(HttpStatus.OK).json(true);
+    //     })       
+        
+    // }
     
 }

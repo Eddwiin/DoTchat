@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import API from "@/utils/api";
 
-const ResetPassword = () => {
+const ResetPassword = (props) => {
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    if (password !== rPassword) {
+      return ToastsStore.error("Passwords are not the same");
+    }
+
+    API.put('/reset-password', {
+      token: props.match.params.token,
+      newPassword: password
+    }).then(console.log);
+
   };
 
   return (
@@ -55,6 +65,8 @@ const ResetPassword = () => {
       <div className="view-index__layout__reset-password__submit">
         <Button label="Reset" width="w-65" isAnimate={true} />
       </div>
+
+      <ToastsContainer store={ToastsStore}/>
     </form>
   );
 };

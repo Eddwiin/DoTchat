@@ -1,5 +1,5 @@
 import { UserModel } from './../../dist/users/user.interface.d';
-import { Controller, Post, Body, Res, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, Res, HttpStatus, Put  } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -11,7 +11,7 @@ export class UserController {
     
     constructor(private userService: UserService) {}
 
-    @Post('/save')
+    @Post()
     async save(@Body('user') user: CreateUserDto, @Res() res: Response) {
         let err: Error;
 
@@ -45,6 +45,4 @@ export class UserController {
             return res.status(err.status).json({ message: err.message})
         })
     }
-
-
 }

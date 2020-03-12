@@ -22,8 +22,7 @@ const Registration = ({ history }) => {
       password: SHA256(password).toString()
     }
 
-    API.post("/user/save", { user: user}).then(res => {
-      console.log(res);
+    API.post("/user", { user: user}).then(res => {
       if (res.status === 200) {
         ToastsStore.success('User has been created', 4000);
         return history.push(APP_ROUTES.SIGNIN);
