@@ -7,6 +7,7 @@ import { EmailService } from 'src/common/services/email.service';
 import { waterfall } from 'async';
 import { Error } from './../common/interfaces/error.interface';
 import { randomBytes } from 'crypto';
+import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -37,7 +38,7 @@ export class AuthController {
             },
 
             (userDoc: UserModel, token, done) => {
-                this.userService.addOrUpdateResetToken(userDoc.email, token)
+                this.userService.addResetToken(userDoc.email, token)
                     .then(newUser => {
                         done(err, newUser, token)
                     }).catch(error => {
@@ -63,14 +64,45 @@ export class AuthController {
         })
     }
 
-    // @Put("/reset-password")
-    // async updatePassword(@Body('token') token: string, @Body('newPassword') newPassword: string,
-    //                      @Res() res: Response) {
-    //     console.log(token, newPassword);
-    //     await this.authService.updatePassword(token, newPassword).then(val => {
-    //         return res.status(HttpStatus.OK).json(true);
-    //     })       
-        
-    // }
+  
+    @Put("/reset-password")
+    async resetPassword(@Body('updateUser') updateUser: UpdateUserDto, @Res() res: Response) {
+
+        let err: Error;
+
+        waterfall([
+            done => {
+                this.userService.findUserById(updateUser._id).then(user => {
+                    if (!user) {
+                        err = { status: HttpStatus.BAD_REQUEST, message: 'User not found'}
+                    }
+
+                    done(err, user);
+                })
+            },
+
+            (user: UserModel, done) => {
+                this.authService.isResetTokenValid(user, updateUser.resetPasswordToken)
+                    .then(userToken => {
+                        if (!userToken) {
+                            err = { status: HttpStatus.FORBIDDEN, message: 'Token is not valid'}
+                        }
+
+                        done(err, user)
+                    })
+            },
+
+            (user: UserModel, done) => {
+                this.userService.updatePassword(updateUser).then(res => {
+                    return res.status(HttpStatus.OK).json(true);
+                }).catch(error => {
+                    err = { status: HttpStatus.INTERNAL_SERVER_ERROR, message: error};
+                    done(err)
+                })
+            }
+        ], err => {
+            return res.status(err.status).json({ message: err.message});
+        })
+    }
     
 }

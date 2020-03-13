@@ -1,6 +1,6 @@
-import { UserModel } from '../../../dist/users/user.interface';
 import { Injectable } from '@nestjs/common';
 import { createTestAccount, createTransport, getTestMessageUrl } from 'nodemailer';
+import { UserModel } from 'src/user/interfaces/user.interface';
 
 @Injectable()
 export class EmailService {
@@ -27,9 +27,7 @@ export class EmailService {
                   "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
                   "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
                   (process.env.WEB_URL || "http://localhost:3000") +
-                  "auth/reset-password/" +
-                  token +
-                  "\n\n" +
+                  "auth/reset-password/" + user._id + "/" + token + "\n\n" +
                   "If you did not request this, please ignore this email and your password will remain unchanged.\n"
               };
 

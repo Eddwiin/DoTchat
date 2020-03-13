@@ -35,7 +35,7 @@ const ResetPassword = (props) => {
           label="Password"
           name="password"
           type="password"
-          placeholder="Retype your password"
+          placeholder="Type your password"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />

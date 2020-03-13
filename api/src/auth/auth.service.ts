@@ -8,9 +8,14 @@ export class AuthService {
     
     constructor(@InjectModel('User') private readonly userModel: Model<UserModel>) {}
     
-    async updatePassword(token: string, newPassword: string) {
-        return await this.userModel.findOneAndUpdate(
-            { resetPasswordToken: token}, 
-            { password: newPassword}); 
+    async isResetTokenValid(user: UserModel, resetPasswordToken: string) {
+        return await this.userModel.findOne(
+            { 
+                _id: user._id, 
+                resetPasswordToken: resetPasswordToken,
+                resetPasswordExpires: { $gte: Date.now() }
+            }
+        )
     }
+
 }

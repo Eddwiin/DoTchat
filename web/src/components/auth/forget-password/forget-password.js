@@ -30,7 +30,7 @@ const ForgetPassword = () => {
     .then(res =>  setUrlToReset(res.data.urlToReset))
     .catch(err => {
       console.error(err);
-      if (err.response.status === 400) {
+      if (err && err.response.status === 400) {
         return ToastsStore.error(err.response.data.message);
       }
     });

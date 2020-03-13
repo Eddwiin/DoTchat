@@ -1,10 +1,10 @@
-import { UserModel } from './../../dist/users/user.interface.d';
 import { Controller, Post, Body, Res, HttpStatus, Put  } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { waterfall } from 'async';
 import { Error } from './../common/interfaces/error.interface';
+import { UserModel } from "./interfaces/user.interface";
 
 @Controller('user')
 export class UserController {
