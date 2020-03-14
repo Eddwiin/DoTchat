@@ -67,7 +67,6 @@ export class AuthController {
   
     @Put("/reset-password")
     async resetPassword(@Body('updateUser') updateUser: UpdateUserDto, @Res() res: Response) {
-
         let err: Error;
 
         waterfall([
@@ -93,15 +92,15 @@ export class AuthController {
             },
 
             (user: UserModel, done) => {
-                this.userService.updatePassword(updateUser).then(res => {
+                this.userService.updatePassword(updateUser).then(_ => {
                     return res.status(HttpStatus.OK).json(true);
                 }).catch(error => {
-                    err = { status: HttpStatus.INTERNAL_SERVER_ERROR, message: error};
+                    err = { status: HttpStatus.INTERNAL_SERVER_ERROR, message: error.toString()};
                     done(err)
                 })
             }
-        ], err => {
-            return res.status(err.status).json({ message: err.message});
+        ], error => {
+            return res.status(error.status).json({ message: error.message});
         })
     }
     

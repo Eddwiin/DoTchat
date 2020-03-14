@@ -2,21 +2,34 @@ import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";
+import { useParams, useHistory } from "react-router-dom";
 
-const ResetPassword = (props) => {
+const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
+  const { id, token } = useParams();
+  const history = useHistory();
 
   const handleSubmit = () => {
     if (password !== rPassword) {
       return ToastsStore.error("Passwords are not the same");
     }
 
-    API.put('/reset-password', {
-      token: props.match.params.token,
-      newPassword: password
-    }).then(console.log);
+    const updateUser = {
+      _id: id,
+      password: SHA256(password).toString(),
+      resetPasswordToken: token
+    }
+
+    API.put('/auth/reset-password', {updateUser: updateUser}).then(res => {
+      ToastsStore.success('Password has been reset');
+      return history.push(APP_ROUTES.SIGNIN);
+    }).catch(err => {
+      ToastsStore.error('Error !');
+      console.error(err);
+    });
 
   };
 
@@ -37,6 +50,7 @@ const ResetPassword = (props) => {
           type="password"
           placeholder="Type your password"
           value={password}
+          required="required"
           onChange={e => setPassword(e.target.value)}
         />
       </div>
@@ -48,6 +62,7 @@ const ResetPassword = (props) => {
           type="password"
           placeholder="Retype your password"
           value={rPassword}
+          required="required"
           onChange={e => setRPassword(e.target.value)}
         />
       </div>

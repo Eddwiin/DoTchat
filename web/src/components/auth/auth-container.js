@@ -2,7 +2,7 @@ import React, { lazy, useState, useEffect } from "react";
 import { Button } from "@/components/shared";
 import "./auth-container.scss";
 import APP_ROUTES from "../../utils/route-config";
-import { Route } from 'react-router-dom';
+import { Route, useRouteMatch } from 'react-router-dom';
 
 const Login = lazy(() => import("./login/login"));
 const Registration = lazy(() => import("./registration/registration"));
@@ -11,9 +11,10 @@ const ResetPassword = lazy(() => import("./reset-password/reset-password"));
 
 const AuthContainer = props => {
   const [isOpenLayout, setIsOpenLayout] = useState(false);
+  const route = useRouteMatch();
 
   const loadComponent = () => {
-
+    console.log(APP_ROUTES.RESETPASSWORD);
     return (
       <React.Fragment>
         <Route exact path={APP_ROUTES.SIGNIN} component={Login}></Route>
@@ -25,12 +26,10 @@ const AuthContainer = props => {
   };
 
   useEffect(() => {
-    const urlParse = window.location.pathname.split('/');
-    if (urlParse.length > 2) {
+    if (route.url !== "auth") {
       setIsOpenLayout(true);
-      loadComponent();
-    }    
-  }, []);
+    }   
+  }, [route]);
 
   const openLayout = event => {
     props.history.push(APP_ROUTES.SIGNIN);

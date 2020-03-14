@@ -43,7 +43,7 @@ export class UserService {
 
   async updatePassword(user: UpdateUserDto) {
     return await this.userModel.findOneAndUpdate(
-      { email: user._id},
+      { _id: user._id},
       {
         resetPasswordToken: undefined,
         resetPasswordExpires: undefined,
