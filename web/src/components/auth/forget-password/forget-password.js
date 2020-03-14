@@ -1,26 +1,44 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
+import API from "@/utils/api";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+
+const urlResetStyle = {
+  wordBreak: "break-word",
+  paddingRight: "2rem",
+  paddingLeft: "2rem",
+  paddingTop: ".5rem",
+  backgroundColor: "#cce5ff",
+  width: "95%",
+  marginLeft: "1rem",
+  fontSize: "1.1rem"
+}
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const [urlToReset, setUrlToReset] = useState("");
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   API.get(`/auth/forgotPassword?email=${email}`).then(res => {
-  //     if (res.status === 201) {
-  //       return ToastsStore.error(res.data.message);
-  //     }
-  //     setUrlToReset(res.data.urlToReset);
-  //   });
-  // };
+  const loadUrlResetPassword = () => {
+    if (urlToReset) {
+      return <div style={urlResetStyle}>Reset on this url: {urlToReset}</div>;
+    }
+  }
 
   const handleSubmit = () => {
-    setUrlToReset("");
+    API.get(`/auth/forget-password?email=${email}`)
+    .then(res =>  setUrlToReset(res.data.urlToReset))
+    .catch(err => {
+      console.error(err);
+      if (err.response && err.response.status === 400) {
+        return ToastsStore.error(err.response.data.message);
+      }
+    });
   };
 
+
   return (
+    
     <form
       className="view-index__layout__forget-password"
       onSubmit={e => {
@@ -30,11 +48,8 @@ const ForgetPassword = () => {
     >
       <h1 className="view-index__layout__forget-password__title">Forget</h1>
 
-      {() => {
-        if (urlToReset) {
-          return <div>Reset on this url: {urlToReset}</div>;
-        }
-      }}
+      {loadUrlResetPassword()}
+
 
       <div className="p-3">
         <FormGroup
@@ -60,6 +75,8 @@ const ForgetPassword = () => {
       <div className="view-index__layout__forget-password__submit">
         <Button label="Send email" width="w-65" isAnimate={true} />
       </div>
+
+      <ToastsContainer store={ToastsStore}/>
     </form>
   );
 };

@@ -1,13 +1,36 @@
 import React, { useState } from "react";
 import APP_ROUTES from "../../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { SHA256 } from 'crypto-js';
+import API from "@/utils/api";
+import { useParams, useHistory } from "react-router-dom";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
+  const { id, token } = useParams();
+  const history = useHistory();
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    if (password !== rPassword) {
+      return ToastsStore.error("Passwords are not the same");
+    }
+
+    const updateUser = {
+      _id: id,
+      password: SHA256(password).toString(),
+      resetPasswordToken: token
+    }
+
+    API.put('/auth/reset-password', {updateUser: updateUser}).then(res => {
+      ToastsStore.success('Password has been reset');
+      return history.push(APP_ROUTES.SIGNIN);
+    }).catch(err => {
+      ToastsStore.error('Error !');
+      console.error(err);
+    });
+
   };
 
   return (
@@ -25,8 +48,9 @@ const ResetPassword = () => {
           label="Password"
           name="password"
           type="password"
-          placeholder="Retype your password"
+          placeholder="Type your password"
           value={password}
+          required="required"
           onChange={e => setPassword(e.target.value)}
         />
       </div>
@@ -38,6 +62,7 @@ const ResetPassword = () => {
           type="password"
           placeholder="Retype your password"
           value={rPassword}
+          required="required"
           onChange={e => setRPassword(e.target.value)}
         />
       </div>
@@ -55,51 +80,9 @@ const ResetPassword = () => {
       <div className="view-index__layout__reset-password__submit">
         <Button label="Reset" width="w-65" isAnimate={true} />
       </div>
+
+      <ToastsContainer store={ToastsStore}/>
     </form>
-
-    // <form className="form" onSubmit={handleSubmit}>
-    //   <div className="form__group">
-    //     <input
-    //       id="password"
-    //       className="form__input"
-    //       type="password"
-    //       name="password"
-    //       placeholder="Password"
-    //       required
-    //       value={password}
-    //       onChange={e => setPassword(e.target.value)}
-    //     />
-    //     <label htmlFor="password" className="form__label">
-    //       Password
-    //     </label>
-    //   </div>
-
-    //   <div className="form__group">
-    //     <input
-    //       id="rPassword"
-    //       className="form__input"
-    //       type="password"
-    //       name="rPassword"
-    //       placeholder="Re-type password"
-    //       required
-    //       value={rPassword}
-    //       onChange={e => setRPassword(e.target.value)}
-    //     />
-    //     <label htmlFor="rPassword" className="form__label">
-    //       Re-type password
-    //     </label>
-    //   </div>
-
-    //   <div className="block">
-    //     <Link to={APP_ROUTES.SIGNIN}>
-    //       <span className="link "> Sign in?</span>
-    //     </Link>
-    //   </div>
-
-    //   <div style={btnPosition}>
-    //     {/* <Button label="RESET" btnColor="primary"></Button> */}
-    //   </div>
-    // </form>
   );
 };
 

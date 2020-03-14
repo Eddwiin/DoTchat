@@ -2,6 +2,7 @@ import React, { lazy, useState, useEffect } from "react";
 import { Button } from "@/components/shared";
 import "./auth-container.scss";
 import APP_ROUTES from "../../utils/route-config";
+import { Route, useRouteMatch } from 'react-router-dom';
 
 const Login = lazy(() => import("./login/login"));
 const Registration = lazy(() => import("./registration/registration"));
@@ -10,33 +11,25 @@ const ResetPassword = lazy(() => import("./reset-password/reset-password"));
 
 const AuthContainer = props => {
   const [isOpenLayout, setIsOpenLayout] = useState(false);
+  const route = useRouteMatch();
 
   const loadComponent = () => {
-    const { hash } = window.location;
-
-    switch (hash) {
-      case "#sign-in":
-        return <Login></Login>;
-
-      case "#sign-up":
-        return <Registration></Registration>;
-
-      case "#forget-password":
-        return <ForgetPassword></ForgetPassword>;
-
-      case "#reset-password":
-        return <ResetPassword></ResetPassword>;
-
-      default:
-        return setIsOpenLayout(false);
-    }
+    console.log(APP_ROUTES.RESETPASSWORD);
+    return (
+      <React.Fragment>
+        <Route exact path={APP_ROUTES.SIGNIN} component={Login}></Route>
+        <Route exact path={APP_ROUTES.SIGNUP} component={Registration}></Route>
+        <Route exact path={APP_ROUTES.FORGETPASSWORD} component={ForgetPassword}></Route>
+        <Route exact path={APP_ROUTES.RESETPASSWORD} component={ResetPassword}></Route>
+      </React.Fragment>
+    )
   };
 
   useEffect(() => {
-    const { hash } = window.location;
-    setIsOpenLayout(!!hash);
-    loadComponent();
-  }, []);
+    if (route.url !== "auth") {
+      setIsOpenLayout(true);
+    }   
+  }, [route]);
 
   const openLayout = event => {
     props.history.push(APP_ROUTES.SIGNIN);
