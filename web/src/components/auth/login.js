@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import APP_ROUTES from "../../../utils/route-config";
+import APP_ROUTES from "../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
+import API from '@/utils/api';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = () => {
-    console.log("form submit");
+
+    API.post("/auth/sign-in").then(console.log);
   };
 
   return (

@@ -6,3 +6,4 @@ export { Input } from "./input/input";
 export { FormGroup } from "./form-group/form-group";
 export { LinkTo } from "./link-to/link-to";
 export { Button } from "./button/button";
+export { Error404 } from './error-404/error-404';

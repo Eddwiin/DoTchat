@@ -14,11 +14,20 @@ export class UserService {
     return await new this.userModel(createUserDto).save();
   }
 
-  async isUserExist(username: string, email: string) {
+  async findUserByUsernameOrEmail(username: string, email: string) {
     return await this.userModel.findOne({ 
       $or: [
         { username: username },
         { email: email  }
+      ]
+    })
+  }
+
+  async validateUser(username: string, email: string, password: string) {
+    return await this.userModel.findOne({
+      $or: [
+        { username: username, password: password},
+        { email: email, password: password}
       ]
     })
   }

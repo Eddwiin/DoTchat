@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormGroup, LinkTo } from "@/components/shared";
-import APP_ROUTES from "../../../utils/route-config";
+import APP_ROUTES from "../../utils/route-config";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";

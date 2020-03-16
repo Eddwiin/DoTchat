@@ -1,12 +1,10 @@
 import React from "react";
 import { Button } from "@/components/shared";
 import "./error-404.scss";
-import APP_ROUTES from "../../../utils/route-config";
+import { useHistory } from "react-router-dom";
 
-const Error404 = props => {
-  const handleBackHome = () => {
-    props.history.push(APP_ROUTES.AUTH);
-  };
+const Error404 = () => {
+  const history = useHistory();
 
   return (
     <div className="error">
@@ -15,8 +13,8 @@ const Error404 = props => {
       <div className="error__message">
         The page you are looking for can't be found!
       </div>
-      <Button label="Back home" onClick={handleBackHome} />
+      <Button label="Back" onClick={() => history.goBack()} />
     </div>
   );
 };
-export default Error404;
+export { Error404 };

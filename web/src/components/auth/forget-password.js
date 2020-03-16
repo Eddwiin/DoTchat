@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import APP_ROUTES from "../../../utils/route-config";
+import APP_ROUTES from "../../utils/route-config";
 import { FormGroup, LinkTo, Button } from "@/components/shared";
 import API from "@/utils/api";
 import {ToastsContainer, ToastsStore} from 'react-toasts';

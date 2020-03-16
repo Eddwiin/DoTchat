@@ -4,7 +4,8 @@ const APP_ROUTES = {
   SIGNUP: "/auth/sign-up",
   FORGETPASSWORD: "/auth/forget-password",
   RESETPASSWORD: "/auth/reset-password/:id/:token",
-  HOME: "/home"
+  HOME: "/home",
+  ERROR: "/error"
 };
 
 export default APP_ROUTES;
