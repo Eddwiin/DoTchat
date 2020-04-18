@@ -40,19 +40,20 @@ const ForgetPassword = () => {
   return (
     
     <form
-      className="view-index__layout__forget-password"
+      className="container__layout__content"
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <h1 className="view-index__layout__forget-password__title">Forget</h1>
+      <h1 className="container__layout__content__title">Forget</h1>
 
       {loadUrlResetPassword()}
 
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Email"
           name="email"
           type="email"
@@ -62,7 +63,7 @@ const ForgetPassword = () => {
         />
       </div>
 
-      <div className="view-index__layout__forget-password__link p-3">
+      <div className="container__layout__content__link p-3">
         <LinkTo redirect={APP_ROUTES.SIGNIN}>
           <span> Sign in</span>
         </LinkTo>
@@ -72,8 +73,8 @@ const ForgetPassword = () => {
         </LinkTo>
       </div>
 
-      <div className="view-index__layout__forget-password__submit">
-        <Button label="Send email" width="w-65" isAnimate={true} />
+      <div className="container__layout__content__submit">
+        <Button label="Send email" width="w-65" />
       </div>
 
       <ToastsContainer store={ToastsStore}/>

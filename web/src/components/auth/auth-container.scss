@@ -1,105 +1,64 @@
-@import "./../../assets/scss/base/animation";
-.view-index {
+@import './../../assets/scss/abstracts/mixins';
+
+.container {
+  
   display: grid;
-  grid-auto-rows: 1fr;
-  grid-auto-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-columns: [start-content]3fr[end-content start-layout]1fr[end-layout];
   background-image: linear-gradient(
-      to right bottom,
-      rgba(119, 176, 245, 0.8),
-      rgba(50, 136, 240, 0.8)
-    ),
+    to right bottom,
+    rgba(119, 176, 245, 0.8),
+    rgba(50, 136, 240, 0.8)
+  ),
     url("./../../assets/images/background.jpg");
   background-size: cover;
   background-position: top;
   height: 100vh;
+  width: 100%;
 
-  &__body {
-    position: absolute;
-    top: 10%;
-    left: 50%;
+  &__content {
+
+    @include absCenter;
+    grid-column: start-content / end-content;
     text-align: center;
-    transform: translate(-50%, 50%);
-    grid-row: 1;
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
 
-  &__title {
-    color: white;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-    padding: 3rem;
+    &__title {
+      color: white;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      padding: 3rem;
 
-    &--main {
-      display: block;
-      font-size: 6rem;
-      font-weight: 400;
-      letter-spacing: 1.75rem;
-      animation: moveInLeft 2s ease-out;
-    }
+      &--main {
+        display: block;
+        font-size: 6rem;
+        font-weight: 400;
+        letter-spacing: 1.75rem;
+        animation: moveInLeft 2s ease-out;
+      }
 
-    &--sub {
-      display: block;
-      font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: 1.75rem;
-      animation: moveInRight 2s ease-out;
-    }
-  }
-
-  &__layout {
-    grid-row: 1;
-    grid-column: 2;
-    background-color: white;
-    animation: moveInRight 0.3s ease-in;
-    border-radius: 0.3rem;
-    box-shadow: -3px 3px rgba(0, 0, 255, 0.2);
-
-    &__close {
-      position: absolute;
-      top: 2.5rem;
-      right: 2.5rem;
-      font-size: 3rem;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s;
-
-      &:hover {
-        transform: scale(1.3, 1.3);
-        cursor: pointer;
+     &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 400;
+        letter-spacing: 1.75rem;
+        animation: moveInRight 2s ease-out;
       }
     }
+  }
 
-    &__sign-in,
-    &__reset-password {
+
+  &__layout {
+    grid-column: start-layout / end-layout;
+    grid-row: 1 / span 2;
+
+    &__content {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
       grid-template-rows: repeat(5, 1fr);
       grid-gap: 4rem;
       padding-top: 8rem;
-    }
 
-    &__sign-up {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: repeat(7, 1fr);
-      grid-gap: 4rem;
-      padding-top: 8rem;
-    }
-
-    &__forget-password {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      grid-gap: 4rem;
-      padding-top: 8rem;
-    }
-
-    &__sign-in,
-    &__sign-up,
-    &__forget-password,
-    &__reset-password {
       &__title {
         font-size: 4.2rem;
         font-weight: bold;
@@ -124,4 +83,5 @@
       }
     }
   }
+
 }

@@ -4,11 +4,11 @@ import "./auth-container.scss";
 import APP_ROUTES from "../../utils/route-config";
 import { Route, useLocation, useHistory } from 'react-router-dom';
 
+const Layout = lazy(() => import('./../shared').then(module => ({ default: module.Layout })));
 const Login = lazy(() => import("./login"));
 const Registration = lazy(() => import("./registration"));
 const ForgetPassword = lazy(() => import("./forget-password"));
 const ResetPassword = lazy(() => import(".//reset-password"));
-// const Error404 = lazy(() => import('./../shared').then(module => ({ default: module.Error404 })));
 
 const AuthContainer = () => {
   const [isOpenLayout, setIsOpenLayout] = useState(false);
@@ -17,10 +17,10 @@ const AuthContainer = () => {
 
   const loadComponent = () => {
 
-    const isRouteMatch = Object.keys(APP_ROUTES)
-                            .some(currentKey => APP_ROUTES[currentKey] === route.pathname);
+    // const isRouteMatch = Object.keys(APP_ROUTES)
+    //                         .some(currentKey => APP_ROUTES[currentKey] === route.pathname);
     
-    if (isRouteMatch) {
+    // if (isRouteMatch) {
       return (
         <React.Fragment>
           <Route exact path={APP_ROUTES.SIGNIN} component={Login}></Route>
@@ -29,8 +29,8 @@ const AuthContainer = () => {
           <Route exact path={APP_ROUTES.RESETPASSWORD} component={ResetPassword}></Route>
         </React.Fragment>
       )
-    }
-    return history.push(APP_ROUTES.ERROR);
+    // }
+    // return history.push(APP_ROUTES.ERROR);
   };
 
   useEffect(() => {
@@ -52,11 +52,11 @@ const AuthContainer = () => {
   };
 
   return (
-    <div className="view-index">
-      <div className="view-index__body">
-        <h1 className="view-index__title">
-          <span className="view-index__title--main">DotChat</span>
-          <span className="view-index__title--sub">
+    <div className="container">
+      <div className="container__content">
+        <h1 className="container__content__title">
+          <span className="container__content__title--main">DotChat</span>
+          <span className="container__content__title--sub">
             Communicate with the world
           </span>
         </h1>
@@ -68,14 +68,13 @@ const AuthContainer = () => {
         />
       </div>
 
-      {isOpenLayout && (
-        <div className="view-index__layout">
-          <span onClick={closeLayout} className="view-index__layout__close">
-            &times;
-          </span>
-          {loadComponent()}
-        </div>
-      )}
+
+      {isOpenLayout && <div className="container__layout">
+          <Layout closeLayout={closeLayout} >
+              { loadComponent() }
+          </Layout>
+   
+      </div> }
     </div>
   );
 };

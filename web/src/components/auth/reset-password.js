@@ -35,16 +35,17 @@ const ResetPassword = () => {
 
   return (
     <form
-      className="view-index__layout__reset-password"
+    className="container__layout__content"
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <h1 className="view-index__layout__reset-password__title">Reset</h1>
+      <h1 className="container__layout__content__title">Reset</h1>
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Password"
           name="password"
           type="password"
@@ -57,6 +58,7 @@ const ResetPassword = () => {
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Retype password"
           name="rPassword"
           type="password"
@@ -67,7 +69,7 @@ const ResetPassword = () => {
         />
       </div>
 
-      <div className="view-index__layout__reset-password__link p-3">
+      <div className="container__layout__content__link p-3">
         <LinkTo redirect={APP_ROUTES.SIGNIN}>
           <span> Sign in</span>
         </LinkTo>
@@ -77,8 +79,8 @@ const ResetPassword = () => {
         </LinkTo>
       </div>
 
-      <div className="view-index__layout__reset-password__submit">
-        <Button label="Reset" width="w-65" isAnimate={true} />
+      <div className="container__layout__content__submit">
+        <Button label="Reset" width="w-65" />
       </div>
 
       <ToastsContainer store={ToastsStore}/>

@@ -8,25 +8,31 @@ import { waterfall } from 'async';
 import { Error } from './../common/interfaces/error.interface';
 import { randomBytes } from 'crypto';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { LocalAuthGuard } from './local-auth.guard';
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
 
     constructor(private userService: UserService, private emailService: EmailService,
                 private authService: AuthService) {}
 
-    @UseGuards(AuthGuard('local'))
-    @Post("/auth/sign-in")
+    @UseGuards(LocalAuthGuard)
+    @Post("/sign-in")
     async signIn(@Request() req) {
-        return this.authService.login(req.user)
+        console.log("req user", req.user);
+        return req.user;
     }
 
     @UseGuards(JwtAuthGuard)
     @Get('/profile')
     getProfile(@Request() req) {
         return req.user;
+    }
+
+    @Get("/test")
+    test () {
+        return "my test";
     }
 
     @Get("/forget-password")

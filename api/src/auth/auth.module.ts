@@ -22,3 +22,4 @@ import { JwtModule } from '@nestjs/jwt';
   providers: [AuthService, EmailService, LocalStrategy]
 })
 export class AuthModule {}
+import { UserModel } from "src/user/interfaces/user.interface";
