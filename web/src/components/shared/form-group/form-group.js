@@ -10,12 +10,13 @@ const FormGroup = ({
   onChange,
   value,
   required = "required",
-  width = "w-85"
+  inputStyle
 }) => {
   return (
     <div className="form-group">
       <input
-        className={"form-group__input " + width}
+        className="form-group__input"
+        style={inputStyle}
         name={name}
         type={type}
         placeholder={placeholder}
@@ -36,7 +37,7 @@ FormGroup.propType = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any.isRequired,
   required: PropTypes.string,
-  width: PropTypes.string
+  inputStyle: PropTypes.object
 };
 
 export { FormGroup };

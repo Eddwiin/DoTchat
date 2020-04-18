@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormGroup, LinkTo } from "@/components/shared";
-import APP_ROUTES from "../../../utils/route-config";
+import APP_ROUTES from "../../utils/route-config";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";
@@ -36,16 +36,17 @@ const Registration = ({ history }) => {
 
   return (
     <form
-      className="view-index__layout__sign-up"
+      className="container__layout__content"
       onSubmit={e => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <h1 className="view-index__layout__sign-up__title">Sign up</h1>
+      <h1 className="container__layout__content__title">Sign up</h1>
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Username"
           name="username"
           placeholder="Type your username"
@@ -56,6 +57,7 @@ const Registration = ({ history }) => {
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Email"
           name="email"
           type="email"
@@ -67,6 +69,7 @@ const Registration = ({ history }) => {
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Password"
           name="password"
           type="password"
@@ -78,6 +81,7 @@ const Registration = ({ history }) => {
 
       <div className="p-3">
         <FormGroup
+          inputStyle={{ width: "85%" }}
           label="Retype password"
           name="RPassword"
           type="password"
@@ -87,7 +91,7 @@ const Registration = ({ history }) => {
         />
       </div>
 
-      <div className="view-index__layout__sign-in__link p-3">
+      <div className="container__layout__content__link p-3">
         <LinkTo redirect={APP_ROUTES.SIGNIN}>
           <span> Sign in</span>
         </LinkTo>
@@ -97,7 +101,7 @@ const Registration = ({ history }) => {
         </LinkTo>
       </div>
 
-      <div className="view-index__layout__sign-in__submit">
+      <div className="container__layout__content__submit">
         <Button label="Sign up" width="w-65" />
       </div>
 

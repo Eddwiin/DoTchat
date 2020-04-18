@@ -1,19 +1,39 @@
 import { AuthService } from './auth.service';
 import { UserModel } from './../user/interfaces/user.interface';
 import { UserService } from './../user/user.service';
-import { Controller, Get, Query, Res, HttpStatus, Put, Body} from '@nestjs/common';
+import { Controller, Get, Query, Res, HttpStatus, Put, Body, Post, UseGuards, Request} from '@nestjs/common';
 import { Response } from 'express';
 import { EmailService } from 'src/common/services/email.service';
 import { waterfall } from 'async';
 import { Error } from './../common/interfaces/error.interface';
 import { randomBytes } from 'crypto';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { LocalAuthGuard } from './local-auth.guard';
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
 
     constructor(private userService: UserService, private emailService: EmailService,
                 private authService: AuthService) {}
+
+    @UseGuards(LocalAuthGuard)
+    @Post("/sign-in")
+    async signIn(@Request() req) {
+        console.log("req user", req.user);
+        return req.user;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/profile')
+    getProfile(@Request() req) {
+        return req.user;
+    }
+
+    @Get("/test")
+    test () {
+        return "my test";
+    }
 
     @Get("/forget-password")
     async sendResetPasswordEmail(@Query('email') email: string, @Res() res: Response) {
