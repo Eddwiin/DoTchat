@@ -18,6 +18,11 @@
     }
 
     &::after {
+
+      @media screen  and (max-width: $bp-small) {
+        display: none;
+      }
+      
       content: "\2192";
       display: inline-block;
       margin-top: 2px;

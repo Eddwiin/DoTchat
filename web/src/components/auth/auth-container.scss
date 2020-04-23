@@ -1,4 +1,6 @@
 @import './../../assets/scss/abstracts/mixins';
+@import './../../assets/scss/abstracts/variables';
+
 
 .container {
   
@@ -15,9 +17,10 @@
   background-position: top;
   height: 100vh;
   width: 100%;
+  overflow: hidden;
+
 
   &__content {
-
     @include absCenter;
     grid-column: start-content / end-content;
     text-align: center;
@@ -29,59 +32,87 @@
       line-height: 1.7;
       padding: 3rem;
 
+      @media screen and (max-width: $bp-small) {
+        padding: 0;
+      }
+
       &--main {
         display: block;
         font-size: 6rem;
         font-weight: 400;
         letter-spacing: 1.75rem;
         animation: moveInLeft 2s ease-out;
+
+        @media screen and (max-width: $bp-small) {
+          font-size: 3rem;
+          font-weight: 400;
+        }
+  
       }
 
-     &--sub {
+      &--sub {
         display: block;
         font-size: 2rem;
         font-weight: 400;
         letter-spacing: 1.75rem;
         animation: moveInRight 2s ease-out;
+
+
+        @media screen and (max-width: $bp-small) {
+          font-size: 1.5rem;
+          letter-spacing: 1.15rem;
+          font-weight: 400;
+        }
       }
     }
   }
 
-
   &__layout {
+
     grid-column: start-layout / end-layout;
+
+    @media screen and (max-width: $bp-medium) {
+      grid-column: start-content / end-layout;
+    }
+
     grid-row: 1 / span 2;
 
-    &__content {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: repeat(5, 1fr);
-      grid-gap: 4rem;
-      padding-top: 8rem;
+     &__content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-gap: 4rem;
+        padding-top: 8rem;
+  
+        &__title {
+          font-size: 4.2rem;
+          font-weight: bold;
+          padding-left: 4rem;
+          font-family: Poppins-Bold, sans-serif;
+        }
+  
+        &__link {
+          display: flex;
+          justify-content: space-between;
 
-      &__title {
-        font-size: 4.2rem;
-        font-weight: bold;
-        padding-left: 4rem;
-        font-family: Poppins-Bold, sans-serif;
-      }
-
-      &__link {
-        display: flex;
-        justify-content: space-between;
-        padding-right: 3rem;
-
-        & > span {
-          font-size: 1.5rem;
-          font-family: Poppins-Regular, sans-serif;
+          @media screen  and (max-width: $bp-small) {
+            flex-direction: column;
+          }
+          
+          padding-right: 3rem;
+  
+          & > span {
+            font-size: 1.5rem;
+            font-family: Poppins-Regular, sans-serif;
+          }
+        }
+  
+        &__submit {
+          display: flex;
+          justify-content: center;
         }
       }
-
-      &__submit {
-        display: flex;
-        justify-content: center;
-      }
-    }
+    
   }
 
 }

@@ -1,3 +1,5 @@
+@import './variables';
+
 // source : https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {

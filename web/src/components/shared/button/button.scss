@@ -11,11 +11,16 @@
     border-radius: 10rem;
     transition: all 0.2s;
     position: relative;
-    font-size: 20px;
+    font-size: 2rem;
 
     //Change for the <button> element
     border: none;
     cursor: pointer;
+
+    @media screen and (max-width: $bp-small) {
+      padding: 1.5rem 3rem;
+      font-size: 1.5rem;
+    }
   }
 
   &:hover {
