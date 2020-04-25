@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Button, FormGroup, LinkTo } from "@/components/shared";
-import APP_ROUTES from "../../utils/route-config";
+import { Button, FormGroup } from "@/components/shared";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";
 
-const Registration = ({ history }) => {
+const Registration = ({ configQueryParams }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +24,8 @@ const Registration = ({ history }) => {
     API.post("/user", { user: user}).then(res => {
       if (res.status === 200) {
         ToastsStore.success('User has been created', 4000);
-        return history.push(APP_ROUTES.SIGNIN);
+        return configQueryParams("login");
+        // return history.push(APP_ROUTES.SIGNIN);
       } else if (res.status === 201 && res.data.message) {
         return ToastsStore.error(res.data.message, 3000);
       } else {
@@ -92,13 +92,13 @@ const Registration = ({ history }) => {
       </div>
 
       <div className="container__layout__content__link p-3">
-        <LinkTo redirect={APP_ROUTES.SIGNIN}>
-          <span> Sign in</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNIN}> */}
+          <span onClick={() => configQueryParams("login")}> Sign in</span>
+        {/* </LinkTo> */}
 
-        <LinkTo redirect={APP_ROUTES.FORGETPASSWORD}>
-          <span>Forget password</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.FORGETPASSWORD}> */}
+          <span onClick={() => configQueryParams("forget-password")}>Forget password</span>
+        {/* </LinkTo> */}
       </div>
 
       <div className="container__layout__content__submit">

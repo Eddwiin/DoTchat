@@ -104,6 +104,12 @@
           & > span {
             font-size: 1.5rem;
             font-family: Poppins-Regular, sans-serif;
+            cursor: pointer;
+            color: rgba($color: $color-primary, $alpha: 1.0);
+
+            &:hover {
+              transform: translateY(-3px);
+            }
           }
         }
   

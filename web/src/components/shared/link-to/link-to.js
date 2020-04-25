@@ -6,7 +6,7 @@ import "./link-to.scss";
 const LinkTo = ({ children, redirect = "" }) => {
   return (
     <div className="link">
-      <Link to={redirect}>{children}</Link>
+      <Link to={redirect} >{children}</Link>
     </div>
   );
 };

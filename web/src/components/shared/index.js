@@ -8,3 +8,4 @@ export { LinkTo } from "./link-to/link-to";
 export { Button } from "./button/button";
 export { Error404 } from './error-404/error-404';
 export { Layout } from './layout/layout';
+export { AlertMessage } from './alert-message/alert-message';

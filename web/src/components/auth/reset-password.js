@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import APP_ROUTES from "../../utils/route-config";
-import { FormGroup, LinkTo, Button } from "@/components/shared";
+import { FormGroup, Button } from "@/components/shared";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
 import { SHA256 } from 'crypto-js';
 import API from "@/utils/api";
-import { useParams, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const ResetPassword = () => {
+const ResetPassword = ({ configQueryParams }) => {
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
-  const { id, token } = useParams();
-  const history = useHistory();
+  const location = useLocation();
 
   const handleSubmit = () => {
     if (password !== rPassword) {
@@ -18,14 +16,14 @@ const ResetPassword = () => {
     }
 
     const updateUser = {
-      _id: id,
+      _id: new URLSearchParams(location.search).get("userId"),
       password: SHA256(password).toString(),
-      resetPasswordToken: token
+      resetPasswordToken: new URLSearchParams(location.search).get("token")
     }
 
     API.put('/auth/reset-password', {updateUser: updateUser}).then(res => {
       ToastsStore.success('Password has been reset');
-      return history.push(APP_ROUTES.SIGNIN);
+      configQueryParams("login");
     }).catch(err => {
       ToastsStore.error('Error !');
       console.error(err);
@@ -70,13 +68,13 @@ const ResetPassword = () => {
       </div>
 
       <div className="container__layout__content__link p-3">
-        <LinkTo redirect={APP_ROUTES.SIGNIN}>
-          <span> Sign in</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNIN}> */}
+          <span onClick={() => configQueryParams("login")}> Sign in</span>
+        {/* </LinkTo> */}
 
-        <LinkTo redirect={APP_ROUTES.SIGNUP}>
-          <span>Sign up</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNUP}> */}
+          <span onClick={() => configQueryParams("registration")}>Sign up</span>
+        {/* </LinkTo> */}
       </div>
 
       <div className="container__layout__content__submit">

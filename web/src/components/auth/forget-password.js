@@ -1,29 +1,12 @@
 import React, { useState } from "react";
-import APP_ROUTES from "../../utils/route-config";
-import { FormGroup, LinkTo, Button } from "@/components/shared";
+import { FormGroup, Button } from "@/components/shared";
 import API from "@/utils/api";
 import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { AlertMessage } from "./../shared/alert-message/alert-message";
 
-const urlResetStyle = {
-  wordBreak: "break-word",
-  paddingRight: "2rem",
-  paddingLeft: "2rem",
-  paddingTop: ".5rem",
-  backgroundColor: "#cce5ff",
-  width: "95%",
-  marginLeft: "1rem",
-  fontSize: "1.1rem"
-}
-
-const ForgetPassword = () => {
+const ForgetPassword = ({ configQueryParams }) => {
   const [email, setEmail] = useState("");
   const [urlToReset, setUrlToReset] = useState("");
-
-  const loadUrlResetPassword = () => {
-    if (urlToReset) {
-      return <div style={urlResetStyle}>Reset on this url: {urlToReset}</div>;
-    }
-  }
 
   const handleSubmit = () => {
     API.get(`/auth/forget-password?email=${email}`)
@@ -48,8 +31,11 @@ const ForgetPassword = () => {
     >
       <h1 className="container__layout__content__title">Forget</h1>
 
-      {loadUrlResetPassword()}
-
+      { urlToReset && <AlertMessage>
+            <span>
+              Click <a href={urlToReset} target="_blank" rel="noopener noreferrer">here</a> to reset password
+            </span>
+      </AlertMessage>}
 
       <div className="p-3">
         <FormGroup
@@ -64,13 +50,13 @@ const ForgetPassword = () => {
       </div>
 
       <div className="container__layout__content__link p-3">
-        <LinkTo redirect={APP_ROUTES.SIGNIN}>
-          <span> Sign in</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNIN}> */}
+          <span onClick={() => configQueryParams("login")}> Sign in</span>
+        {/* </LinkTo> */}
 
-        <LinkTo redirect={APP_ROUTES.SIGNUP}>
-          <span>Sign up</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNUP}> */}
+          <span onClick={() => configQueryParams("registration")}>Sign up</span>
+        {/* </LinkTo> */}
       </div>
 
       <div className="container__layout__content__submit">

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import APP_ROUTES from "../../utils/route-config";
-import { FormGroup, LinkTo, Button } from "@/components/shared";
+import { FormGroup, Button } from "@/components/shared";
 import API from '@/utils/api';
 
-const Login = () => {
+const Login = ({ configQueryParams }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -47,13 +46,13 @@ const Login = () => {
       </div>
 
       <div className="container__layout__content__link p-3">
-        <LinkTo redirect={APP_ROUTES.SIGNUP}>
-          <span> Sign up</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.SIGNUP} > */}
+          <span onClick={() => configQueryParams("registration")}> Sign up</span>
+        {/* </LinkTo> */}
 
-        <LinkTo redirect={APP_ROUTES.FORGETPASSWORD}>
-          <span>Forget password</span>
-        </LinkTo>
+        {/* <LinkTo redirect={APP_ROUTES.FORGETPASSWORD}> */}
+          <span  onClick={() => configQueryParams("forget-password")}>Forget password</span>
+        {/* </LinkTo> */}
       </div>
 
       <div className="container__layout__content__submit">
