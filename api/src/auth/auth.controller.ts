@@ -18,21 +18,15 @@ export class AuthController {
                 private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)
-    @Post("/sign-in")
-    async signIn(@Request() req) {
-        console.log("req user", req.user);
-        return req.user;
+    @Post("/login")
+    async login(@Request() req) {
+        return this.authService.login(req.user)
     }
 
     @UseGuards(JwtAuthGuard)
     @Get('/profile')
-    getProfile(@Request() req) {
-        return req.user;
-    }
-
-    @Get("/test")
-    test () {
-        return "my test";
+    getProfile(@Request() req, @Res() res) {
+        return res.status(HttpStatus.OK).json(req.user);
     }
 
     @Get("/forget-password")
@@ -40,10 +34,10 @@ export class AuthController {
         let err : Error;
         waterfall([
             done => {
-                this.userService.findUserByEmail(email)
+                this.userService.findByEmail(email)
                     .then((userDoc: UserModel) => {
                         if (!userDoc) {
-                            err = { status: HttpStatus.BAD_REQUEST, message: "User not found in database"}
+                            err = { status: HttpStatus.BAD_REQUEST, message: "Email not found in database"}
                         }
 
                         done(err, userDoc);

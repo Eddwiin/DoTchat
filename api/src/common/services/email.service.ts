@@ -27,7 +27,7 @@ export class EmailService {
                   "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
                   "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
                   (process.env.WEB_URL || "http://localhost:3000") +
-                  "auth/reset-password/" + user._id + "/" + token + "\n\n" +
+                  "auth?type=reset-password&userId=" + user._id + "&token=" + token + "\n\n" +
                   "If you did not request this, please ignore this email and your password will remain unchanged.\n"
               };
 

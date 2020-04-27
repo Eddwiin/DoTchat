@@ -1,14 +1,28 @@
 import React, { useState } from "react";
 import { FormGroup, Button } from "@/components/shared";
 import API from '@/utils/api';
+import { SHA256 } from 'crypto-js';
+import { useHistory } from "react-router-dom";
+import APP_ROUTES from "../../utils/route-config";
+import { ToastsStore } from "react-toasts";
 
 const Login = ({ configQueryParams }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = () => {
 
-    API.post("/auth/sign-in").then(console.log);
+    API.post("/auth/login", {
+      username: email,
+      password: SHA256(password).toString()
+    }).then(response => {
+      const { data : { access_token }} = response;
+      localStorage.setItem("access_token", access_token);
+      return history.push(APP_ROUTES.HOME);
+    }).catch(err => {
+      ToastsStore.error("Your email or password is not correct");
+    })
   };
 
   return (

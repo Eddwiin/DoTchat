@@ -11,12 +11,11 @@ const Sidebar = () => {
           suggestions={["White", "Black", "Green", "Blue", "Yellow", "Red"]}
         ></Autocomplete>
       </div>
-
       <div className="sidebar__recents">Récents</div>
 
       <div>
-        <Card />
-      </div>
+         <Card />
+      </div> 
     </div>
   );
 };

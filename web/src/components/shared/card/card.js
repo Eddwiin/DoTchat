@@ -7,15 +7,18 @@ const Card = () => {
     <div className="card">
       <div className="card__content">
         <img className="card__content__avatar" src={avatar} alt="avatar" />
-        <div className="card__content__pseudo">Pseudo</div>
-        <div className="card__content__date">Date</div>
+        <div className="card__content__row-1">
+          <span className="card__content__pseudo">Maguran</span>
+          <span className="card__content__date">24/02/2017</span>
+        </div>
+
         <div className="card__content__last-message">
           Alii summum decus in carruchis solito
-          {/* altioribus et ambitioso
+          altioribus et ambitioso
           vestium cultu ponentes sudant sub ponderibus lacernarum, quas in
           collis insertas cingulis ipsis adnectunt nimia subtegminum tenuitate
           perflabiles, expandentes eas crebris agitationibus maximeque
-          sinistra, ut longiores fimbriae tunicaeque perspicue luceant
+          {/* sinistra, ut longiores fimbriae tunicaeque perspicue luceant
           varietate liciorum effigiatae in species animalium multiformes. */}
         </div>
       </div>

@@ -7,11 +7,13 @@ import "./home-container.scss";
 
 const HomeContainer = () => {
   return (
-    <div className="home-container">
-      <Navbar></Navbar>
-      <Sidebar></Sidebar>
-      <Conversation></Conversation>
-      <WriteText></WriteText>
+    <div className="home">
+      <div className="home__content">
+        <Navbar></Navbar>
+        <Sidebar></Sidebar>
+        <Conversation></Conversation>
+        <WriteText></WriteText> 
+      </div>
     </div>
   );
 };

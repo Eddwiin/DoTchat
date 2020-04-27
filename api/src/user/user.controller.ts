@@ -17,7 +17,7 @@ export class UserController {
 
         waterfall([
            done => {
-               this.userService.findUserByUsernameOrEmail(user.username, user.email)
+               this.userService.findByEmailOrUsername(user.username, user.email)
                 .then((userDoc: UserModel) => {
                     if (userDoc) {
                         if (userDoc.username === user.username && userDoc.email === user.email) {

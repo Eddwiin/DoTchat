@@ -14,12 +14,7 @@ export class UserService {
     return await new this.userModel(createUserDto).save();
   }
 
-
-  async findUserByUsernameAndPassword(username: string, password: string) {
-    return await this.userModel.findOne( { username: username, password: password} )
-  }
-
-  async findUserByUsernameOrEmail(username: string, email: string) {
+  async findByEmailOrUsername(username: string, email: string) {
     return await this.userModel.findOne({ 
       $or: [
         { username: username },
@@ -28,10 +23,10 @@ export class UserService {
     })
   }
 
-  
-  async findUserByEmail(email: string) {
+  async findByEmail(email: string) {
     return await this.userModel.findOne({ email: email });
   } 
+
     
   async findUserById(_id: string) {
     return await this.userModel.findOne({ _id: _id  })
