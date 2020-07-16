@@ -1,18 +1,14 @@
-@import './../../../assets/scss/abstracts/variables';
+@import './../../../assets/scss/variables';
+@import './../../../assets/scss/animations';
 
 .layout {
-
     position: relative;
-    z-index: 10;
-    bottom: 0;
-    right: 0;
     background-color: white;
     animation: moveInRight 0.3s ease-in;
     border-radius: 0.3rem;
     box-shadow: -3px 3px rgba(0, 0, 255, 0.2);
     height: 100%;
-    overflow-y: scroll;
-
+    
     &__close {
         position: absolute;
         top: 2.5rem;

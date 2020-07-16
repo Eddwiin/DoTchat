@@ -1,18 +1,27 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { DatabaseModule } from './database/database.module';
-import { AppController } from './app.controller';
-
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { UserModule } from './graphql/user/user.module';
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserEntity } from './graphql/user/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    AuthModule,
+    TypeOrmModule.forRoot({
+      type: "mongodb",
+      url: process.env.DATABASE_URL,
+      synchronize: true,
+      useUnifiedTopology: true,
+      entities: [UserEntity]
+    }),
     UserModule,
-    DatabaseModule
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    })
   ],
-  controllers: [AppController]
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

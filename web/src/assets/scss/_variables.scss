@@ -1,0 +1,30 @@
+$bp-small: 37.5em;
+$bp-medium: 56.25em;
+$bp-large: 75em;
+$bp-largest: 112.5em;
+
+
+$breakpoints: (
+
+  "small": (
+    max-width: $bp-small
+  ),
+  "medium": (
+    max-width: $bp-medium
+  ),
+  // "tab-land": (
+  //   max-width: $bp-large
+  // ),
+  "big": (
+    min-width: $bp-largest
+  )
+) !default;
+
+$color-primary: #0899ec;
+$color-primary-light: #60C5FF;
+$color-primary-dark: #057FC5;
+$color-secondary: #6c757d;
+$color-danger: #ed1c07;
+$color-light: #F0EBEA;
+$color-link: #4eb7fb;
+

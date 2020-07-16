@@ -23,4 +23,5 @@ Layout.propTypes = {
     layoutStyle: Proptypes.object,
     closeLayout: Proptypes.func,
 }
+
 export { Layout } ;

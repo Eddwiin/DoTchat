@@ -1,0 +1,25 @@
+@import "./../../../assets/scss/mixins";
+
+.error {
+  @include absCenter;
+  text-align: center;
+
+  &__404 {
+    font-weight: bold;
+    font-size: 19.7rem;
+    font-style: italic;
+    font-family: montserrat, sans-serif;
+  }
+
+  &__page-not-found {
+    font-size: 3.2rem;
+    font-style: italic;
+    text-transform: uppercase;
+  }
+
+  &__message {
+    font-size: 2.5rem;
+    font-style: italic;
+    padding: 2rem;
+  }
+}
