@@ -1,6 +1,11 @@
 import React, { useState }  from 'react'
 import { FormGroup, Button, LinkTo } from './../shared';
-import APP_ROUTES from '../../configs/routes';
+import APP_ROUTES from '../../utils/routes';
+import {ToastsContainer, ToastsStore} from 'react-toasts';
+import { SHA256 } from 'crypto-js';
+import API from './../../utils/api';
+import { useHistory } from 'react-router-dom';
+import { passwordReg } from './../../utils/validators';
 
 const Registration = ({ style }) => {
 
@@ -8,9 +13,36 @@ const Registration = ({ style }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rPassword, setRPassword] = useState("");
+    const history = useHistory();
 
+    const checkValidatyForm = () => {
+        return (password !== rPassword) && passwordReg(password);
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (checkValidatyForm()) {
+            return ToastsStore.error("Error password");
+        }
+      
+        API.post("/user", {username, email, password: SHA256(password).toString()})
+            .then(res => {
+                if (res.status === 200) {
+                    ToastsStore.success('User has been created', 4000);
+                    return history.push(APP_ROUTES.SIGN_IN);
+                } else if (res.status === 201 && res.data.message) {
+                    return ToastsStore.error(res.data.message, 3000);
+                } 
+
+                return ToastsStore.error('Error !', 3000); 
+                
+            }).catch(console.error);
+
+    }
     return (
-        <form className="auth__layout__content">
+        <form 
+            className="auth__layout__content"
+            onSubmit={handleSubmit}>
             <h1 className="auth__layout__content__title">Sign up</h1>
 
             <div style={style.input}>
@@ -69,6 +101,7 @@ const Registration = ({ style }) => {
                 <Button label="Sign up" width="w-65" />
             </div>
 
+            <ToastsContainer store={ToastsStore}/>
         </form>
     )
 }

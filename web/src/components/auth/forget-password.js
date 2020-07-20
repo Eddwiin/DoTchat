@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FormGroup, Button, LinkTo } from "./../shared";
-import APP_ROUTES from '../../configs/routes';
+import APP_ROUTES from '../../utils/routes';
 
 const ForgetPassword = ({ style }) => {
     const [email, setEmail] = useState("");

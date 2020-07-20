@@ -1,23 +1,24 @@
-import React, { lazy, useState } from 'react';
+import React, { lazy, useState, useEffect } from 'react';
 import { Button } from './../shared/button/button';
 import './auth.scss';
 import { Switch, Route, useHistory } from 'react-router-dom';
-import APP_ROUTES from '../../configs/routes';
+import APP_ROUTES from '../../utils/routes';
 
 const Layout = lazy(() => import('./../shared').then(mod => ({ default: mod.Layout })));
 const Login = lazy(() => import('./login'));
 const Registration = lazy(() => import('./registration'));
 const ForgetPassword = lazy(() => import('./forget-password'));
-const ResetPassword = lazy(() => import('./forget-password'));
+const ResetPassword = lazy(() => import('./reset-password'));
 
 const AuthContainer = () => {
 
-    const [isLayoutOpen, setIslayoutOpen] = useState(true);
+    const [isLayoutOpen, setIslayoutOpen] = useState(false);
+    const [isLoadPage, setLoadPage] = useState(true);
     const history = useHistory();
 
     const style = {
         input: {
-            padding: "3rem"
+            padding: "2.5rem"
         },
         btn: {
             paddingTop: "3rem",
@@ -26,11 +27,18 @@ const AuthContainer = () => {
         }
     }
 
+    useEffect(() => {
+        if (isLoadPage) { 
+            history.push(APP_ROUTES.AUTH);
+            setLoadPage(false);
+        }
+    }, [isLoadPage, history])
+    
     const loadRoutes = () => {
         return (
             <Switch>
                 <Route path={APP_ROUTES.SIGN_IN} render={() => <Login style={style} />}></Route>
-                <Route path={APP_ROUTES.REGISTRATION} render={() => <Registration style={style} />}></Route>
+                <Route path={APP_ROUTES.SIGN_UP} render={() => <Registration style={style} />}></Route>
                 <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPassword style={style} />}></Route>
                 <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPassword style={style} />}></Route>
             </Switch>

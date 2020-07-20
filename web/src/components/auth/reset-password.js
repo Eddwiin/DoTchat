@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FormGroup, Button } from "./../shared";
+import { FormGroup, Button, LinkTo } from "./../shared";
+import APP_ROUTES from '../../utils/routes';
 
 const ResetPassword = ({ style }) => {
     const [password, setPassword] = useState("");
@@ -33,6 +34,10 @@ const ResetPassword = ({ style }) => {
                 required="required"
                 onChange={e => setRPassword(e.target.value)}
                 />
+            </div>
+
+            <div className="auth__layout__content__link">
+                <LinkTo redirect={APP_ROUTES.SIGN_IN}>Sign in</LinkTo>
             </div>
 
             <div style={style.btn} className="auth__layout__content__submit">

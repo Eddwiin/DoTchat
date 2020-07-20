@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FormGroup, Button, LinkTo } from './../shared';
-import APP_ROUTES from '../../configs/routes';
+import APP_ROUTES from '../../utils/routes';
 
 const Login = ({ style }) => {
 
@@ -36,7 +36,7 @@ const Login = ({ style }) => {
             </div>
 
             <div className="auth__layout__content__link">
-                {/* <LinkTo redirect={APP_ROUTES.SIGN_UP}>Create an account</LinkTo> */}
+                <LinkTo redirect={APP_ROUTES.SIGN_UP}>Create an account</LinkTo>
                 <LinkTo redirect={APP_ROUTES.FORGET_PASSWORD}>Forget password</LinkTo>
             </div>
 
