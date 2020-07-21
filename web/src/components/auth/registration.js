@@ -25,7 +25,7 @@ const Registration = ({ style }) => {
             return ToastsStore.error("Error password");
         }
       
-        API.post("/user", {username, email, password: SHA256(password).toString()})
+        API.post("/create-user", {username, email, password: SHA256(password).toString()})
             .then(res => {
                 if (res.status === 200) {
                     ToastsStore.success('User has been created', 4000);

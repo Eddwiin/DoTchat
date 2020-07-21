@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import APP_ROUTES from './../utils/routes';
+require('dotenv').config()
 
 const AuthContainer = lazy(() => import('./auth/auth.container'));
 const Error404 = lazy(() => import("./shared").then(module => ({ default: module.Error404})));
