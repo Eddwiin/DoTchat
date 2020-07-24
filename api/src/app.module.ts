@@ -1,15 +1,29 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './modules/auth/auth.module';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from './modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
+    ConfigModule.forRoot(),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true
     }),
-    MongooseModule.forRoot(`${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`),
+    TypeOrmModule.forRoot({
+      type: 'mongodb',
+      host: 'localhost',
+      port: 27017,
+      database: 'dotchat',
+      entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+      synchronize: true,
+      useNewUrlParser: true,
+      logging: true,
+      useUnifiedTopology: true
+    }),
     AuthModule,
     UserModule,
   ],
