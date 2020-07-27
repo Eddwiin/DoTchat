@@ -2,7 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserEntity {
+  _id: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
 type Query {
-  hello: String!
-  findById: Int!
+  findById(_id: String!): UserEntity!
+  findByEmail(email: String!): UserEntity!
+}
+
+type Mutation {
+  createUser(password: String!, email: String!, username: String!): UserEntity!
 }

@@ -6,7 +6,7 @@ import APP_ROUTES from '../../utils/routes';
 
 const Layout = lazy(() => import('./../shared').then(mod => ({ default: mod.Layout })));
 const Login = lazy(() => import('./login'));
-const Registration = lazy(() => import('./registration'));
+const RegistrationForm = lazy(() => import('./registration.form'));
 const ForgetPassword = lazy(() => import('./forget-password'));
 const ResetPassword = lazy(() => import('./reset-password'));
 
@@ -38,7 +38,7 @@ const AuthContainer = () => {
         return (
             <Switch>
                 <Route path={APP_ROUTES.SIGN_IN} render={() => <Login style={style} />}></Route>
-                <Route path={APP_ROUTES.SIGN_UP} render={() => <Registration style={style} />}></Route>
+                <Route path={APP_ROUTES.SIGN_UP} render={() => <RegistrationForm style={style} />}></Route>
                 <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPassword style={style} />}></Route>
                 <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPassword style={style} />}></Route>
             </Switch>

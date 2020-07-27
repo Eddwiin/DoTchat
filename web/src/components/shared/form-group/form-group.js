@@ -9,8 +9,10 @@ const FormGroup = ({
   placeholder = "",
   onChange,
   value,
-  required = "required",
-  inputStyle
+  inputStyle,
+  register,
+  errors,
+  required
 }) => {
   return (
     <div className="form-group">
@@ -22,9 +24,13 @@ const FormGroup = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        required={required}
+        autoComplete="off"
+        aria-invalid={true ? "true" : "false"}
+        ref={register}
+        required={required ? true : false}
       />
       {label && <label className="form-group__label">{label}</label>}
+      {errors && errors[name] && <span className="form-group__errors">{errors[name].message}</span>}
     </div>
   );
 };
@@ -37,7 +43,8 @@ FormGroup.propType = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.any.isRequired,
   required: PropTypes.string,
-  inputStyle: PropTypes.object
+  inputStyle: PropTypes.object,
+  validation: PropTypes.object
 };
 
 export { FormGroup };

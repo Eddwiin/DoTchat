@@ -24,9 +24,10 @@
       border-bottom: 3px solid $color-primary;
     }
 
-    &:invalid {
+    &:invalid{
       border-bottom: 3px solid $color-danger;
     }
+
   }
 
   &__label {
@@ -36,6 +37,16 @@
     margin-top: -5.7rem;
     display: block;
     transition: all 0.3s;
+  }
+
+  &__errors {
+    position: absolute;
+    margin-top: 5rem;
+    color: $color-danger;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-left: .5rem;
+    width: 85%;
   }
 
   &__input:placeholder-shown + &__label {
