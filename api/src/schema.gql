@@ -4,16 +4,22 @@
 
 type UserEntity {
   _id: String!
-  username: String!
-  email: String!
-  password: String!
+  username: String
+  email: String
+  password: String
+}
+
+type AuthEntity {
+  access_token: String
 }
 
 type Query {
   findById(_id: String!): UserEntity!
   findByEmail(email: String!): UserEntity!
+  getProfile: AuthEntity!
 }
 
 type Mutation {
   createUser(password: String!, email: String!, username: String!): UserEntity!
+  login(password: String!, email: String!): AuthEntity!
 }

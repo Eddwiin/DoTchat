@@ -10,14 +10,14 @@ export class UserEntity {
   _id?: string;
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   username?: string;
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   email?: string;
 
   @Column()
-  @Field()
+  @Field({ nullable: true })
   password?: string;
 }

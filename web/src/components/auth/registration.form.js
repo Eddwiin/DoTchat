@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FormGroup, Button, LinkTo } from './../shared';
 import APP_ROUTES from '../../utils/routes';
 import { useForm } from "react-hook-form";
@@ -20,15 +20,11 @@ export default function RegistrationForm({ style }) {
     const history = useHistory();
 
     const [createUser] = useMutation(CREATE_USER);
-    const { data} = useQuery(FIND_USER_BY_EMAIL, {
+    const { data } = useQuery(FIND_USER_BY_EMAIL, {
         variables: { email }
     });
-
-    useEffect(() => {
-    }, [])
     
     const onSubmit = () => {
-        console.log("onSubmit")
         createUser({
             variables: {
                 username,

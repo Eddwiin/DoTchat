@@ -6,6 +6,7 @@ import { apolloClient } from '../utils/api';
 require('dotenv').config()
 
 const AuthContainer = lazy(() => import('./auth/auth.container'));
+const ChatContainer = lazy(() => import('./chat/chat.container'));
 const Error404 = lazy(() => import("./shared").then(module => ({ default: module.Error404 })));
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/" render={() => <Redirect to={APP_ROUTES.AUTH}></Redirect>}></Route>
             <Route path={APP_ROUTES.AUTH} component={AuthContainer}></Route>
+            <Route path={APP_ROUTES.CHAT} component={ChatContainer}></Route>
             <Route component={Error404}></Route>
           </Switch>
         </Suspense>

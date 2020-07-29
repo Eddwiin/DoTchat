@@ -1,31 +1,27 @@
 import { Resolver, Mutation, Args, Query, GqlExecutionContext } from '@nestjs/graphql';
-import { UserEntity } from '../user/user.entity';
 import { UseGuards, createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { AuthService } from './auth.service';
+import { AuthEntity } from './auth.entity';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
 
-const CurrentUser = createParamDecorator(
-    (data: unknown, context: ExecutionContext) => {
-        const ctx = GqlExecutionContext.create(context);
-        return ctx.getContext().req.user;
-    }
-)
 @Resolver()
 export class AuthResolver {
 
     constructor(private authService: AuthService) {}
 
-    @Mutation()
+    @Mutation(() => AuthEntity)
     async login(
-        @Args('username') username: string,
+        @Args('email') email: string,
         @Args('password') password: string,
     ) {
-        this.authService.login({ username, password })
+        return await this.authService.login({ email, password })
     }
 
-    @Query(returns => UserEntity)
+    @Query(returns => AuthEntity)
     @UseGuards(GqlAuthGuard)
-    profile(@CurrentUser() user: UserEntity) {
-        return user;
+    getProfile(@CurrentUser('access_token') auth: AuthEntity) {
+        console.log({ auth });
+        return auth;
     }
 }

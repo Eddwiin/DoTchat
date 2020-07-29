@@ -6,7 +6,8 @@ const APP_ROUTES = {
     FORGET_PASSWORD: "/auth/forget-password",
     RESET_PASSWORD: "/auth/reset-password",
     HOME: "/home",
-    ERROR: "/error"
+    ERROR: "/error",
+    CHAT: "/chat"
 };
 
 export default APP_ROUTES;
