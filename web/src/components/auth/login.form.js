@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormGroup, Button, LinkTo } from '../shared';
+import { Input, Button, LinkTo } from '../shared';
 import APP_ROUTES from '../../utils/routes';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
@@ -8,13 +8,14 @@ import LOGIN from './graphql/mutations/login';
 import { ToastsContainer, ToastsStore } from 'react-toasts';
 import { useHistory } from 'react-router-dom';
 import { setAccessToken } from '../../utils/localstorage';
-
+import { emailRegex } from '../../utils/validators';
 
 export default function LoginForm({ style }) {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [login] = useMutation(LOGIN)
     const { handleSubmit, register, errors } = useForm();
+    const [login] = useMutation(LOGIN)
     const history = useHistory();
 
     const onSubmit = () => {
@@ -41,37 +42,26 @@ export default function LoginForm({ style }) {
             <h1 className="auth__layout__content__title">Sign in</h1>
 
             <div style={style.input}>
-                <FormGroup
-                    label="Email"
-                    name="email"
-                    type="text"
-                    placeholder="Type your email"
-                    inputStyle={{ width: "85%" }}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    register={register({
-                        required: "This is required",
+                <Input label="email" name="email" placeholder="Type your email"
+                    value={email} onChange={e => setEmail(e.target.value)} style={{ width: "85%" }}
+                    refs={register({
+                        required: "Email is required",
+                        pattern: {
+                            value: emailRegex(),
+                            message: "Email is invalid"
+                        }
                     })}
-                    errors={errors}
-                    required
+                    errors={errors && errors.email && <React.Fragment>{errors.email.message}</React.Fragment>}
                 />
             </div>
 
             <div style={style.input}>
-                <FormGroup
-                    label="Password"
-                    name="password"
-                    type="password"
-                    placeholder="Type your password"
-                    inputStyle={{ width: "85%" }}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    register={register({
-                        required: "This is required",
+                <Input type="password" label="password" name="password" placeholder="Type your password"
+                    value={password} onChange={e => setPassword(e.target.value)} style={{ width: "85%" }}
+                    refs={register({
+                        required: "Password is required",
                     })}
-                    errors={errors}
-                    required
-                />
+                    errors={errors && errors.password && <React.Fragment> {errors.password.message} </React.Fragment>} />
             </div>
 
             <div className="auth__layout__content__link">
@@ -84,7 +74,6 @@ export default function LoginForm({ style }) {
             </div>
 
             <ToastsContainer store={ToastsStore} />
-        </form>
+        </ form>
     )
-
 }

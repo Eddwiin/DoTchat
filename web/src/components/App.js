@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import APP_ROUTES from './../utils/routes';
 import { ApolloProvider } from '@apollo/client';
-import { apolloClient } from '../utils/api';
+import apolloClient from '../utils/api';
 require('dotenv').config()
 
 const AuthContainer = lazy(() => import('./auth/auth.container'));

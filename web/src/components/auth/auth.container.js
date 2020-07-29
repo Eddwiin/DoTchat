@@ -1,58 +1,37 @@
-import React, { lazy, useState, useEffect } from 'react';
-import { Button } from './../shared/button/button';
+import React, { lazy } from 'react';
 import './auth.scss';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import APP_ROUTES from '../../utils/routes';
 
 const Layout = lazy(() => import('./../shared').then(mod => ({ default: mod.Layout })));
 const LoginForm = lazy(() => import('./login.form'));
 const RegistrationForm = lazy(() => import('./registration.form'));
-const ForgetPassword = lazy(() => import('./forget-password'));
-const ResetPassword = lazy(() => import('./reset-password'));
+const ForgetPasswordForm = lazy(() => import('./forget-password.form'));
+const ResetPasswordForm = lazy(() => import('./reset-password.form'));
 
-const AuthContainer = () => {
 
-    const [isLayoutOpen, setIslayoutOpen] = useState(false);
-    const [isLoadPage, setLoadPage] = useState(true);
-    const history = useHistory();
+export default function AuthContainer() {
 
     const style = {
         input: {
             padding: "2.5rem"
         },
         btn: {
-            paddingTop: "3rem",
             display: "flex",
             justifyContent: "center"
         }
     }
 
-    useEffect(() => {
-        if (isLoadPage) { 
-            history.push(APP_ROUTES.AUTH);
-            setLoadPage(false);
-        }
-    }, [isLoadPage, history])
-    
     const loadRoutes = () => {
         return (
             <Switch>
                 <Route path={APP_ROUTES.SIGN_IN} render={() => <LoginForm style={style} />}></Route>
                 <Route path={APP_ROUTES.SIGN_UP} render={() => <RegistrationForm style={style} />}></Route>
-                <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPassword style={style} />}></Route>
-                <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPassword style={style} />}></Route>
+                <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPasswordForm style={style} />}></Route>
+                <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPasswordForm style={style} />}></Route>
+                <Redirect to={{ pathname: APP_ROUTES.SIGN_IN }} ></Redirect>
             </Switch>
         )
-    }
-
-    const navigate = () => {
-        setIslayoutOpen(true);
-        history.push(APP_ROUTES.SIGN_IN)
-    }
-
-    const closeLayout = () => {
-        setIslayoutOpen(false);
-        history.push(APP_ROUTES.AUTH)
     }
 
     return (
@@ -62,25 +41,16 @@ const AuthContainer = () => {
                     <span className="auth__content__title--main">DotChat</span>
                     <span className="auth__content__title--sub">
                         Communicate with the world
-                    </span>
+                     </span>
                 </h1>
-
-                <div className="auth__content__btn">
-                    <Button
-                        onClick={navigate}
-                        label="Start now"
-                        color="light"
-                        isAnimate={true} />
-                </div>
             </div>
 
             <div className="auth__layout">
-                {isLayoutOpen && <Layout closeLayout={closeLayout}>
+                <Layout>
                     {loadRoutes()}
-                </Layout>}
+                </Layout>
             </div>
         </div>
     )
-}
 
-export default AuthContainer;
+}
