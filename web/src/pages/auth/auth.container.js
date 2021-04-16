@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, useEffect } from 'react';
 import style from './auth.module.scss';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import APP_ROUTES from '../../utils/routes';
@@ -16,15 +16,21 @@ const AuthContainer = ({ isLayoutOpen, setLayoutOpen }) => {
 
     const history = useHistory();
 
-    const loadRoutes = () => (
-        <Switch>
-            <Route path={APP_ROUTES.SIGN_IN} render={() => <LoginForm style={style} />}></Route>
-            <Route path={APP_ROUTES.SIGN_UP} render={() => <RegistrationForm style={style} />}></Route>
-            <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPasswordForm style={style} />}></Route>
-            <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPasswordForm style={style} />}></Route>
-            <Redirect to={{ pathname: APP_ROUTES.AUTH }} ></Redirect>
-        </Switch>
-    );
+    useEffect(() => {
+        history.push(APP_ROUTES.AUTH);
+    },[history])
+
+    const loadRoutes = () => {
+        return (
+            <Switch>
+                <Route path={APP_ROUTES.SIGN_IN} render={() => <LoginForm style={style} />}></Route>
+                <Route path={APP_ROUTES.SIGN_UP} render={() => <RegistrationForm style={style} />}></Route>
+                <Route path={APP_ROUTES.FORGET_PASSWORD} render={() => <ForgetPasswordForm style={style} />}></Route>
+                <Route path={APP_ROUTES.RESET_PASSWORD} render={() => <ResetPasswordForm style={style} />}></Route>
+                <Redirect to={{ pathname: APP_ROUTES.AUTH }} ></Redirect>
+            </Switch>
+        )
+    };
 
     const openLayout = () => {
         setLayoutOpen(true);
